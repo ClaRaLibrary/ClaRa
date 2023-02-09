@@ -268,7 +268,7 @@ model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
 
   Summary summary(outline(
       showExpertSummary=showExpertSummary,
-      Q_flow=sum(flow_a.heat.Q_flow),
+      Q_flow=flow_a.heat.Q_flow,
       Delta_T_in=flow_a.summary.inlet.T - flow_b.summary.inlet.T,
       Delta_T_out=flow_a.summary.outlet.T - flow_b.summary.outlet.T)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
