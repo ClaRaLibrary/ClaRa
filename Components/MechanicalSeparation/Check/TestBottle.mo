@@ -2,10 +2,10 @@ within ClaRa.Components.MechanicalSeparation.Check;
 model TestBottle
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -38,12 +38,14 @@ model TestBottle
   BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi1(p_const=100e5) annotation (Placement(transformation(extent={{80,40},{60,60}})));
   inner SimCenter simCenter(showExpertSummary=true)
                             annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
-  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss =
+        VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=2,
         m_flow_nom=50,
         Kvs_in=1,
         rho_in_nom=100)) annotation (Placement(transformation(extent={{30,44},{50,56}})));
-  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (paraOption=2, m_flow_nom=8.45)) annotation (Placement(transformation(extent={{30,-46},{50,-34}})));
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss =
+        VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (                                                                                       paraOption=2, m_flow_nom=8.45)) annotation (Placement(transformation(extent={{30,-46},{50,-34}})));
   Modelica.Blocks.Sources.TimeTable timeTable(table=[0.0,100; 999,100; 1000,120; 2500,120; 2501,50; 3000,50]) annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Sources.TimeTable timeTable1(table=[0.0,2500e3; 1999,2500e3; 2000,2300e3; 3000,2300e3]) annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 equation
@@ -88,7 +90,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

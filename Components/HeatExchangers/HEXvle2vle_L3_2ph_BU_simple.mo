@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_BU_simple "VLE 2 VLE | L3 | 2 phase at shell side | Block shape |  U-type | simple HT"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -54,7 +54,8 @@ model HEXvle2vle_L3_2ph_BU_simple "VLE 2 VLE | L3 | 2 phase at shell side | Bloc
           "Shell Side", group="Fundamental Definitions"));
   replaceable model HeatTransfer_Shell =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellType_L3 "Heat transfer model at shell side"
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellTypeVLE_L3
+                                                                                      "Heat transfer model at shell side"
                                         annotation (Dialog(tab="Shell Side",
         group="Fundamental Definitions"), choicesAllMatching);
   replaceable model PressureLossShell =
@@ -115,11 +116,13 @@ model HEXvle2vle_L3_2ph_BU_simple "VLE 2 VLE | L3 | 2 phase at shell side | Bloc
         group="Fundamental Definitions"));
   replaceable model HeatTransferTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeType_L2 "Heat transfer mode at the tubes side" annotation (Dialog(tab="Tubes",
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeTypeVLE_L2
+                                                                                     "Heat transfer mode at the tubes side" annotation (Dialog(tab="Tubes",
         group="Fundamental Definitions"), choicesAllMatching);
   replaceable model PressureLossTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeType_L2 "Pressure loss model at the tubes side"
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeTypeVLE_L2
+                                                                                    "Pressure loss model at the tubes side"
                                             annotation (Dialog(tab="Tubes",group="Fundamental Definitions"), choicesAllMatching);
 
   //________________________________ Tubes geometry _______________________________//
@@ -195,7 +198,7 @@ model HEXvle2vle_L3_2ph_BU_simple "VLE 2 VLE | L3 | 2 phase at shell side | Bloc
   ClaRa.Basics.Interfaces.FluidPortIn In1(Medium=medium_shell)
     annotation (Placement(transformation(extent={{-10,88},{10,108}})));
 
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 tubes(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 tubes(
     medium=medium_tubes,
     p_nom=p_nom_tubes,
     h_nom=h_nom_tubes,
@@ -394,7 +397,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

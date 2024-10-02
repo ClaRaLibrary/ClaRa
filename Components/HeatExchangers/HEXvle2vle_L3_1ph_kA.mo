@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geometry | effective kA"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -46,7 +46,8 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
 
   replaceable model PressureLossShell =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellType_L2 "Pressure loss model at shell side"
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellTypeVLE_L2
+                                                                                     "Pressure loss model at shell side"
                                         annotation (Dialog(tab="Shell Side",
         group="Fundamental Definitions"), choicesAllMatching);
 
@@ -79,7 +80,8 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
 
   replaceable model PressureLossTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeType_L2 "Pressure loss model at the tubes side"
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeTypeVLE_L2
+                                                                                    "Pressure loss model at the tubes side"
                                             annotation (Dialog(tab="Tubes",
         group="Fundamental Definitions"), choicesAllMatching);
 
@@ -147,7 +149,7 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
   ClaRa.Basics.Interfaces.FluidPortIn In1(Medium=medium_shell)
     annotation (Placement(transformation(extent={{-10,88},{10,108}})));
 
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 tubes(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 tubes(
     final heatSurfaceAlloc=1,
     medium=medium_tubes,
     p_nom=p_nom_tubes,
@@ -157,13 +159,10 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
     h_start=h_start_tubes,
     p_start=p_start_tubes,
     redeclare model PressureLoss = PressureLossTubes,
-    redeclare model PhaseBorder =
-        ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
-    redeclare model HeatTransfer =
-        ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer_L2,
+    redeclare model PhaseBorder = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
+    redeclare model HeatTransfer = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer_L2,
     showExpertSummary=showExpertSummary,
-    redeclare model Geometry =
-        Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry (
+    redeclare model Geometry = Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry (
         volume=volume_tubes,
         z_in={z_in_tubes},
         z_out={z_out_tubes},
@@ -173,7 +172,7 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
         rotation=90,
         origin={70,0})));
 
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 shell(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 shell(
     medium=medium_shell,
     p_nom=p_nom_shell,
     h_nom=h_nom_shell,
@@ -182,14 +181,11 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
     useHomotopy=useHomotopy,
     h_start=h_start_shell,
     p_start=p_start_shell,
-    redeclare model PhaseBorder =
-        ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
+    redeclare model PhaseBorder = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
     showExpertSummary=showExpertSummary,
     final heatSurfaceAlloc=1,
-    redeclare model HeatTransfer =
-        Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer_L2,
-    redeclare model Geometry =
-        Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry (
+    redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer_L2,
+    redeclare model Geometry = Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry (
         volume=volume_shell,
         z_in={z_in_shell},
         z_out={z_out_shell},
@@ -308,7 +304,7 @@ eye_int2[1].m_flow = tubes.summary.outlet.m_flow;
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

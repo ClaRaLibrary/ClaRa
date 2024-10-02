@@ -1,10 +1,10 @@
 within ClaRa.Components.FlueGasCleaning.E_Filter;
 model E_Filter_L2 "Model for an e-filter with different separation models"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -15,7 +15,8 @@ model E_Filter_L2 "Model for an e-filter with different separation models"
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
 
- extends ClaRa.Basics.ControlVolumes.GasVolumes.VolumeGas_L2_chem(redeclare model ChemicalReactions=SeparationModel, redeclare model Geometry=ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock(height=height, length=length, width=width));
+ extends ClaRa.Basics.ControlVolumes.GasVolumes.VolumeGas_L2_chem(redeclare model ChemicalReactions=SeparationModel, redeclare model Geometry =
+        ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (                                                                                                                                     height=height, length=length, width=width));
  extends ClaRa.Basics.Icons.E_Filter;
 parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
@@ -59,7 +60,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

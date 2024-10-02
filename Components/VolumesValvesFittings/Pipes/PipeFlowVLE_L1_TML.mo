@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes;
 model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations. Can choose between Modelica and ClaRa Delay implementation."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -264,7 +264,7 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidInlet(
     vleFluidType=medium,
     p=inlet.p,
-    h=actualStream(inlet.h_outflow),
+    h=inStream(inlet.h_outflow),
     computeTransportProperties=false,
     computeVLEAdditionalProperties=true) annotation (Placement(transformation(
           extent={{-80,20},{-60,40}}, rotation=0)));
@@ -289,60 +289,60 @@ protected
   Real I_f[N_temp - 1](each stateSelect=StateSelect.avoid);
   //integral part of Temperatures
 
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_T_wall[N_wall]={
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable() for i in 1:N_wall};
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_T_wall[N_wall]={
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable() for i in 1:N_wall};
   Real hist_T_wall[N_wall, 1];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_T[N_temp]={
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable() for i in 1:N_temp};
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_T[N_temp]={
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable() for i in 1:N_temp};
   Real hist_T[N_temp, 1](start=ones(N_temp, 1)*simCenter.T_amb_start);
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_d_mean=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_d_mean=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_d_mean[1];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_cp_mean=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_cp_mean=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_cp_mean[1];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_w_mean=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_w_mean=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_w_mean[1];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_alpha_d=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_alpha_d=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_alpha_d[1];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_beta_d=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_beta_d=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_beta_d[1];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_rhocp=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_rhocp=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_rhocp[1];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_q=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_q=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_q[1];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_A=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_A=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_A[2];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_T_0=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_T_0=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_T_0[2];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_dpL=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_dpL=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_dpL[7](start=zeros(7));
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_dqL=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_dqL=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_dqL[6](start=zeros(6));
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_dp0=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_dp0=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_dp0[7](start=zeros(7));
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_dq0=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_dq0=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_dq0[6](start=zeros(6));
 
   parameter  Real A_0(fixed=false);
   parameter Real B_0(fixed=false);
   Real Tau_pass_tot "Total residence time fo fluid in pipe from inlet to outlet";
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_beta=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_beta=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_beta[1];
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_alpha=
-      ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_alpha=
+      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_alpha[1];
 
   Real check=Tau_sound*F/2;
@@ -797,7 +797,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

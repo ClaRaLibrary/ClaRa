@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Machines.Check;
 model TestTurbineDrivenPump
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -90,4 +90,5 @@ equation
   connect(quadruple2.steamSignal, valve_dp_nom4_2.outlet) annotation (Line(points={{-66,-12.8},{-66,-6},{-71.5,-6}}, color={0,131,169}));
   connect(quadruple3.steamSignal, SPAT2.outlet) annotation (Line(points={{-6,-72.8},{-14,-72.8},{-14,-72},{-20,-72},{-20,-58},{-23.5,-58}}, color={0,131,169}));
 
+  annotation (experiment(StopTime=1, __Dymola_Algorithm="Dassl"));
 end TestTurbineDrivenPump;

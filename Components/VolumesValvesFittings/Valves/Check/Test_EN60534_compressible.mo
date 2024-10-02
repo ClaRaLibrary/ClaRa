@@ -2,10 +2,10 @@ within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model Test_EN60534_compressible
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -20,7 +20,8 @@ model Test_EN60534_compressible
     extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   inner SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_GERGCO2 fluid1)
                             annotation (Placement(transformation(extent={{-101,-100},{-59,-80}})));
-  GenericValveVLE_L1 valveEN_60534_compressible(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_compressible) annotation (Placement(transformation(extent={{-10,44},{10,56}})));
+  GenericValveVLE_L1 valveEN_60534_compressible(showExpertSummary=true, redeclare model PressureLoss =
+        Fundamentals.Quadratic_EN60534_compressible)                                                                                                annotation (Placement(transformation(extent={{-10,44},{10,56}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG10(p_const=10e5, h_const=3000e3)
                                                                                                       annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG11(variable_p=true, h_const=3500e3)
@@ -36,7 +37,8 @@ model Test_EN60534_compressible
                                                                                            annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   Modelica.Blocks.Sources.TimeTable timeTable1(table=[0.0,10e5; 10,9e5; 20,2e5; 300,11e5])
                                                                                           annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  GenericValveVLE_L1 valveEN_60534_compressibleBackwards(showExpertSummary=true, redeclare model PressureLoss = Fundamentals.Quadratic_EN60534_compressible) annotation (Placement(transformation(extent={{10,104},{-10,116}})));
+  GenericValveVLE_L1 valveEN_60534_compressibleBackwards(showExpertSummary=true, redeclare model PressureLoss =
+        Fundamentals.Quadratic_EN60534_compressible)                                                                                                         annotation (Placement(transformation(extent={{10,104},{-10,116}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG3(p_const=10e5, h_const=3000e3)
                                                                                                       annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG4(variable_p=true, h_const=2700e3)
@@ -111,7 +113,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

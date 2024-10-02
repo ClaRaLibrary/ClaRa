@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.PhysicalMills.Check;
 model TestMillBox_2
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -14,7 +14,7 @@ model TestMillBox_2
 // and institutions. Please see model documentation for detailed information//
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
-
+ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   Modelica.Blocks.Sources.Constant pressure(k=simCenter.p_amb_start) annotation (Placement(transformation(extent={{158,16},{138,36}})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_pTxi boundaryGas_pTxi(xi_const={0,0,0,0,0.79,0.21,0,0,0}, p_const=simCenter.p_amb_start - 1000)
                                                                                                                                            annotation (Placement(transformation(extent={{100,-50},{80,-30}})));
@@ -199,7 +199,8 @@ model TestMillBox_2
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={130,110})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 valveGas_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=millBox1.m_flow_gas_nom, Delta_p_nom=2000)) annotation (Placement(transformation(extent={{46,-46},{66,-34}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 valveGas_L1_1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                        m_flow_nom=millBox1.m_flow_gas_nom, Delta_p_nom=2000)) annotation (Placement(transformation(extent={{46,-46},{66,-34}})));
   Modelica.Blocks.Continuous.SecondOrder secondOrder(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
@@ -212,17 +213,17 @@ equation
   connect(pressure.y, boundaryFuel_pTxi.p) annotation (Line(points={{137,26},{78,26}}, color={0,0,127}));
   connect(boundaryFuel_pTxi.T, temperature.y) annotation (Line(points={{78,20},{128,20},{128,-126},{-239,-126}}, color={0,0,127}));
   connect(boundaryFuel_pTxi.xi, composition.y) annotation (Line(points={{78,14},{106,14},{106,-90},{-239,-90}}, color={0,0,127}));
-  connect(constGrindingPressure.y, sum1.u[1]) annotation (Line(points={{112,219},{112,220},{112,220},{112,220},{112,202},{68.6667,202}}, color={0,0,127}));
+  connect(constGrindingPressure.y, sum1.u[1]) annotation (Line(points={{112,219},{112,220},{112,220},{112,220},{112,202},{69.3333,202}}, color={0,0,127}));
   connect(rampGrindingPressure.y, sum1.u[2]) annotation (Line(points={{70,219},{70,202}}, color={0,0,127}));
-  connect(rampGrindingPressure1.y, sum1.u[3]) annotation (Line(points={{30,219},{30,202},{71.3333,202}}, color={0,0,127}));
-  connect(constMassFlow.y, sum2.u[1]) annotation (Line(points={{-419,30},{-402,30},{-402,-11.3333},{-382,-11.3333}}, color={0,0,127}));
+  connect(rampGrindingPressure1.y, sum1.u[3]) annotation (Line(points={{30,219},{30,202},{70.6667,202}}, color={0,0,127}));
+  connect(constMassFlow.y, sum2.u[1]) annotation (Line(points={{-419,30},{-402,30},{-402,-10.6667},{-382,-10.6667}}, color={0,0,127}));
   connect(rampMassFlow.y, sum2.u[2]) annotation (Line(points={{-419,-10},{-382,-10}}, color={0,0,127}));
-  connect(rampMassFlow1.y, sum2.u[3]) annotation (Line(points={{-419,-50},{-414,-50},{-414,-50},{-402,-50},{-402,-10},{-382,-10},{-382,-8.66667}}, color={0,0,127}));
-  connect(constAirFlow.y, sum3.u[1]) annotation (Line(points={{-479,-150},{-460,-150},{-460,-231.6},{-442,-231.6}}, color={0,0,127}));
-  connect(rampAirFlow.y, sum3.u[2]) annotation (Line(points={{-479,-190},{-460,-190},{-460,-230.8},{-442,-230.8}}, color={0,0,127}));
+  connect(rampMassFlow1.y, sum2.u[3]) annotation (Line(points={{-419,-50},{-414,-50},{-414,-50},{-402,-50},{-402,-10},{-382,-10},{-382,-9.33333}}, color={0,0,127}));
+  connect(constAirFlow.y, sum3.u[1]) annotation (Line(points={{-479,-150},{-460,-150},{-460,-230.8},{-442,-230.8}}, color={0,0,127}));
+  connect(rampAirFlow.y, sum3.u[2]) annotation (Line(points={{-479,-190},{-460,-190},{-460,-230.4},{-442,-230.4}}, color={0,0,127}));
   connect(rampAirFlow1.y, sum3.u[3]) annotation (Line(points={{-479,-230},{-442,-230}},                         color={0,0,127}));
-  connect(rampAirFlow3.y, sum3.u[4]) annotation (Line(points={{-479,-270},{-462,-270},{-462,-230},{-442,-230},{-442,-229.2}},                         color={0,0,127}));
-  connect(rampAirFlow4.y, sum3.u[5]) annotation (Line(points={{-479,-310},{-462,-310},{-462,-228.4},{-442,-228.4}}, color={0,0,127}));
+  connect(rampAirFlow3.y, sum3.u[4]) annotation (Line(points={{-479,-270},{-462,-270},{-462,-230},{-442,-230},{-442,-229.6}},                         color={0,0,127}));
+  connect(rampAirFlow4.y, sum3.u[5]) annotation (Line(points={{-479,-310},{-462,-310},{-462,-229.2},{-442,-229.2}}, color={0,0,127}));
   connect(sum3.y, firstOrder.u) annotation (Line(points={{-419,-230},{-406,-230},{-406,-150},{-402,-150}}, color={0,0,127}));
   connect(firstOrder.y, boundaryGas_pTxi1.m_flow) annotation (Line(points={{-379,-150},{-290,-150},{-290,-58},{-80,-58}}, color={0,0,127}));
   connect(fuelBoundary_m_flowTxi.fuel_a, millBox1.fuelInlet) annotation (Line(
@@ -243,9 +244,9 @@ equation
   connect(sum1.y, millBox1.inputGrindingPressure) annotation (Line(points={{70,179},{70,152},{-28,152},{-28,28},{-6,28},{-6,14.8}}, color={0,0,127}));
   connect(sum2.y, firstOrder1.u) annotation (Line(points={{-359,-10},{-342,-10}}, color={0,0,127}));
   connect(firstOrder1.y, fuelBoundary_m_flowTxi.m_flow) annotation (Line(points={{-319,-10},{-260,-10},{-260,26},{-80,26}}, color={0,0,127}));
-  connect(sourceClassifier.y, sum9.u[1]) annotation (Line(points={{50,99},{50,90},{50,82},{48.6667,82}}, color={0,0,127}));
+  connect(sourceClassifier.y, sum9.u[1]) annotation (Line(points={{50,99},{50,90},{50,82},{49.3333,82}}, color={0,0,127}));
   connect(rampClassifier.y, sum9.u[2]) annotation (Line(points={{90,99},{90,90},{50,90},{50,82}}, color={0,0,127}));
-  connect(ramprampClassifier1.y, sum9.u[3]) annotation (Line(points={{130,99},{130,90},{51.3333,90},{51.3333,82}}, color={0,0,127}));
+  connect(ramprampClassifier1.y, sum9.u[3]) annotation (Line(points={{130,99},{130,90},{50.6667,90},{50.6667,82}}, color={0,0,127}));
   connect(sum9.y, millBox1.inputClassifier) annotation (Line(points={{50,59},{50,36},{6,36},{6,14.8},{6.2,14.8}}, color={0,0,127}));
   connect(millBox1.gasOutlet, valveGas_L1_1.inlet) annotation (Line(
       points={{14,-2},{40,-2},{40,-40},{46,-40}},
@@ -261,7 +262,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
@@ -281,7 +282,7 @@ revisions=
 <p>For revisions please consult the html-documentation shipped with ClaRa.</p>
 </body>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-740,-420},{180,260}})),
+    Icon(graphics,coordinateSystem(preserveAspectRatio=true, initialScale=0.1)),
                                                                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-740,-420},{180,260}})),
     experiment(
       StopTime=25000,

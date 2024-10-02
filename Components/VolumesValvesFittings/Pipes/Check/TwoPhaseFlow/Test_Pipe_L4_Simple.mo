@@ -1,10 +1,10 @@
 ﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.TwoPhaseFlow;
 model Test_Pipe_L4_Simple
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -28,8 +28,10 @@ model Test_Pipe_L4_Simple
     m_flow_nom=0,
     variable_h=true,
     p_nom=100000) annotation (Placement(transformation(extent={{60,-17},{40,3}})));
-  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1, useHomotopy=false,
-    showExpertSummary=true)                                                                                                    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  inner SimCenter simCenter(
+    redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    useHomotopy=false,
+    showExpertSummary=true) annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi massFlowSink(
     variable_p=true,

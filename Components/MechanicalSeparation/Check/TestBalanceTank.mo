@@ -2,10 +2,10 @@ within ClaRa.Components.MechanicalSeparation.Check;
 model TestBalanceTank
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -25,12 +25,13 @@ model TestBalanceTank
     T_gas_start=24 + 273.15,
     p_start=1.016e5,
     T_start=ones(3)*(293.15),
-    initFluid="Steady state in p",
+    initFluid="Fixed value for filling level",
     h_liq_start=108e3 - 8e3,
     gasMedium=simCenter.airModel,
     levelOutput=true,
     initOptionWall=213) annotation (Placement(transformation(extent={{-14,-48},{6,-28}})));
-  VolumesValvesFittings.Valves.GenericValveGas_L1 valve(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=10), medium=simCenter.airModel) annotation (Placement(transformation(
+  VolumesValvesFittings.Valves.GenericValveGas_L1 valve(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                               m_flow_nom=10), medium=simCenter.airModel) annotation (Placement(transformation(
         extent={{-10,6},{10,-6}},
         rotation=180,
         origin={-26,-8})));
@@ -68,7 +69,7 @@ model TestBalanceTank
     startTime=18000)
     annotation (Placement(transformation(extent={{94,-8},{74,12}})));
   inner SimCenter simCenter(
-    redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1,
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
     redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel,
     redeclare TILMedia.GasTypes.MoistAirMixture airModel) annotation (Placement(transformation(extent={{78,-68},{98,-48}})));
   BoundaryConditions.BoundaryVLE_hxim_flow massFlowSource_h2(variable_m_flow=false, m_flow_const=2.5) annotation (Placement(transformation(
@@ -100,11 +101,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(ramp1.y, multiSum.u[1]) annotation (Line(
-      points={{73,-30},{66,-30},{66,-16.1},{56,-16.1}},
+      points={{73,-30},{66,-30},{66,-12.95},{56,-12.95}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp.y, multiSum.u[2]) annotation (Line(
-      points={{73,2},{66,2},{66,-11.9},{56,-11.9}},
+      points={{73,2},{66,2},{66,-15.05},{56,-15.05}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiSum.y, massFlowSource_h1.m_flow) annotation (Line(

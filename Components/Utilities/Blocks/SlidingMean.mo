@@ -1,10 +1,10 @@
 within ClaRa.Components.Utilities.Blocks;
 block SlidingMean "Sliding  mean value"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -20,7 +20,7 @@ block SlidingMean "Sliding  mean value"
   parameter ClaRa.Basics.Units.Time Tau_mean=1 "Time interval for averaging";
 
 protected
-  ClaRa.Basics.Functions.ClaRaDelay.ExternalTable pointer_Int = ClaRa.Basics.Functions.ClaRaDelay.ExternalTable();
+  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_Int = SMArtIInt.Internal.ClaRaDelay.ExternalTable();
   Real integral "Integral of u over time at time";
   Real integral_old(start=0) "Integral of at time - Tau_mean";
   parameter Real u_start(fixed=false) "Assumed u between time=[-Tau_mean, 0]";
@@ -38,7 +38,7 @@ initial equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

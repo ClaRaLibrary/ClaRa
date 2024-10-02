@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions;
 model BoundaryGas_pTxi "A gas source defining pressure, Temperature and composition"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -58,7 +58,7 @@ public
      annotation (Placement(transformation(extent={{-10,80},{10,100}}),
         iconTransformation(extent={{90,-10},{110,10}})));
   Basics.Interfaces.EyeOutGas
-                           eyeOut(each medium=medium) annotation (Placement(transformation(extent={{100,-78},{106,-72}}),
+                           eyeOut(medium=medium) annotation (Placement(transformation(extent={{100,-78},{106,-72}}),
                                   iconTransformation(extent={{94,-86},{106,-74}})));
 protected
   TILMedia.Gas GasObject(gasType=medium);
@@ -109,7 +109,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

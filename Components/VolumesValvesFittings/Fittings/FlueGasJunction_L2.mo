@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model FlueGasJunction_L2 "Adiabatic junction volume"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -242,11 +242,11 @@ equation
     eye_int[2].xi=flueGasOut2.xi;
 
   connect(eye_int[1],eye1)  annotation (Line(
-      points={{56,-50.5},{84,-50.5},{84,-50},{110,-50}},
+      points={{56,-50.25},{84,-50.25},{84,-50},{110,-50}},
       color={190,190,190},
       smooth=Smooth.None));
   connect(eye_int[2],eye2)  annotation (Line(
-      points={{56,-49.5},{56,-90},{30,-90},{30,-110}},
+      points={{56,-49.75},{56,-90},{30,-90},{30,-110}},
       color={190,190,190},
       smooth=Smooth.None));
 
@@ -255,7 +255,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

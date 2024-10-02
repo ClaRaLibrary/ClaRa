@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation;
 model FeedWaterTank_L2 "Feedwater tank : mixed volume approach | level-dependent phase separation"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -20,7 +20,8 @@ extends ClaRa.Components.MechanicalSeparation.FeedWaterTank_base;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L2");
   replaceable model PressureLoss =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellType_L2 "Pressure loss model"
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellTypeVLE_L2
+                                                                                     "Pressure loss model"
                           annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
   parameter Modelica.Units.SI.SpecificEnthalpy h_start=steamQuality_start*(TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) - TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start)) + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments "|Phase Separation|Numerical Robustness|Smoothness of table interpolation for calculation of filling level";
@@ -127,7 +128,7 @@ public
           actualStream(feedwater.xi_outflow),
           volume.fluidOut.vleFluidPointer))) annotation (Placement(transformation(extent={{-60,-60},{-80,-40}})));
 
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 volume(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 volume(
     medium=medium,
     redeclare model PressureLoss = PressureLoss,
     useHomotopy=useHomotopy,
@@ -180,7 +181,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

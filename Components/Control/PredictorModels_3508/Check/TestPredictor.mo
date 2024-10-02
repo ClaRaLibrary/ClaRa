@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.PredictorModels_3508.Check;
 model TestPredictor
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -32,8 +32,9 @@ model TestPredictor
     u_ref=1,
     Tau_i=500,
     k=2.5,
+    Tau_out=1,
     y_start=1,
-    initOption=503) annotation (Placement(transformation(extent={{-54,80},{-34,100}})));
+    initOption=501) annotation (Placement(transformation(extent={{-54,80},{-34,100}})));
   Modelica.Blocks.Sources.RealExpression MV_Pressure_LS(y=homotopy(realPlantPower_.y, turbinesAndReheat_01.P_gen_)) "Measurement value of live steam pressure" annotation (Placement(transformation(extent={{-112,56},{-92,76}})));
   Modelica.Blocks.Sources.Ramp ramp2(
     offset=1,
@@ -45,7 +46,7 @@ model TestPredictor
     rho_nom=74.2585,
     Pi=28e5/240e5,
     p_nom=24000000) annotation (Placement(transformation(extent={{80,-80},{90,-60}})));
-  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{160,180},{200,200}})));
+  inner ClaRa.SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{160,180},{200,200}})));
   ClaRa.Components.Control.PredictorModels_3508.TurbinesAndReheat_01_XRG turbinesAndReheat_01(
     p_nom=2800000,
     P_G_nom=507.7e6,
@@ -57,7 +58,8 @@ model TestPredictor
     h_LS_start=3400e3,
     p_LS_start=24000000,
     p_RH_start=2800000,
-    initOption_HP=0) annotation (Placement(transformation(extent={{6,-64},{32,-28}})));
+    initOption_HP=0,
+    heatRelease(initType=Modelica.Blocks.Types.Init.InitialState)) annotation (Placement(transformation(extent={{6,-64},{32,-28}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow massFlowSourceFW(
     m_flow_const=419,
     h_const=500e3,

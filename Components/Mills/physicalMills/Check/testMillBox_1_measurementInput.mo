@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.PhysicalMills.Check;
 model TestMillBox_1_measurementInput
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -14,7 +14,7 @@ model TestMillBox_1_measurementInput
 // and institutions. Please see model documentation for detailed information//
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
-
+ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   Modelica.Blocks.Sources.Constant pressure(k=simCenter.p_amb_start)
                                                        annotation (Placement(transformation(extent={{158,16},{138,36}})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_pTxi boundaryGas_pTxi(xi_const={0,0,0,0,0.79,0.21,0,0,0}, p_const=simCenter.p_amb_start)
@@ -1304,7 +1304,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
@@ -1324,7 +1324,7 @@ revisions=
 <p>For revisions please consult the html-documentation shipped with ClaRa.</p>
 </body>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-740,-420},{180,260}})),
+    Icon(graphics,coordinateSystem(preserveAspectRatio=true, initialScale=0.1)),
                                                                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-740,-420},{180,260}}), graphics={Rectangle(extent={{16,-174},{168,-304}}, lineColor={28,108,200}), Text(
           extent={{22,-180},{114,-194}},
           lineColor={28,108,200},

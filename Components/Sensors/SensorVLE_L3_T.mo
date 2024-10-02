@@ -45,7 +45,7 @@ model SensorVLE_L3_T
     mass_struc=A_sensor*thickness_sensor*sensorWall.solid[1].d - sensorWall.length*sensorWall.width*thickness_sensor*sensorWall.solid[1].d,
     T_start=T_sensor_start*ones(sensorWall.N_ax),
     initOption=203) annotation (Placement(transformation(extent={{-10,-4},{10,6}})));
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 fluidVolume(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 fluidVolume(
     redeclare final model PhaseBorder = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
     redeclare model PressureLoss = PressureLoss,
     h_start=h_start,
@@ -66,8 +66,7 @@ model SensorVLE_L3_T
         length_tubes=diameter/2,
         z_in={diameter/2},
         z_out={diameter/2},
-        CF_geo={1,if considerHeatConduction == true then diameter*length*Modelica.Constants.pi/fluidVolume.geo.A_heat[2] else 1}))
-                                                                   annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+        CF_geo={1,if considerHeatConduction == true then diameter*length*Modelica.Constants.pi/fluidVolume.geo.A_heat[2] else 1})) annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Modelica.Blocks.Interfaces.RealOutput T "Temperature in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
                                                                     rotation=
@@ -119,7 +118,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -4,7 +4,7 @@ partial model HopperBase
 //## P A R A M E T E R S #######################################################################################
    //__________________________/ Media definintions \______________________________________________
   outer ClaRa.SimCenter simCenter;
-  inner parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Fuel elemental composition used for combustion" annotation(choices(choice=simCenter.fuelModel "Fuel model 1 as defined in simCenter"),
+  inner parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Fuel elemental composition used for combustion" annotation(choices(choice=simCenter.fuelModel1 "Fuel model 1 as defined in simCenter"),
                                                                                             Dialog(group="Media Definitions"));
   parameter ClaRa.Basics.Media.Slag.PartialSlag slagType=simCenter.slagModel "Slag properties" annotation (choices(choice=simCenter.slagModel "Slag model 1 as defined in simCenter"), Dialog(group="Media Definitions"));
   inner parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component" annotation(choicesAllMatching, Dialog(group="Media Definitions"));
@@ -52,8 +52,7 @@ partial model HopperBase
 
   //__________________________/ Geometry \______________________________________________
   replaceable model Geometry =
-  ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry(
-                                                                      flowOrientation = ClaRa.Basics.Choices.GeometryOrientation.vertical, height_fill=-1) "1st: choose geometry definition | 2nd: edit corresponding record"
+  ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock(flowOrientation = ClaRa.Basics.Choices.GeometryOrientation.vertical, height_fill=-1) constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry   "1st: choose geometry definition | 2nd: edit corresponding record"
     annotation (Dialog(group="Geometry"), choicesAllMatching=true);
   //__________________/ Parameter \_______________________________________________
 
@@ -164,7 +163,7 @@ public
             {52,70}})));
 
   Basics.Interfaces.EyeOutGas
-                           eyeOut(each medium=flueGas) annotation (Placement(transformation(extent={{-286,78},
+                           eyeOut(medium=flueGas) annotation (Placement(transformation(extent={{-286,78},
             {-314,102}}),         iconTransformation(extent={{-290,70},{-310,90}})));
 protected
            Basics.Interfaces.EyeInGas
@@ -234,7 +233,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

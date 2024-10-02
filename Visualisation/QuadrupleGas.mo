@@ -1,10 +1,10 @@
 ﻿within ClaRa.Visualisation;
 model QuadrupleGas " Cross-shaped dynamic display of variables by users choice"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -130,7 +130,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
@@ -186,12 +186,12 @@ DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
           points={{0,0},{0,-200}},
           pattern=LinePattern.Solid,
           smooth=Smooth.None,
-          lineColor=DynamicSelect({190,190,190},if time>0 then {118,106,98} else {190,190,190})),
+          color=DynamicSelect({190,190,190},if time>0 then {118,106,98} else {190,190,190})),
         Line(
           points={{-200,-100},{200,-100}},
           pattern=LinePattern.Solid,
           smooth=Smooth.None,
-          lineColor=DynamicSelect({190,190,190},if time>0 then {118,106,98} else {190,190,190}))}),            Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-200,
+          color=DynamicSelect({190,190,190},if time>0 then {118,106,98} else {190,190,190}))}),            Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-200,
             -200},{200,0}},
         initialScale=0.05),  graphics));
 end QuadrupleGas;

@@ -2,28 +2,26 @@ within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_2ph_CH_ntu
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
-
-
+  // Component of the ClaRa library, version: 1.8.2                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2024, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
  extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   HEXvle2vle_L3_2ph_CH_ntu hex(
     mass_struc=1,
     redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum,
     redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.QuadraticNominalPoint_L2,
-    redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.QuadraticParallelZones_L3,
+    redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3,
     z_in_shell=10,
     redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L2 (alpha_nom=5000),
     p_start_tubes=250e5,
@@ -40,12 +38,12 @@ model Test_HEXvle2vle_L3_2ph_CH_ntu
     m_flow_nom_tubes=416,
     z_out_shell=0.1,
     level_rel_start=0.2,
-    redeclare model HeatCapacityAveraging = Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.InputOnly,
+    redeclare model HeatCapacityAveraging = ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.InputOnly,
     N_tubes=300,
     redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1000,5000}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall=1) annotation (Placement(transformation(extent={{-6,-72},{14,-52}})));
+    initOptionWall=0) annotation (Placement(transformation(extent={{-6,-72},{14,-52}})));
 
   Sensors.SensorVLE_L1_T Temp_Shell_in annotation (Placement(transformation(extent={{34,-22},{14,-42}})));
   Sensors.SensorVLE_L1_T Temp_Tubes_in annotation (Placement(transformation(extent={{58,-62},{38,-82}})));
@@ -74,7 +72,8 @@ model Test_HEXvle2vle_L3_2ph_CH_ntu
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph(h_const=300e3, p_const=2100000,
     variable_p=true)                                                                  annotation (Placement(transformation(extent={{-92,-98},{-72,-78}})));
   BoundaryConditions.BoundaryVLE_phxi pressureSink_ph1(h_const=2000e3, p_const=25000000,
-    variable_p=true)                                                                     annotation (Placement(transformation(
+    variable_p=true,
+    Delta_p=10)                                                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-82,-60})));
@@ -86,8 +85,10 @@ model Test_HEXvle2vle_L3_2ph_CH_ntu
     height=-106e3,
     startTime=1800)
                    annotation (Placement(transformation(extent={{100,-94},{80,-74}})));
-  inner SimCenter simCenter(useHomotopy=true, redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1,
-    showExpertSummary=true)                                                                                       annotation (Placement(transformation(extent={{40,40},{80,60}})));
+  inner SimCenter simCenter(
+    useHomotopy=true,
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    showExpertSummary=true) annotation (Placement(transformation(extent={{40,40},{80,60}})));
   Visualisation.Hexdisplay_3 hexdisplay_3_1(
     T_o=hex.wall.summary.T_o - fill(273.15, 6),
     T_i=hex.wall.summary.T_i - fill(273.15, 6),

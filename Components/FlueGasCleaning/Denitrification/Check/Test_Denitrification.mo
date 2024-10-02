@@ -1,10 +1,10 @@
 within ClaRa.Components.FlueGasCleaning.Denitrification.Check;
 model Test_Denitrification
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -20,7 +20,8 @@ model Test_Denitrification
     useHomotopy=simCenter.useHomotopy,
     use_dynamicMassbalance=true,
     redeclare model HeatTransfer = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat_L2,
-    redeclare model ChemicalReactions = ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions.Denitrification_L2 (separationRate=0.9)) annotation (Placement(transformation(extent={{6,0},{26,20}})));
+    redeclare model SeparationModel = ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions.Denitrification_L2 (separationRate=0.9))
+                                                                                                                 annotation (Placement(transformation(extent={{6,0},{26,20}})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_Txim_flow idealGasFlowSource_XRG2(
     m_flow_const=10,
     variable_m_flow=true,

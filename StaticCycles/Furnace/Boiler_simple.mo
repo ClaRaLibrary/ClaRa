@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Furnace;
 model Boiler_simple "Boiler || HP: blue |green || IP: blue |green"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -38,8 +38,8 @@ model Boiler_simple "Boiler || HP: blue |green || IP: blue |green"
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_RS_in(fixed=false) "Inlet specific enthalpy";
 
 protected
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table1(table=CharLine_Delta_p_HP_mLS_, u = {m_flow_feed/m_flow_LS_nom});
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table2(table=CharLine_Delta_p_IP_mRS_, u = {m_flow_cRH/m_flow_RS_nom});
+  Modelica.Blocks.Tables.CombiTable1Dv table1(table=CharLine_Delta_p_HP_mLS_, u = {m_flow_feed/m_flow_LS_nom});
+  Modelica.Blocks.Tables.CombiTable1Dv table2(table=CharLine_Delta_p_IP_mRS_, u = {m_flow_cRH/m_flow_RS_nom});
 public
   final parameter Real Delta_p_LS_(fixed = false) "Rprt: current LS pressure loss";
   final parameter Real Delta_p_RS_(fixed = false) "Rprt: current RS pressure loss";
@@ -115,7 +115,7 @@ initial equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model IdeallySeparated "Separation | Ideal | outlet states depending on filling Level | All geometries"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -33,7 +33,7 @@ model IdeallySeparated "Separation | Ideal | outlet states depending on filling 
   final parameter Units.Length z_max_out=min(geo.z_out[1] + radius_flange, geo.height_fill) "Upper edge of outlet flange";
   final parameter Units.Length z_min_out=max(1e-3, geo.z_out[1] - radius_flange) "Lower edge of outlet flange";
 
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table(table=geo.shape, columns={2}, smoothness=smoothness);
+  Modelica.Blocks.Tables.CombiTable1Dv table(table=geo.shape, columns={2}, smoothness=smoothness);
 
   Units.Volume volume_liq "Liquid volume";
   Units.Area A_hor_act "Actual horizontal surface size";
@@ -125,7 +125,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

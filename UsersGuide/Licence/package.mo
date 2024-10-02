@@ -1,10 +1,10 @@
 within ClaRa.UsersGuide;
 package Licence
 //__________________________________________________________________________//
-// Package of the ClaRa library, version: 1.8.0                             //
+// Package of the ClaRa library, version: 1.8.2                             //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -22,10 +22,10 @@ extends ClaRa.Basics.Icons.PackageIcons.Info100;
   annotation (Documentation(info="<html>
 <pre>
 //--------------------------------------------------------------------------//
-// ClaRa library, version: 1.8.0                                            //
+// ClaRa library, version: 1.8.2                                            //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //

@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Adapters.Check;
 model TestAdapters
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -63,5 +63,6 @@ equation
   connect(gainVLE1_2.outlet, quadruple8.steamSignal) annotation (Line(points={{30.5,30},{25.75,30},{25.75,30.2},{38,30.2}}, color={0,131,169}));
   annotation (Icon(graphics,
                    coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
-                                                                         coordinateSystem(preserveAspectRatio=false)));
+                                                                         coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=1, __Dymola_Algorithm="Dassl"));
 end TestAdapters;

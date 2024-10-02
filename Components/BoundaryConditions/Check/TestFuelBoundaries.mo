@@ -1,10 +1,10 @@
 within ClaRa.Components.BoundaryConditions.Check;
 model TestFuelBoundaries
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -36,5 +36,6 @@ equation
       points={{-10,23.8},{12,23.8},{12,24},{32,24}},
       color={27,36,42},
       thickness=0.5));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=1, __Dymola_Algorithm="Dassl"));
 end TestFuelBoundaries;

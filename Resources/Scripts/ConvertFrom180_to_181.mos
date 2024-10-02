@@ -1,0 +1,26 @@
+﻿//Convert Package from ClaRa 1.8.0 to 1.8.1
+convertClear();
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeType_L2", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeTypeVLE_L2");
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellType_L2", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellTypeVLE_L2");
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeType_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeTypeVLE_L3");
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellType_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellTypeVLE_L3");
+
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeType_L2", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeTypeVLE_L2");
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellType_L2", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellTypeVLE_L2");
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeType_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeTypeVLE_L3");
+convertClass("ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellType_L3", "ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellTypeVLE_L3");
+
+
+// Rename/correct names for components ////////////////////////////////////////////////////////////////////////////////////////
+
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2", "ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2");
+convertClass("ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_3_TwoZones", "ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L3_TwoZones");
+
+// Update O2 sensor
+
+convertElement("ClaRa.Components.Sensors.TinySensorGas_L1_O2","yps_O2dry","yps_O2");
+convertClass("ClaRa.Components.Sensors.TinySensorGas_L1_O2dry", "ClaRa.Components.Sensors.TinySensorGas_L1_O2"); 
+
+//Removal of linear interpolation substance properties for water
+convertClass("TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater","TILMedia.VLEFluidTypes.TILMedia_SplineWater");

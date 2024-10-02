@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
 model Constant_L3_ypsDependent "All geo || L3 || HTC || depending on volume fraction || 2ph"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -20,8 +20,8 @@ model Constant_L3_ypsDependent "All geo || L3 || HTC || depending on volume frac
   //   extends
   //     ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransferVLE_L2;
   //extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferGas;
-  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeType_L3;
-  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellType_L3;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeTypeVLE_L3;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellTypeVLE_L3;
   outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry geo;
   parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_nom[iCom.N_cv]=ones(iCom.N_cv)*10 "Constant heat transfer coefficient || [1]:= liq | [2]:= vap " annotation (Dialog(group="Heat Transfer"));
   parameter Integer heatSurfaceAlloc=2 "To be considered heat transfer area" annotation (dialog(enable=false, tab="Expert Setting"), choices(
@@ -47,7 +47,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

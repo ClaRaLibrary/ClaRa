@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SprayInjectorVLE_L3_advanced "A spray injector for i.e. temperature control"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -146,10 +146,10 @@ model SprayInjectorVLE_L3_advanced "A spray injector for i.e. temperature contro
       T=valve.summary.inlet.T,
       p=valve.summary.inlet.p,
       h=valve.summary.inlet.h,
-      s=valve.summary.inlet.s,
-      steamQuality=valve.summary.inlet.steamQuality,
+      s=valve.fluidIn.s,
+      steamQuality=valve.fluidIn.q,
       H_flow=inlet2.m_flow*valve.summary.inlet.h,
-      rho=valve.summary.inlet.rho),
+      rho=valve.fluidIn.d),
     outlet(
       showExpertSummary=showExpertSummary,
       m_flow=-outlet.m_flow,
@@ -298,7 +298,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

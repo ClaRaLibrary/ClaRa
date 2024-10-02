@@ -1,7 +1,7 @@
 within ClaRa.Basics.Media.FuelTypes;
 record BaseFuel "Chose fuel below:"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.0                            //
+  // Component of the ClaRa library, version: 1.8.2                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
   // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
@@ -17,11 +17,11 @@ record BaseFuel "Chose fuel below:"
 
   extends ClaRa.Basics.Media.FuelTypes.EmptyFuel;
   extends ClaRa.Basics.Icons.RecordIcon;
-  constant Integer N_c=5 "Number of components";
-  constant Integer N_e=5 "Number of elements";
-  parameter Real C_LHV[N_c] = {1,1,1,1,1} "Coefficients for LHV calculation";
-  parameter Real C_cp[N_c] = {1,1,1,1,1} "Coefficients for cp calculation";
-  constant Real C_rho[N_c] = {1,1,1,1,1} "Coefficients for rho calculation";
+  constant Integer N_c=3 "Number of components";
+  constant Integer N_e=7 "Number of elements";
+  parameter Real C_LHV[N_c]  "Coefficients for LHV calculation";
+  parameter Real C_cp[N_c]  "Coefficients for cp calculation";
+  constant Real C_rho[N_c]  "Coefficients for rho calculation";
   constant Integer waterIndex "Index of water in composition";
   constant Integer ashIndex "Index of ash in composition";
   constant ClaRa.Basics.Units.MassFraction defaultComposition[N_c - 1] "Elemental compostion of combustible, e.g. {C,H,O,N,S, H2O, ash}";
@@ -33,7 +33,7 @@ record BaseFuel "Chose fuel below:"
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

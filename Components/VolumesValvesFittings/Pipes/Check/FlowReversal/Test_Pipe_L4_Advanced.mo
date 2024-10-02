@@ -1,20 +1,20 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes.Check.FlowReversal;
 model Test_Pipe_L4_Advanced
-//__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
 
+//__________________________________________________________________________//
+  // Component of the ClaRa library, version: 1.8.2                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2024, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
  extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
   Modelica.Blocks.Math.MultiSum multiSum(nu=2) annotation (Placement(
@@ -28,40 +28,38 @@ model Test_Pipe_L4_Advanced
     h_const=200e3,
     m_flow_nom=0,
     variable_h=true,
-    p_nom=1000) annotation (Placement(transformation(extent={{58,-53},{38,-33}})));
-  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1, useHomotopy=true) annotation (Placement(transformation(extent={{-100,-120},{-60,-100}})));
+    p_nom=100000) annotation (Placement(transformation(extent={{58,-53},{38,-33}})));
+  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, useHomotopy=true) annotation (Placement(transformation(extent={{-100,-120},{-60,-100}})));
   PipeFlowVLE_L4_Advanced
                         tube(
+    p_nom=ones(tube.N_cv)*15e5,
+    h_nom=ones(tube.N_cv)*200e3,
     z_in=0,
     z_out=0,
     showExpertSummary=true,
-    showData=true,
-    diameter_i=0.5,
+    showData=true, diameter_i = 0.1,
     h_start=ones(tube.N_cv)*200e3,
     length=50,
     redeclare model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,
     N_cv=50,
-    Delta_x=ones(tube.N_cv)*tube.length/tube.N_cv,
-    frictionAtOutlet=true,
+    frictionAtOutlet= true,
     redeclare model HeatTransfer = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4 (alpha_nom=10000),
     initOption=0,
     p_start=linspace(
         14.9e5,
         15e5,
         tube.N_cv),
-    frictionAtInlet=true,
+    frictionAtInlet= false,
     Delta_p_nom=1e4,
     suppressHighFrequencyOscillations=true,
-    m_flow_nom=-50,
-    m_flow_start=ones(tube.N_cv + 1)*(-50))
+    m_flow_nom=50,
+    m_flow_start=ones(tube.N_cv + 1)*(-50), N_tubes = 10)
                     annotation (Placement(transformation(extent={{19,-50},{-19,-36}})));
 
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi massFlowSink(
     variable_p=true,
-    m_flow_nom=100,
     p_const=1000000,
-    h_const=200e3,
-    Delta_p=100000) annotation (Placement(transformation(
+    h_const=200e3)  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-48,-43})));
@@ -110,7 +108,7 @@ model Test_Pipe_L4_Advanced
     stateLocation=2,
     N_ax=tube.N_cv,
     T_start=320*ones(tube.N_cv),
-    initOption=213) annotation (Placement(transformation(extent={{-14,-30},{14,-20}})));
+    initOption=213, N_tubes = 10) annotation (Placement(transformation(extent={{-14,-30},{14,-20}})));
 
   BoundaryConditions.PrescribedHeatFlow prescribedHeatFlow(length=tube.length, N_axial=tube.N_cv) annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Modelica.Blocks.Sources.CombiTimeTable
@@ -138,18 +136,18 @@ equation
       points={{60,-43},{66,-43},{66,-69.5},{71.1,-69.5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(thinWall.innerPhase, tube.heat) annotation (Line(
-      points={{0,-30},{0,-37.4}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(mass_flow_1.y, multiSum.u[1]) annotation (Line(points={{59,22},{94,22},{94,-40.1},{83,-40.1}}, color={0,0,127}));
-  connect(mass_flow_2.y, multiSum.u[2]) annotation (Line(points={{59,-10},{88,-10},{88,-35.9},{83,-35.9}}, color={0,0,127}));
+  connect(mass_flow_1.y, multiSum.u[1]) annotation (Line(points={{59,22},{94,22},{94,-36.95},{83,-36.95}},
+                                                                                                         color={0,0,127}));
+  connect(mass_flow_2.y, multiSum.u[2]) annotation (Line(points={{59,-10},{88,-10},{88,-39.05},{83,-39.05}},
+                                                                                                           color={0,0,127}));
   connect(prescribedHeatFlow.port, thinWall.outerPhase) annotation (Line(
       points={{-20,10},{0,10},{0,-20}},
       color={167,25,48},
       thickness=0.5));
   connect(Q_flow.y, prescribedHeatFlow.Q_flow) annotation (Line(points={{-59,10},{-40,10}}, color={0,0,127}));
   connect(outlet_pressure.y[1], massFlowSink.p) annotation (Line(points={{-71,-49},{-64.5,-49},{-64.5,-49},{-58,-49}}, color={0,0,127}));
+  connect(thinWall.innerPhase, tube.heat) annotation (
+    Line(points = {{0, -30}, {0, -38}}, color={167,25,48}, thickness = 0.5));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-120},{100,120}}),
                     graphics={Text(
@@ -189,7 +187,7 @@ ________________________________________________________________________________
     experiment(
       StopTime=3000,
       __Dymola_NumberOfIntervals=1000,
-      Tolerance=1e-005,
+      Tolerance=1e-05,
       __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput(equidistant=false),
     Icon(graphics,

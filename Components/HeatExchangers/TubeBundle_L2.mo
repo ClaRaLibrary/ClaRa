@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model TubeBundle_L2 "A flexible 0D tube bundle model"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -15,7 +15,7 @@ model TubeBundle_L2 "A flexible 0D tube bundle model"
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
 
-  extends ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2(
+  extends ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2(
       final heatSurfaceAlloc=1,
       redeclare model PhaseBorder =
         ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
@@ -72,7 +72,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

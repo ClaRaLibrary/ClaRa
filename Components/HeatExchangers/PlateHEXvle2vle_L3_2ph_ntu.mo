@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -179,7 +179,7 @@ model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
   ClaRa.Basics.Interfaces.FluidPortOut Out_a(Medium=medium_a) annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
   ClaRa.Basics.Interfaces.FluidPortIn In_a(Medium=medium_a) annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
 
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 flow_a(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 flow_a(
     useHomotopy=useHomotopy,
     h_start=h_start_a,
     p_start=p_start_a,
@@ -202,10 +202,11 @@ model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
         CF_geo={CF_geo[1],1},
         amp=amp,
         length_wave=length_wave,
-        phi=phi)) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        phi=phi)) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-80,0})));
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 flow_b(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 flow_b(
     xi_start=xi_start_b,
     useHomotopy=useHomotopy,
     h_start=h_start_b,
@@ -228,7 +229,8 @@ model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
         CF_geo={CF_geo[2],1},
         amp=amp,
         length_wave=length_wave,
-        phi=phi)) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        phi=phi)) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,0})));
   ClaRa.Basics.ControlVolumes.SolidVolumes.NTU_plate_L3_standalone thinWall(
@@ -268,7 +270,7 @@ model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
 
   Summary summary(outline(
       showExpertSummary=showExpertSummary,
-      Q_flow=sum(flow_a.heat.Q_flow),
+      Q_flow=flow_a.heat.Q_flow,
       Delta_T_in=flow_a.summary.inlet.T - flow_b.summary.inlet.T,
       Delta_T_out=flow_a.summary.outlet.T - flow_b.summary.outlet.T)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -313,13 +315,13 @@ equation
 
    eye_int1.m_flow=-flow_a.outlet.m_flow;
    eye_int1.T=flow_a.summary.outlet.T-273.15;
-   eye_int1.s=flow_a.summary.outlet.s/1000;
+   eye_int1.s=flow_a.fluidOut.s/1000;
    eye_int1.h=flow_a.summary.outlet.h/1000;
    eye_int1.p=flow_a.summary.outlet.p/100000;
 
    eye_int2.m_flow=-flow_b.outlet.m_flow;
    eye_int2.T=flow_b.summary.outlet.T-273.15;
-   eye_int2.s=flow_b.summary.outlet.s/1000;
+   eye_int2.s=flow_b.fluidOut.s/1000;
    eye_int2.h=flow_b.summary.outlet.h/1000;
    eye_int2.p=flow_b.summary.outlet.p/100000;
 

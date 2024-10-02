@@ -54,7 +54,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   inner ClaRa.SimCenter simCenter(
     steamCycleAllowFlowReversal=true,
     useHomotopy=false,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{40,60},{80,80}})));
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{40,60},{80,80}})));
 
   ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple pipe_OuterSide(
     frictionAtOutlet=true,

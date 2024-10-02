@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.HardCoalMills.Check;
 model SimpleMillTester
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -46,8 +46,7 @@ model SimpleMillTester
         rotation=0,
         origin={-10,-30})));
 
-  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1, redeclare Basics.Media.FuelTypes.Fuel_refvalues_v1 fuelModel1)
-                                                                                                      annotation (Placement(transformation(extent={{-100,80},{-60,100}})));
+  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, redeclare Basics.Media.FuelTypes.Fuel_refvalues_v1 fuelModel1) annotation (Placement(transformation(extent={{-100,80},{-60,100}})));
   Adapters.FuelFlueGas_split split         annotation (Placement(transformation(extent={{36,-40},{56,-20}})));
   ClaRa.Components.BoundaryConditions.BoundaryFuel_pTxi fuelBoundary_pTxi         annotation (Placement(transformation(extent={{94,-18},{74,2}})));
   VerticalMill_L3 verticalMill_L3_1(

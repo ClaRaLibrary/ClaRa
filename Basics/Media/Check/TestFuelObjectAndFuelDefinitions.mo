@@ -8,5 +8,6 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
     T=300,
     xi_c=fuelObject.fuelModel.defaultComposition,
     fuelModel=simCenter.fuelModel1) annotation (Placement(transformation(extent={{-26,-12},{-6,8}})));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=1, __Dymola_Algorithm="Dassl"));
 end TestFuelObjectAndFuelDefinitions;

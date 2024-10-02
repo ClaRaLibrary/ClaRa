@@ -12,5 +12,6 @@ equation
   connect(source_yellow.outlet, valve_dp_nom4_1.inlet) annotation (Line(points={{-39.5,4},{-32,4},{-32,3},{-26.5,3}}, color={0,131,169}));
   annotation (Icon(graphics,
                    coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
-                                                                         coordinateSystem(preserveAspectRatio=false)));
+                                                                         coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=1, __Dymola_Algorithm="Dassl"));
 end TestValve_dp_nom4;

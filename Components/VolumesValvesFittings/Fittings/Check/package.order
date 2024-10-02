@@ -3,3 +3,4 @@ Test_SprayInjector
 Test_Junction
 Test_JoinSplitGas_L2_flex
 TestFuelSplit
+Test_SplitFuelSlagFlueGas_L2

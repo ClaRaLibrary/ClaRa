@@ -1,19 +1,19 @@
 within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L2_OffDesign "Running the  L2 pump in off design, including reverse flow and zero mass flow through valve"
-//__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
+  //__________________________________________________________________________//
+  // Component of the ClaRa library, version: 1.8.2                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2024, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
   inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, showExpertSummary=true)
@@ -74,12 +74,11 @@ model TestPump_L2_OffDesign "Running the  L2 pump in off design, including rever
     varname="Mechanic Power",
     unit="W",
     x1=pump_3.P_shaft) annotation (Placement(transformation(extent={{-82,-152},{-22,-136}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=1, initType=Modelica.Blocks.Types.Init.SteadyState)
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T= 10, initType=Modelica.Blocks.Types.Init.SteadyState)
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(
     checkValve=false,
     openingInputIsActive=true,
-    useStabilisedMassFlow=true,
     redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_incompressible (
         paraOption=2,
         m_flow_nom=1000,
@@ -159,7 +158,7 @@ ______________________________________
           extent={{-160,40},{160,-160}},
           lineColor={115,150,0},
           lineThickness=0.5)}),
-    experiment(StopTime=250),
+    experiment(StopTime=250, __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput(equidistant=false, events=false),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));

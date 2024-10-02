@@ -1,10 +1,10 @@
 within ClaRa.Components.Furnace.Check;
 model Test_burner_adiabatic_fuelDrying
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -32,11 +32,10 @@ model Test_burner_adiabatic_fuelDrying
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={24,276})));
-  inner SimCenter       simCenter(
-    redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1,
+  inner SimCenter simCenter(
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
     redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel,
-  redeclare ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v3 fuelModel1)
-                                                              annotation (Placement(transformation(extent={{98,62},{118,82}})));
+    redeclare ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v3 fuelModel1) annotation (Placement(transformation(extent={{98,62},{118,82}})));
   BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource(
     m_flow_const=15,
     T_const=293.15)                       annotation (Placement(transformation(extent={{-138,-30},{-118,-10}})));
@@ -233,8 +232,10 @@ model Test_burner_adiabatic_fuelDrying
   FlameRoom.FlameRoomWithTubeBundle_L2_Dynamic flameRoomWithTubeBundle_L2_Dynamic(
     redeclare model HeatTransfer_Wall = Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Wall_advanced_L2,
     redeclare model HeatTransfer_Top = Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Gas_advanced_L2,
-    redeclare model HeatTransfer_CarrierTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_turbulent_L2,
-    redeclare model HeatTransfer_TubeBundle = Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2) annotation (Placement(transformation(extent={{-6,176},{54,196}})));
+    redeclare model HeatTransfer_CarrierTubes =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.Convection_carrierTubes_turbulent_L2,
+    redeclare model HeatTransfer_TubeBundle =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection.ConvectionAndRadiation_tubeBank_L2)                                       annotation (Placement(transformation(extent={{-6,176},{54,196}})));
 equation
   connect(flueGasFlowSource.gas_a,coalGas_join_burner. flueGas_inlet)
     annotation (Line(

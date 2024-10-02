@@ -1,10 +1,10 @@
 within ClaRa.Components.Mills.PhysicalMills.Check;
 model TestMillBox_1
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -14,7 +14,7 @@ model TestMillBox_1
 // and institutions. Please see model documentation for detailed information//
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
-
+ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   ClaRa.Components.Mills.PhysicalMills.Mill_L4 millBox1(
     m_flow_gas_nom=20.83,
     m_flow_fuel_nom=0.97*13.06,
@@ -342,7 +342,8 @@ model TestMillBox_1
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={130,110})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 valveGas_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=millBox1.m_flow_gas_nom, Delta_p_nom=2000)) annotation (Placement(transformation(extent={{46,-66},{66,-54}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 valveGas_L1_1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                        m_flow_nom=millBox1.m_flow_gas_nom, Delta_p_nom=2000)) annotation (Placement(transformation(extent={{46,-66},{66,-54}})));
 equation
   connect(temperature.y,fuelBoundary_m_flowTxi. T) annotation (Line(points={{-239,-126},{-222,-126},{-222,20},{-80,20}},color={0,0,127}));
   connect(composition.y,fuelBoundary_m_flowTxi. xi) annotation (Line(points={{-239,-90},{-200,-90},{-200,14},{-80,14}},  color={0,0,127}));
@@ -363,58 +364,58 @@ equation
   connect(pressure.y, boundaryFuel_pTxi.p) annotation (Line(points={{137,26},{78,26}}, color={0,0,127}));
   connect(boundaryFuel_pTxi.T, temperature.y) annotation (Line(points={{78,20},{128,20},{128,-126},{-239,-126}}, color={0,0,127}));
   connect(boundaryFuel_pTxi.xi, composition.y) annotation (Line(points={{78,14},{106,14},{106,-90},{-239,-90}}, color={0,0,127}));
-  connect(constGrindingPressure1.y, sum5.u[1]) annotation (Line(points={{-230,219},{-228,219},{-228,212},{-151.6,212},{-151.6,202}}, color={0,0,127}));
-  connect(rampGrindingPressure2.y, sum5.u[2]) annotation (Line(points={{-190,219},{-190,212},{-150.8,212},{-150.8,202}}, color={0,0,127}));
+  connect(constGrindingPressure1.y, sum5.u[1]) annotation (Line(points={{-230,219},{-228,219},{-228,212},{-150.8,212},{-150.8,202}}, color={0,0,127}));
+  connect(rampGrindingPressure2.y, sum5.u[2]) annotation (Line(points={{-190,219},{-190,212},{-150.4,212},{-150.4,202}}, color={0,0,127}));
   connect(rampGrindingPressure3.y, sum5.u[3]) annotation (Line(points={{-150,219},{-150,202},{-150,202}}, color={0,0,127}));
-  connect(rampGrindingPressure4.y, sum5.u[4]) annotation (Line(points={{-110,219},{-110,219},{-110,212},{-149.2,212},{-149.2,202}}, color={0,0,127}));
-  connect(rampGrindingPressure5.y, sum5.u[5]) annotation (Line(points={{-70,219},{-70,219},{-70,212},{-150,212},{-150,202},{-148.4,202}}, color={0,0,127}));
-  connect(constMassFlow1.y, sum4.u[1]) annotation (Line(points={{-659,230},{-644,230},{-644,148.4},{-622,148.4}},
+  connect(rampGrindingPressure4.y, sum5.u[4]) annotation (Line(points={{-110,219},{-110,219},{-110,212},{-149.6,212},{-149.6,202}}, color={0,0,127}));
+  connect(rampGrindingPressure5.y, sum5.u[5]) annotation (Line(points={{-70,219},{-70,219},{-70,212},{-150,212},{-150,202},{-149.2,202}}, color={0,0,127}));
+  connect(constMassFlow1.y, sum4.u[1]) annotation (Line(points={{-659,230},{-644,230},{-644,149.2},{-622,149.2}},
                                                                                                                 color={0,0,127}));
-  connect(rampMassFlow2.y, sum4.u[2]) annotation (Line(points={{-659,190},{-644,190},{-644,149.2},{-622,149.2}},
+  connect(rampMassFlow2.y, sum4.u[2]) annotation (Line(points={{-659,190},{-644,190},{-644,149.6},{-622,149.6}},
                                                                                                                color={0,0,127}));
   connect(rampMassFlow3.y, sum4.u[3]) annotation (Line(points={{-659,150},{-622,150}}, color={0,0,127}));
-  connect(rampMassFlow4.y, sum4.u[4]) annotation (Line(points={{-659,110},{-656,110},{-656,112},{-644,112},{-644,150.8},{-622,150.8}}, color={0,0,127}));
-  connect(rampMassFlow5.y, sum4.u[5]) annotation (Line(points={{-659,70},{-644,70},{-644,151.6},{-622,151.6}},     color={0,0,127}));
-  connect(constAirFlow1.y, sum6.u[1]) annotation (Line(points={{-659,12},{-642,12},{-642,-89.7143},{-622,-89.7143}},     color={0,0,127}));
-  connect(rampAirFlow2.y, sum6.u[2]) annotation (Line(points={{-659,-28},{-642,-28},{-642,-89.1429},{-622,-89.1429}},   color={0,0,127}));
-  connect(rampAirFlow5.y, sum6.u[3]) annotation (Line(points={{-659,-68},{-642,-68},{-642,-88.5714},{-622,-88.5714}},   color={0,0,127}));
+  connect(rampMassFlow4.y, sum4.u[4]) annotation (Line(points={{-659,110},{-656,110},{-656,112},{-644,112},{-644,150.4},{-622,150.4}}, color={0,0,127}));
+  connect(rampMassFlow5.y, sum4.u[5]) annotation (Line(points={{-659,70},{-644,70},{-644,150.8},{-622,150.8}},     color={0,0,127}));
+  connect(constAirFlow1.y, sum6.u[1]) annotation (Line(points={{-659,12},{-642,12},{-642,-88.8571},{-622,-88.8571}},     color={0,0,127}));
+  connect(rampAirFlow2.y, sum6.u[2]) annotation (Line(points={{-659,-28},{-642,-28},{-642,-88.5714},{-622,-88.5714}},   color={0,0,127}));
+  connect(rampAirFlow5.y, sum6.u[3]) annotation (Line(points={{-659,-68},{-642,-68},{-642,-88.2857},{-622,-88.2857}},   color={0,0,127}));
   connect(rampAirFlow8.y, sum6.u[4]) annotation (Line(points={{-659,-108},{-642,-108},{-642,-88},{-622,-88}},   color={0,0,127}));
-  connect(rampAirFlow9.y, sum6.u[5]) annotation (Line(points={{-659,-148},{-642,-148},{-642,-87.4286},{-622,-87.4286}},                         color={0,0,127}));
-  connect(rampAirFlow6.y, sum6.u[6]) annotation (Line(points={{-659,-188},{-642,-188},{-642,-86.8571},{-622,-86.8571}}, color={0,0,127}));
-  connect(rampAirFlow7.y, sum6.u[7]) annotation (Line(points={{-659,-228},{-642,-228},{-642,-86.2857},{-622,-86.2857}}, color={0,0,127}));
-  connect(constGrindingPressure.y, sum1.u[1]) annotation (Line(points={{112,219},{112,220},{112,220},{112,220},{112,202},{68.6667,202}}, color={0,0,127}));
+  connect(rampAirFlow9.y, sum6.u[5]) annotation (Line(points={{-659,-148},{-642,-148},{-642,-87.7143},{-622,-87.7143}},                         color={0,0,127}));
+  connect(rampAirFlow6.y, sum6.u[6]) annotation (Line(points={{-659,-188},{-642,-188},{-642,-87.4286},{-622,-87.4286}}, color={0,0,127}));
+  connect(rampAirFlow7.y, sum6.u[7]) annotation (Line(points={{-659,-228},{-642,-228},{-642,-87.1429},{-622,-87.1429}}, color={0,0,127}));
+  connect(constGrindingPressure.y, sum1.u[1]) annotation (Line(points={{112,219},{112,220},{112,220},{112,220},{112,202},{69.3333,202}}, color={0,0,127}));
   connect(rampGrindingPressure.y, sum1.u[2]) annotation (Line(points={{70,219},{70,202}}, color={0,0,127}));
-  connect(rampGrindingPressure1.y, sum1.u[3]) annotation (Line(points={{30,219},{30,202},{71.3333,202}}, color={0,0,127}));
-  connect(constMassFlow.y, sum2.u[1]) annotation (Line(points={{-479,210},{-462,210},{-462,168.667},{-442,168.667}}, color={0,0,127}));
+  connect(rampGrindingPressure1.y, sum1.u[3]) annotation (Line(points={{30,219},{30,202},{70.6667,202}}, color={0,0,127}));
+  connect(constMassFlow.y, sum2.u[1]) annotation (Line(points={{-479,210},{-462,210},{-462,169.333},{-442,169.333}}, color={0,0,127}));
   connect(rampMassFlow.y, sum2.u[2]) annotation (Line(points={{-479,170},{-442,170}}, color={0,0,127}));
-  connect(rampMassFlow1.y, sum2.u[3]) annotation (Line(points={{-479,130},{-462,130},{-462,170},{-442,170},{-442,171.333}},                        color={0,0,127}));
-  connect(constAirFlow.y, sum3.u[1]) annotation (Line(points={{-439,-8},{-422,-8},{-422,-89.6},{-402,-89.6}},       color={0,0,127}));
-  connect(rampAirFlow.y, sum3.u[2]) annotation (Line(points={{-439,-48},{-420,-48},{-420,-88.8},{-402,-88.8}},     color={0,0,127}));
+  connect(rampMassFlow1.y, sum2.u[3]) annotation (Line(points={{-479,130},{-462,130},{-462,170},{-442,170},{-442,170.667}},                        color={0,0,127}));
+  connect(constAirFlow.y, sum3.u[1]) annotation (Line(points={{-439,-8},{-422,-8},{-422,-88.8},{-402,-88.8}},       color={0,0,127}));
+  connect(rampAirFlow.y, sum3.u[2]) annotation (Line(points={{-439,-48},{-420,-48},{-420,-88.4},{-402,-88.4}},     color={0,0,127}));
   connect(rampAirFlow1.y, sum3.u[3]) annotation (Line(points={{-439,-88},{-402,-88}},                           color={0,0,127}));
-  connect(rampAirFlow3.y, sum3.u[4]) annotation (Line(points={{-439,-128},{-422,-128},{-422,-88},{-402,-88},{-402,-87.2}},                            color={0,0,127}));
-  connect(rampAirFlow4.y, sum3.u[5]) annotation (Line(points={{-439,-168},{-422,-168},{-422,-86.4},{-402,-86.4}},   color={0,0,127}));
+  connect(rampAirFlow3.y, sum3.u[4]) annotation (Line(points={{-439,-128},{-422,-128},{-422,-88},{-402,-88},{-402,-87.6}},                            color={0,0,127}));
+  connect(rampAirFlow4.y, sum3.u[5]) annotation (Line(points={{-439,-168},{-422,-168},{-422,-87.2},{-402,-87.2}},   color={0,0,127}));
   connect(firstOrder1.y, fuelBoundary_m_flowTxi.m_flow) annotation (Line(points={{-339,168},{-292,168},{-292,26},{-80,26}}, color={0,0,127}));
-  connect(constTempAir.y, sum7.u[1]) annotation (Line(points={{-439,-230},{-420,-230},{-420,-311.6},{-402,-311.6}}, color={0,0,127}));
-  connect(stepTempAir.y, sum7.u[2]) annotation (Line(points={{-439,-270},{-420,-270},{-420,-310.8},{-402,-310.8}}, color={0,0,127}));
+  connect(constTempAir.y, sum7.u[1]) annotation (Line(points={{-439,-230},{-420,-230},{-420,-310.8},{-402,-310.8}}, color={0,0,127}));
+  connect(stepTempAir.y, sum7.u[2]) annotation (Line(points={{-439,-270},{-420,-270},{-420,-310.4},{-402,-310.4}}, color={0,0,127}));
   connect(stepTempAir1.y, sum7.u[3]) annotation (Line(points={{-439,-310},{-402,-310}},                             color={0,0,127}));
-  connect(stepTempAir2.y, sum7.u[4]) annotation (Line(points={{-439,-350},{-420,-350},{-420,-309.2},{-402,-309.2}},                         color={0,0,127}));
-  connect(stepTempAir3.y, sum7.u[5]) annotation (Line(points={{-439,-390},{-420,-390},{-420,-308.4},{-402,-308.4}},                         color={0,0,127}));
+  connect(stepTempAir2.y, sum7.u[4]) annotation (Line(points={{-439,-350},{-420,-350},{-420,-309.6},{-402,-309.6}},                         color={0,0,127}));
+  connect(stepTempAir3.y, sum7.u[5]) annotation (Line(points={{-439,-390},{-420,-390},{-420,-309.2},{-402,-309.2}},                         color={0,0,127}));
   connect(firstOrder2.y, boundaryGas_pTxi1.T) annotation (Line(points={{-339,-230},{-326,-230},{-326,-230},{-122,-230},{-122,-64},{-80,-64}}, color={0,0,127}));
-  connect(constTempAir1.y, sum8.u[1]) annotation (Line(points={{-659,-290},{-642,-290},{-642,-371.714},{-624,-371.714}}, color={0,0,127}));
-  connect(stepTempAir4.y, sum8.u[2]) annotation (Line(points={{-659,-330},{-642,-330},{-642,-371.143},{-624,-371.143}}, color={0,0,127}));
-  connect(stepTempAir5.y, sum8.u[3]) annotation (Line(points={{-659,-370},{-642,-370},{-642,-370.571},{-624,-370.571}}, color={0,0,127}));
+  connect(constTempAir1.y, sum8.u[1]) annotation (Line(points={{-659,-290},{-642,-290},{-642,-370.857},{-624,-370.857}}, color={0,0,127}));
+  connect(stepTempAir4.y, sum8.u[2]) annotation (Line(points={{-659,-330},{-642,-330},{-642,-370.571},{-624,-370.571}}, color={0,0,127}));
+  connect(stepTempAir5.y, sum8.u[3]) annotation (Line(points={{-659,-370},{-642,-370},{-642,-370.286},{-624,-370.286}}, color={0,0,127}));
   connect(stepTempAir8.y, sum8.u[4]) annotation (Line(points={{-659,-410},{-642,-410},{-642,-370},{-624,-370}}, color={0,0,127}));
-  connect(stepTempAir9.y, sum8.u[5]) annotation (Line(points={{-659,-450},{-642,-450},{-642,-369.429},{-624,-369.429}}, color={0,0,127}));
-  connect(stepTempAir6.y, sum8.u[6]) annotation (Line(points={{-659,-490},{-642,-490},{-642,-368.857},{-624,-368.857}}, color={0,0,127}));
-  connect(stepTempAir7.y, sum8.u[7]) annotation (Line(points={{-659,-530},{-642,-530},{-642,-368.286},{-624,-368.286}}, color={0,0,127}));
+  connect(stepTempAir9.y, sum8.u[5]) annotation (Line(points={{-659,-450},{-642,-450},{-642,-369.714},{-624,-369.714}}, color={0,0,127}));
+  connect(stepTempAir6.y, sum8.u[6]) annotation (Line(points={{-659,-490},{-642,-490},{-642,-369.429},{-624,-369.429}}, color={0,0,127}));
+  connect(stepTempAir7.y, sum8.u[7]) annotation (Line(points={{-659,-530},{-642,-530},{-642,-369.143},{-624,-369.143}}, color={0,0,127}));
   connect(sum2.y, firstOrder1.u) annotation (Line(points={{-419,170},{-392,170},{-392,168},{-362,168}}, color={0,0,127}));
   connect(sum3.y, firstOrder.u) annotation (Line(points={{-379,-88},{-368,-88},{-368,-8},{-362,-8}}, color={0,0,127}));
   connect(firstOrder2.u, sum7.y) annotation (Line(points={{-362,-230},{-370,-230},{-370,-310},{-379,-310}}, color={0,0,127}));
   connect(sum1.y, millBox1.inputGrindingPressure) annotation (Line(points={{70,179},{70,146},{-34,146},{-34,40},{-6,40},{-6,14.8}}, color={0,0,127}));
   connect(sum9.y, millBox1.inputClassifier) annotation (Line(points={{50,59},{50,40},{6.2,40},{6.2,14.8}}, color={0,0,127}));
-  connect(sourceClassifier.y, sum9.u[1]) annotation (Line(points={{50,99},{50,90},{50,82},{48.6667,82}}, color={0,0,127}));
+  connect(sourceClassifier.y, sum9.u[1]) annotation (Line(points={{50,99},{50,90},{50,82},{49.3333,82}}, color={0,0,127}));
   connect(rampClassifier.y, sum9.u[2]) annotation (Line(points={{90,99},{90,92},{50,92},{50,82}}, color={0,0,127}));
-  connect(ramprampClassifier1.y, sum9.u[3]) annotation (Line(points={{130,99},{130,92},{51.3333,92},{51.3333,82}}, color={0,0,127}));
+  connect(ramprampClassifier1.y, sum9.u[3]) annotation (Line(points={{130,99},{130,92},{50.6667,92},{50.6667,82}}, color={0,0,127}));
   connect(millBox1.gasOutlet, valveGas_L1_1.inlet) annotation (Line(
       points={{14,-2},{36,-2},{36,-60},{46,-60}},
       color={118,106,98},
@@ -429,7 +430,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
@@ -449,7 +450,7 @@ revisions=
 <p>For revisions please consult the html-documentation shipped with ClaRa.</p>
 </body>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-740,-420},{180,260}})),
+    Icon(graphics,coordinateSystem(preserveAspectRatio=true, initialScale=0.1)),
                                                                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-740,-420},{180,260}})),
     experiment(
       StopTime=5000,

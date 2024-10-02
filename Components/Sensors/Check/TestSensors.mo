@@ -1,10 +1,10 @@
 within ClaRa.Components.Sensors.Check;
 model TestSensors
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -84,7 +84,7 @@ model TestSensors
   ClaRa.Components.Sensors.TinySensorGas_L1_V_flow sensorGas_L1_V_flow1 annotation (Placement(transformation(extent={{-16,8},{-4,20}})));
   ClaRa.Components.Sensors.TinySensorGas_L1_p sensorGas_L1_p annotation (Placement(transformation(extent={{28,8},{40,20}})));
   ClaRa.Components.Sensors.TinySensorGas_L1_T sensorGas_L1_T annotation (Placement(transformation(extent={{-32,8},{-20,20}})));
-  ClaRa.Components.Sensors.TinySensorGas_L1_O2dry sensorGas_L1_O2dry(unitOption=2) annotation (Placement(transformation(extent={{18,-30},{30,-18}})));
+  ClaRa.Components.Sensors.TinySensorGas_L1_O2 sensorGas_L1_O2dry(unitOption=2) annotation (Placement(transformation(extent={{18,-30},{30,-18}})));
 equation
   connect(sensorGas_L1_m_flow.outlet, boundaryGas_pTxi.gas_a) annotation (Line(
       points={{30,62},{32,62},{50,62}},

@@ -1,10 +1,10 @@
 within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, based on affinity laws"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -93,8 +93,10 @@ model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, b
   ClaRa.Basics.Interfaces.FluidPortIn inlet( Medium=medium) annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   ClaRa.Basics.Interfaces.FluidPortOut outlet(Medium=medium) annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidIn(vleFluidType =    medium, p=inlet.p, h=actualStream(inlet.h_outflow)) annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidOut( vleFluidType =    medium, p=outlet.p, h=actualStream(outlet.h_outflow)) annotation (Placement(transformation(extent={{70,14},{90,34}})));
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidIn(vleFluidType =    medium, p=inlet.p,
+    h=homotopy(noEvent(actualStream(inlet.h_outflow)), inStream(inlet.h_outflow)))                                                                            annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
+  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidOut( vleFluidType =    medium, p=outlet.p,
+    h=homotopy(noEvent(actualStream(outlet.h_outflow)), outlet.h_outflow))                                                                                        annotation (Placement(transformation(extent={{70,14},{90,34}})));
 public
   Basics.Interfaces.EyeOut       eye if showData annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
@@ -122,7 +124,7 @@ protected
     redeclare model Hydraulics = Hydraulics,
     redeclare model Energetics = Energetics) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 pumpFluidVolume(
+  Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 pumpFluidVolume(
     medium=medium,
     useHomotopy=useHomotopy,
     m_flow_nom=m_flow_nom,
@@ -132,7 +134,7 @@ protected
     p_start=p_start,
     showExpertSummary=showExpertSummary,
     redeclare model PressureLoss = PressureLoss,
-    redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry,
+    redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry (volume=volume_fluid),
     initOption=initOption) annotation (Placement(transformation(extent={{24,-10},{44,10}})));
 public
   Summary summary(
@@ -214,7 +216,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

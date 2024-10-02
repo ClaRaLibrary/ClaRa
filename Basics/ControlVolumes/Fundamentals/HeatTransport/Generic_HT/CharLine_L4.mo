@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT;
 model CharLine_L4 "Medium independent || Characteristic Line"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -36,7 +36,7 @@ model CharLine_L4 "Medium independent || Characteristic Line"
   Units.Temperature Delta_T_l[iCom.N_cv] "Lower temperature difference";
 protected
   Real alpha_corr_u[iCom.N_cv];
-  ClaRa.Components.Utilities.Blocks.ParameterizableTable1D table_block(table=PL_alpha, columns=fill(2,iCom.N_cv));
+  Modelica.Blocks.Tables.CombiTable1Dv table_block(table=PL_alpha, columns=fill(2,iCom.N_cv));
 equation
     if temperatureDifference == "Logarithmic mean" then
       if m_flow[1] > 0 then
@@ -105,7 +105,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

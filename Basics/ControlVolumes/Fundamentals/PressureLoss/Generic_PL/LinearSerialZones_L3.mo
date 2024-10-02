@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL;
 model LinearSerialZones_L3 "All geo | L3 || linear | serial zones | nominal point"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -16,8 +16,8 @@ model LinearSerialZones_L3 "All geo | L3 || linear | serial zones | nominal poin
 //__________________________________________________________________________//
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L3(final hasPressureLoss=true);
-  extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeType_L3;
-  extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellType_L3;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeTypeVLE_L3;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellTypeVLE_L3;
   //
   //   parameter SI.Pressure Delta_p_nom[iCom.N_inlet]=ones(iCom.N_inlet)*1000
   //     "Nominal ressure loss";
@@ -34,7 +34,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

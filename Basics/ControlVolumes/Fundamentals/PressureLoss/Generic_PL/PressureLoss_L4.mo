@@ -3,6 +3,7 @@ partial model PressureLoss_L4 "VLE || PL Base Class"
   extends ClaRa.Basics.Icons.Delta_p;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseVLE_L4;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseGas_L4;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseLiquid_L4;
   outer parameter Boolean frictionAtInlet;
   outer parameter Boolean frictionAtOutlet;
   import SI = ClaRa.Basics.Units;
@@ -24,7 +25,7 @@ partial model PressureLoss_L4 "VLE || PL Base Class"
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

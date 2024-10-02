@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model TestCheckValveOpenLeakage
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -18,7 +18,7 @@ model TestCheckValveOpenLeakage
 
  import SM = ClaRa.Basics.Functions.Stepsmoother;
 Real a;
-  inner SimCenter simCenter(useHomotopy=false, redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{-92,-194},{-72,-174}})));
+  inner SimCenter simCenter(useHomotopy=false, redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{-92,-194},{-72,-174}})));
 
   Modelica.Blocks.Sources.Ramp pulse(
     height=2e5,

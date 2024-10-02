@@ -1,10 +1,10 @@
 within ClaRa.StaticCycles.Furnace;
 model FlameRoom3 "Fixed fluid outlet temperature | blue | blue || brown | brown"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -242,7 +242,7 @@ model FlameRoom3 "Fixed fluid outlet temperature | blue | blue || brown | brown"
       p_fg_out,
       T_fg_out,
       xi_fg_out) " FG medium's outlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.Temperature T_fg_out(fixed=false) "FG medium's outlet temperature";
+  final parameter ClaRa.Basics.Units.Temperature T_fg_out(fixed=false, start=293.15) "FG medium's outlet temperature";
   final parameter ClaRa.Basics.Units.MassFraction xi_fg_out[outletGas.flueGas.nc - 1]=xi_fg_in "FG medium's outlet composition";
   final parameter ClaRa.Basics.Units.Pressure p_fg_out(fixed=false) "FG medium's outlet pressure";
 
@@ -324,7 +324,7 @@ initial equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -2,10 +2,10 @@ within ClaRa.Components.MechanicalSeparation.Check;
 model TestSeparator_L3 "Check of normal operation and dry operation (Benson operation) is supported"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -35,11 +35,13 @@ model TestSeparator_L3 "Check of normal operation and dry operation (Benson oper
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow boundaryVLE_hxim_flow(variable_m_flow=true, variable_h=true,
     showData=true)                                                                                                     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi boundaryVLE_phxi(variable_p=true) annotation (Placement(transformation(extent={{-38,74},{-18,94}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=40, Delta_p_nom=3e5)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                        m_flow_nom=40, Delta_p_nom=3e5)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={0,70})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(openingInputIsActive=true, redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=3e5, m_flow_nom=40)) annotation (Placement(transformation(
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(openingInputIsActive=true, redeclare model PressureLoss =
+        VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                                                   Delta_p_nom=3e5, m_flow_nom=40)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={0,-48})));
@@ -80,11 +82,13 @@ model TestSeparator_L3 "Check of normal operation and dry operation (Benson oper
     showData=true)                                                                                                     annotation (Placement(transformation(extent={{130,0},{150,20}})));
   BoundaryConditions.BoundaryVLE_phxi                  boundaryVLE_phxi2(
                                                                         variable_p=true) annotation (Placement(transformation(extent={{154,74},{174,94}})));
-  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_3(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=40, Delta_p_nom=3e5)) annotation (Placement(transformation(
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_3(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                       m_flow_nom=40, Delta_p_nom=3e5)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=90,
         origin={194,70})));
-  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_4(openingInputIsActive=true, redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=3e5, m_flow_nom=100)) annotation (Placement(transformation(
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_4(openingInputIsActive=true, redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                                  Delta_p_nom=3e5, m_flow_nom=100)) annotation (Placement(transformation(
         extent={{-10,-6},{10,6}},
         rotation=270,
         origin={192,-48})));

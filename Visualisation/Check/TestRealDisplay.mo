@@ -23,8 +23,7 @@ equation
 <b>Acknowledgements:</b>
 <p>This model contribution is sponsored by Lausitz Energie Kraftwerke AG.</p>
 
-<p><a href=\"http://
-<a href=\"http://www.leag.de\">www.leag.de</a> </p>
+<p><a href=\"http://www.leag.de\">www.leag.de</a> </p>
 <p><b>CLA:</b> </p>
 <p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
 <p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>
@@ -59,5 +58,6 @@ equation
 </table>
 <p>Version means first ClaRa version where the applied change was published.</p>
 </body>
-</html>"),Icon(graphics, coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
+</html>"),Icon(graphics, coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=1, __Dymola_Algorithm="Dassl"));
 end TestRealDisplay;

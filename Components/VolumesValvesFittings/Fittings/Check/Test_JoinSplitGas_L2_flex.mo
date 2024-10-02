@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_JoinSplitGas_L2_flex
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -91,7 +91,7 @@ equation
       color={118,106,98},
       thickness=0.5));
   connect(source2.gas_a, joinGas_L2_flex.inlet[3]) annotation (Line(
-      points={{-54,14},{-8,14},{-8,14.6667}},
+      points={{-54,14},{-8,14},{-8,14.3333}},
       color={118,106,98},
       thickness=0.5));
   connect(source1.gas_a, joinGas_L2_flex.inlet[2]) annotation (Line(
@@ -99,7 +99,7 @@ equation
       color={118,106,98},
       thickness=0.5));
   connect(source3.gas_a, joinGas_L2_flex.inlet[1]) annotation (Line(
-      points={{-54,58},{-34,58},{-34,14},{-8,14},{-8,14},{-8,14},{-8,13.3333},{-8,13.3333}},
+      points={{-54,58},{-34,58},{-34,14},{-8,14},{-8,14},{-8,14},{-8,13.6667},{-8,13.6667}},
       color={118,106,98},
       thickness=0.5));
   connect(sink1.gas_a, splitGas_L2_flex.inlet) annotation (Line(
@@ -111,11 +111,11 @@ equation
       color={118,106,98},
       thickness=0.5));
   connect(splitGas_L2_flex.outlet[3], source6.gas_a) annotation (Line(
-      points={{10,-59.3333},{10,-60},{10,-60},{10,-60},{10,-60},{26,-60},{26,-16},{46,-16}},
+      points={{10,-59.6667},{10,-60},{10,-60},{10,-60},{10,-60},{26,-60},{26,-16},{46,-16}},
       color={118,106,98},
       thickness=0.5));
   connect(splitGas_L2_flex.outlet[1], source4.gas_a) annotation (Line(
-      points={{10,-60.6667},{28,-60},{46,-60}},
+      points={{10,-60.3333},{28,-60},{46,-60}},
       color={118,106,98},
       thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

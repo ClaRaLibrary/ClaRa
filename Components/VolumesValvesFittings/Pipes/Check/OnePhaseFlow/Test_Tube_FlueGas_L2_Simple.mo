@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
 model Test_Tube_FlueGas_L2_Simple
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -16,7 +16,7 @@ model Test_Tube_FlueGas_L2_Simple
 //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   inner SimCenter simCenter(
-    redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1,
+    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
     redeclare ClaRa.Basics.Media.Fuel.Coal_Reference fuelModel1,
     redeclare ClaRa.Basics.Media.Slag.Slag_v2 slagModel,
     redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel) annotation (Placement(transformation(extent={{70,76},{90,96}})));

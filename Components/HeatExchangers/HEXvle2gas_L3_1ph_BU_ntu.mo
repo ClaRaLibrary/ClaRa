@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2gas_L3_1ph_BU_ntu "VLE 2 gas | L3 | 1 phase on each side | Block shape | U-type | NTU ansatz"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -94,7 +94,8 @@ model HEXvle2gas_L3_1ph_BU_ntu "VLE 2 gas | L3 | 1 phase on each side | Block sh
     annotation (Dialog(tab="Tubes", group="Fundamental Definitions"), choicesAllMatching);
   replaceable model HeatTransferTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
-     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeType_L2 "Heat transfer mode at the tubes side" annotation (Dialog(tab="Tubes",
+     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeTypeVLE_L2
+                                                                                      "Heat transfer mode at the tubes side" annotation (Dialog(tab="Tubes",
         group="Fundamental Definitions"), choicesAllMatching);
   replaceable model PressureLossTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
@@ -183,7 +184,7 @@ model HEXvle2gas_L3_1ph_BU_ntu "VLE 2 gas | L3 | 1 phase on each side | Block sh
         rotation=90,
         origin={30,0})));
 
-  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 tubes(
+  ClaRa.Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 tubes(
     medium=medium2,
     p_nom=p_nom2,
     h_nom=h_nom2,
@@ -193,8 +194,7 @@ model HEXvle2gas_L3_1ph_BU_ntu "VLE 2 gas | L3 | 1 phase on each side | Block sh
     p_start=p_start_tubes,
     redeclare model HeatTransfer = HeatTransferTubes,
     redeclare model PressureLoss = PressureLossTubes,
-    redeclare model PhaseBorder =
-        ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
+    redeclare model PhaseBorder = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
     showExpertSummary=showExpertSummary,
     redeclare model Geometry = Basics.ControlVolumes.Fundamentals.Geometry.PipeGeometry (
         z_in={z_in_tubes},
@@ -314,7 +314,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

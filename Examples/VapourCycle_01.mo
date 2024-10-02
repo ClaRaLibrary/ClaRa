@@ -21,7 +21,8 @@ model VapourCycle_01 "A closed vapour cycle using discretised plate heat exchang
         rotation=90,
         origin={60,-18})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=2000) annotation (Placement(transformation(extent={{98,-28},{78,-8}})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.QuadraticNominalPoint (
         Delta_p_nom=40e5,
         rho_in_nom=920,
         m_flow_nom=0.044)) annotation (Placement(transformation(

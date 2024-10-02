@@ -2,21 +2,19 @@ within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_1ph_kA
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
-
-
+  // Component of the ClaRa library, version: 1.8.2                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2024, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
  extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   HEXvle2vle_L3_1ph_kA hEXvle2vle_L3_1ph_BU_ntu(
@@ -39,8 +37,8 @@ model Test_HEXvle2vle_L3_1ph_kA
     z_in_tubes=7,
     z_out_tubes=0.1,
     tubesLimitHeatFlow=false,
-    initOptionShell=1,
-    initOptionTubes=1,
+    initOptionShell=0,
+    initOptionTubes=0,
     initOptionWall=1) annotation (Placement(transformation(extent={{-2,-76},{18,-56}})));
 
   Sensors.SensorVLE_L1_T Temp_Shell_in annotation (Placement(transformation(extent={{16,2},{36,22}})));
@@ -92,7 +90,7 @@ model Test_HEXvle2vle_L3_1ph_kA
     startTime=10000,
     height=-200e3)
     annotation (Placement(transformation(extent={{140,-72},{120,-52}})));
-  inner SimCenter simCenter(useHomotopy=true, redeclare TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  inner SimCenter simCenter(useHomotopy=true, redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Visualisation.Hexdisplay_3 hexdisplay_3_1(
     T_o={hEXvle2vle_L3_1ph_BU_ntu.shell.summary.inlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T},
     T_i={hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.inlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T},

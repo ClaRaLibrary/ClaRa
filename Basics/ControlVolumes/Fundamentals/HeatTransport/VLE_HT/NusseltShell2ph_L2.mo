@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
 model NusseltShell2ph_L2 "Shell Geo, Horizontal Piping || L2 || HTC || Nusselt || 2ph"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -17,12 +17,12 @@ model NusseltShell2ph_L2 "Shell Geo, Horizontal Piping || L2 || HTC || Nusselt |
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L2;
   //extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferVLE;
-  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellType_L2;
+  extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellTypeVLE_L2;
 
   outer ClaRa.SimCenter simCenter;
 //  outer parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium;
 
-  outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry geo;
+  outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinderWithTubes geo;
 
   // TILMedia VLEFluidFunctions
   import fluidFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificIsobaricHeatCapacity_phxi;
@@ -355,7 +355,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L2_chem "A 0-d control volume for flue gas with chemical reactions"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -20,7 +20,7 @@ model VolumeGas_L2_chem "A 0-d control volume for flue gas with chemical reactio
 
 // ***************************** defintion of medium used in cell *************************************************
 inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used in tubes"
-                                  annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+                                  annotation(choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
 
 // ************************* replacable models for heat transfer, pressure loss and geometry **********************
   replaceable model HeatTransfer =
@@ -29,7 +29,7 @@ inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Mediu
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching=true);
     replaceable model PressureLoss =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L2 "1st: choose pressure loss model | 2nd: edit corresponding record"
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseGas_L2 "1st: choose pressure loss model | 2nd: edit corresponding record"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching=true);
 
     replaceable model ChemicalReactions =
@@ -143,8 +143,8 @@ public
     input ClaRa.Basics.Units.Enthalpy H "Enthalpy inside volume" annotation (Dialog);
     input ClaRa.Basics.Units.DensityMassSpecific rho "Density inside volume" annotation (Dialog);
     input Units.HeatFlowRate Q_flow_reaction "Reaction heat" annotation (Dialog);
-    input Units.MassFlowRate m_flow_reaction[chemicalReactions.i] "Separated mass flow" annotation (Dialog);
-    input Units.EnthalpyMassSpecific h_reaction[chemicalReactions.i] "Enthalpy of separated mass flow" annotation (Dialog);
+    input Units.MassFlowRate m_flow_reaction[:] "Separated mass flow" annotation (Dialog);
+    input Units.EnthalpyMassSpecific h_reaction[:] "Enthalpy of separated mass flow" annotation (Dialog);
   end Outline;
 
 inner model Summary
@@ -154,7 +154,21 @@ inner model Summary
    ClaRa.Basics.Records.FlangeGas outlet;
 end Summary;
 
-inner Summary    summary(outline(volume_tot=geo.volume, A_heat=geo.A_heat[heatSurfaceAlloc], Q_flow_tot=heat.Q_flow, Delta_p=inlet.p-outlet.p, mass=mass, T=bulk.T, p=p, h=h, H=h*mass, rho=bulk.d, Q_flow_reaction=chemicalReactions.Q_flow_reaction, m_flow_reaction=chemicalReactions.m_flow_reaction,h_reaction=chemicalReactions.h_reaction),
+inner Summary    summary(
+    outline(
+      volume_tot=geo.volume,
+      A_heat=geo.A_heat[heatSurfaceAlloc],
+      Q_flow_tot=heat.Q_flow,
+      Delta_p=inlet.p - outlet.p,
+      mass=mass,
+      T=bulk.T,
+      p=p,
+      h=h,
+      H=h*mass,
+      rho=bulk.d,
+      Q_flow_reaction=chemicalReactions.Q_flow_reaction,
+      m_flow_reaction=chemicalReactions.m_flow_reaction,
+      h_reaction=chemicalReactions.h_reaction),
                    inlet(mediumModel=medium, m_flow=inlet.m_flow,  T=flueGasInlet.T, p=inlet.p, h=flueGasInlet.h, xi=flueGasInlet.xi, H_flow=inlet.m_flow*flueGasInlet.h),
                    outlet(mediumModel=medium, m_flow=-outlet.m_flow,  T=flueGasOutlet.T, p=outlet.p, h=flueGasOutlet.h, xi=flueGasOutlet.xi, H_flow=-outlet.m_flow*flueGasOutlet.h))
     annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
@@ -290,7 +304,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

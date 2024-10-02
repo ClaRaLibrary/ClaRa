@@ -1,10 +1,10 @@
 within ClaRa.Components.Control.PredictorModels_3508;
 model CoalSupplyBoiler_01_XRG "A simple coal supply and boiler model using characteristic lines and transfer functions"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -181,13 +181,6 @@ equation
       points={{15,-14},{30,-14},{30,-88},{70,-88}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(enthalpyPredictor.y, steamSignal.h_evap) annotation (Line(
-      points={{93,-88},{121.5,-88},{121.5,-60},{162,-60}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(heatRelease.y, m_StG_) annotation (Line(
       points={{-45,-14},{-40,-14},{-40,-110}},
       color={0,0,127},
@@ -199,7 +192,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

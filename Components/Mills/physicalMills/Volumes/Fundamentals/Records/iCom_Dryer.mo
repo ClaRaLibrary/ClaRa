@@ -1,7 +1,7 @@
 within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Records;
 record iCom_Dryer
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.0                            //
+  // Component of the ClaRa library, version: 1.8.2                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
   // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
@@ -35,7 +35,7 @@ record iCom_Dryer
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

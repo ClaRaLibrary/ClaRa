@@ -1,10 +1,10 @@
 within ClaRa.Components.MechanicalSeparation.Check;
 model TestFeedWaterTank_1Separator "test case to compare FeedWaterTank_1 and FeedWaterTank_3"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -17,8 +17,7 @@ model TestFeedWaterTank_1Separator "test case to compare FeedWaterTank_1 and Fee
 
  extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
-  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1, showExpertSummary=true)
-                                                                                            annotation (Placement(transformation(extent={{-100,-240},{-60,-220}})));
+  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, showExpertSummary=true) annotation (Placement(transformation(extent={{-100,-240},{-60,-220}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=1000,
     height=-5,
@@ -108,6 +107,7 @@ model TestFeedWaterTank_1Separator "test case to compare FeedWaterTank_1 and Fee
     z_vent=0.1,
     Tau_cond=0.001,
     z_tapping=0.2,
+    initOptionWall=213,
     redeclare model PressureLoss = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={2e5*423/14,1000*400/423,1000*23/423}),
     levelOutput=true,
     showLevel=true,

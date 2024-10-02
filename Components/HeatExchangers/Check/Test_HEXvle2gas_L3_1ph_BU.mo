@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2gas_L3_1ph_BU "Example 1 at page Ca 15 in VDI Waermeatlas, 9th edition "
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -41,8 +41,8 @@ model Test_HEXvle2gas_L3_1ph_BU "Example 1 at page Ca 15 in VDI Waermeatlas, 9th
     variable_xi=true) annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   inner SimCenter simCenter(
     useHomotopy=false,
-    redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1,
-    showExpertSummary=true)                                                         annotation (Placement(transformation(extent={{-100,-180},{-60,-160}})));
+    redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    showExpertSummary=true) annotation (Placement(transformation(extent={{-100,-180},{-60,-160}})));
   HEXvle2gas_L3_1ph_BU_ntu hex_ntu(
     length=1,
     height=1,
@@ -223,11 +223,13 @@ model Test_HEXvle2gas_L3_1ph_BU "Example 1 at page Ca 15 in VDI Waermeatlas, 9th
         rotation=180,
         origin={70,-134})));
   Visualisation.Quadruple quadruple3(largeFonts=false) annotation (Placement(transformation(extent={{24,-122},{46,-110}})));
-  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=10, Delta_p_nom=100)) annotation (Placement(transformation(extent={{56,-116},{76,-104}})));
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss =
+        VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                       m_flow_nom=10, Delta_p_nom=100)) annotation (Placement(transformation(extent={{56,-116},{76,-104}})));
   Sensors.SensorGas_L1_T gasTemperatureSensor_hex_ntu annotation (Placement(transformation(extent={{-10,-30},{-30,-8}})));
   Sensors.SensorGas_L1_T gasTemperatureSensor_hex_2ph annotation (Placement(transformation(extent={{-10,-150},{-30,-128}})));
   Sensors.SensorGas_L1_T gasTemperatureSensor_hex_simple annotation (Placement(transformation(extent={{-10,-90},{-30,-68}})));
-  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (m_flow_nom=10)) annotation (Placement(transformation(extent={{56,4},{76,16}})));
+  VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2(redeclare model PressureLoss =
+        VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                       m_flow_nom=10)) annotation (Placement(transformation(extent={{56,4},{76,16}})));
   BoundaryConditions.GasCompositionByMassFractions
     gasCompositionByMassFractions(
     xi_ASH=0,

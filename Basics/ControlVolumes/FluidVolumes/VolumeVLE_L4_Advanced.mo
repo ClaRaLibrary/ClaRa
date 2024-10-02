@@ -1,10 +1,10 @@
 within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L4_Advanced "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with detailed dynamic momentum and energy balance."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -225,11 +225,11 @@ protected
 
   Units.Pressure p[geo.N_cv](nominal=p_nom, start=p_start_internal) "Cell pressure";
 
-  Units.Pressure Delta_p_adv[geo.N_cv + 1] "Pressure difference due to the momentum of liquid flow";
-  Units.Pressure Delta_p_fric[geo.N_cv + 1](start=ones(geo.N_cv + 1)*100) "Pressure difference due to friction";
-  Units.Pressure Delta_p_grav[geo.N_cv + 1] "pressure drop due to gravity";
-  Units.Pressure Delta_p_inlet "pressure drop due to inlet";
-  Units.Pressure Delta_p_outlet "pressure drop due to outlet";
+  Units.PressureDifference Delta_p_adv[geo.N_cv + 1] "Pressure difference due to the momentum of liquid flow";
+  Units.PressureDifference Delta_p_fric[geo.N_cv + 1](start=ones(geo.N_cv + 1)*100) "Pressure difference due to friction";
+  Units.PressureDifference Delta_p_grav[geo.N_cv + 1] "pressure drop due to gravity";
+  Units.PressureDifference Delta_p_inlet "pressure drop due to inlet";
+  Units.PressureDifference Delta_p_outlet "pressure drop due to outlet";
 
 //____Mass and Density__________________________________________________________________________________________
 public
@@ -702,7 +702,7 @@ end if;
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

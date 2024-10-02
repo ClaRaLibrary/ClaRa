@@ -1,10 +1,10 @@
 within ClaRa.Components.FlueGasCleaning.Desulfurization;
 model Desulfurization_L2_ideal "Model for an idealised desulfurization with chalk washing"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -15,7 +15,8 @@ model Desulfurization_L2_ideal "Model for an idealised desulfurization with chal
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
 
-  extends ClaRa.Basics.ControlVolumes.GasVolumes.VolumeGas_L2_chem(redeclare model ChemicalReactions=SeparationModel, redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinder(diameter=4,length=10,z_in={0},z_out={10},orientation = ClaRa.Basics.Choices.GeometryOrientation.vertical,flowOrientation = ClaRa.Basics.Choices.GeometryOrientation.vertical));
+  extends ClaRa.Basics.ControlVolumes.GasVolumes.VolumeGas_L2_chem(redeclare model ChemicalReactions=SeparationModel, redeclare model Geometry =
+        ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowCylinder (                                                                                                                                        diameter=4,length=10,z_in={0},z_out={10},orientation = ClaRa.Basics.Choices.GeometryOrientation.vertical,flowOrientation = ClaRa.Basics.Choices.GeometryOrientation.vertical));
   extends ClaRa.Basics.Icons.Separator;
 parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
@@ -34,7 +35,7 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
   parameter Basics.Units.Length height=1 "Height of the component";
 
   Basics.Interfaces.EyeOutGas
-                           eyeOut(each medium=medium) annotation (Placement(transformation(extent={{100,-78},{106,-72}}),
+                           eyeOut(medium=medium) annotation (Placement(transformation(extent={{100,-78},{106,-72}}),
                                   iconTransformation(extent={{94,-86},{106,-74}})));
 protected
   Basics.Interfaces.EyeInGas
@@ -58,7 +59,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_Junction
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -100,7 +100,8 @@ model Test_Junction
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={-34,-54})));
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 flueGasValve_L1_2(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 flueGasValve_L1_2(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=3,
         A_cross=0.05,
         zeta=0.0002))
@@ -112,7 +113,8 @@ model Test_Junction
     redeclare model PressureLoss =
         ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L2)                 annotation (Placement(transformation(extent={{-42,-96},{-22,-76}})));
 
-  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 flueGasValve_L1_1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveGas_L1 flueGasValve_L1_1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.Quadratic_EN60534_compressible (
         paraOption=3,
         A_cross=0.01,
         zeta=0.0005))

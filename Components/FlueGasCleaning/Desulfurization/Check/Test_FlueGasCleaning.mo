@@ -1,4 +1,4 @@
-within ClaRa.Components.FlueGasCleaning.Desulfurization.Check;
+﻿within ClaRa.Components.FlueGasCleaning.Desulfurization.Check;
 model Test_FlueGasCleaning
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
@@ -8,8 +8,7 @@ model Test_FlueGasCleaning
     T_start=395.843,
     p_start=101800,
     redeclare model PressureLoss = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
-    initOption=0,
-    redeclare model ChemicalReactions = Basics.ControlVolumes.Fundamentals.ChemicalReactions.Desulfurization_L2) annotation (Placement(transformation(extent={{-30,24},{-10,44}})));
+    initOption=0) annotation (Placement(transformation(extent={{-30,24},{-10,44}})));
 
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T(
     m_flow_const=551.153,
@@ -18,7 +17,7 @@ model Test_FlueGasCleaning
   BoundaryConditions.BoundaryGas_pTxi gasSink_pT(
     xi_const={0,0,0.21,0.00099,0.7,0.0393,0,0.0367,0},
     p_const=101800,
-    T_const=293.15) annotation (Placement(transformation(extent={{26,24},{6,44}})));
+    T_const=293.15) annotation (Placement(transformation(extent={{52,24},{32,44}})));
   inner SimCenter simCenter(contributeToCycleSummary=true, redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel,
     showExpertSummary=true)                                                                                          annotation (Placement(transformation(extent={{68,68},{88,88}})));
   Denitrification.Denitrification_L2 deNOx(
@@ -29,7 +28,6 @@ model Test_FlueGasCleaning
     length=1,
     height=5,
     width=1,
-    redeclare model ChemicalReactions = Basics.ControlVolumes.Fundamentals.ChemicalReactions.Denitrification_L2 (separationRate=0.9),
     redeclare model SeparationModel = ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions.Denitrification_L2 (separationRate=0.9))
                                                                                                                                       annotation (Placement(transformation(extent={{14,-96},{34,-76}})));
   BoundaryConditions.BoundaryGas_Txim_flow                  idealGasFlowSource_XRG2(
@@ -58,7 +56,7 @@ model Test_FlueGasCleaning
   BoundaryConditions.BoundaryGas_pTxi                  idealGasPressureSink_XRG1(p_const=100000) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={62,-86})));
+        origin={88,-86})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperatureTop1(T=293.15)
                 annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -93,7 +91,10 @@ model Test_FlueGasCleaning
         origin={150,10})));
   E_Filter.E_Filter_L2                                                      e_Filter_dynamic(
     xi_start={0.0,0,0.73,0,0.065,0.036,0,0.13,0.0},
-    redeclare model PressureLoss = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.QuadraticNominalPoint_L2 (Delta_p_nom=100),
+
+    redeclare model PressureLoss = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.QuadraticNominalPoint_L2
+        (                                                                                                               Delta_p_nom=100),
+
     redeclare model HeatTransfer = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Adiabat_L2,
     height=5,
     width=2,
@@ -212,14 +213,13 @@ model Test_FlueGasCleaning
         10,
         3))         annotation (Placement(transformation(extent={{146,-148},{166,-128}})));
 
+  VolumesValvesFittings.Valves.GenericValveGas_L1 genericValveGas_L1(redeclare model PressureLoss = ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100, m_flow_nom=1000)) annotation (Placement(transformation(extent={{0,28},{20,40}})));
+  VolumesValvesFittings.Valves.GenericValveGas_L1 genericValveGas_L2(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100, m_flow_nom=1000)) annotation (Placement(transformation(extent={{42,-92},{62,-80}})));
+  VolumesValvesFittings.Valves.GenericValveGas_L1 genericValveGas_L3(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100, m_flow_nom=1000)) annotation (Placement(transformation(extent={{246,-188},{266,-176}})));
+  VolumesValvesFittings.Valves.GenericValveGas_L1 genericValveGas_L4(redeclare model PressureLoss = VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=100, m_flow_nom=1000)) annotation (Placement(transformation(extent={{246,-80},{266,-68}})));
 equation
   connect(gasFlowSource_T.gas_a, deSO_ideal_L1_1.inlet) annotation (Line(
       points={{-50,34},{-30,34}},
-      color={118,106,98},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(deSO_ideal_L1_1.outlet, gasSink_pT.gas_a) annotation (Line(
-      points={{-10,34},{6,34}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
@@ -234,11 +234,6 @@ equation
       smooth=Smooth.None));
   connect(idealGasFlowSource_XRG2.gas_a,deNOx. inlet) annotation (Line(
       points={{0,-86},{14,-86}},
-      color={118,106,98},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(deNOx.outlet,idealGasPressureSink_XRG1. gas_a) annotation (Line(
-      points={{34,-86},{52,-86}},
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
@@ -283,19 +278,9 @@ equation
       color={118,106,98},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(e_Filter_dynamic1.outlet, idealGasPressureSink2.gas_a) annotation (Line(
-      points={{236,-74},{280,-74}},
-      color={118,106,98},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(fixedTemperatureTop4.port, e_Filter_dynamic1.heat) annotation (Line(
       points={{160,-26},{226,-26},{226,-64}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(e_Filter_dynamic2.outlet, idealGasPressureSink3.gas_a) annotation (Line(
-      points={{236,-182},{280,-182}},
-      color={118,106,98},
-      thickness=0.5,
       smooth=Smooth.None));
   connect(fixedTemperatureTop5.port, e_Filter_dynamic2.heat) annotation (Line(
       points={{200,-120},{226,-120},{226,-172}},
@@ -315,6 +300,38 @@ equation
       color={167,25,48},
       thickness=0.5));
   connect(U_applied.y, e_Filter_dynamic2.U_input) annotation (Line(points={{201,-152},{208,-152},{218.6,-152},{218.6,-170.8}}, color={0,0,127}));
+  connect(deSO_ideal_L1_1.outlet, genericValveGas_L1.inlet) annotation (Line(
+      points={{-10,34},{0,34}},
+      color={118,106,98},
+      thickness=0.5));
+  connect(genericValveGas_L1.outlet, gasSink_pT.gas_a) annotation (Line(
+      points={{20,34},{32,34}},
+      color={118,106,98},
+      thickness=0.5));
+  connect(deNOx.outlet, genericValveGas_L2.inlet) annotation (Line(
+      points={{34,-86},{42,-86}},
+      color={118,106,98},
+      thickness=0.5));
+  connect(genericValveGas_L2.outlet, idealGasPressureSink_XRG1.gas_a) annotation (Line(
+      points={{62,-86},{78,-86}},
+      color={118,106,98},
+      thickness=0.5));
+  connect(e_Filter_dynamic2.outlet, genericValveGas_L3.inlet) annotation (Line(
+      points={{236,-182},{246,-182}},
+      color={118,106,98},
+      thickness=0.5));
+  connect(genericValveGas_L3.outlet, idealGasPressureSink3.gas_a) annotation (Line(
+      points={{266,-182},{280,-182}},
+      color={118,106,98},
+      thickness=0.5));
+  connect(e_Filter_dynamic1.outlet, genericValveGas_L4.inlet) annotation (Line(
+      points={{236,-74},{246,-74}},
+      color={118,106,98},
+      thickness=0.5));
+  connect(genericValveGas_L4.outlet, idealGasPressureSink2.gas_a) annotation (Line(
+      points={{266,-74},{280,-74}},
+      color={118,106,98},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-220},{320,100}},
         initialScale=0.1),     graphics={
                                 Text(
@@ -328,7 +345,9 @@ PURPOSE:
         Rectangle(
           extent={{-100,100},{320,-220}},
           lineColor={115,150,0},
-          lineThickness=0.5)}),           Commands(file="../../plot_DeSO.mos" "plot_DeSO"),
+
+          lineThickness=0.5)}),
+
     Icon(graphics,
          coordinateSystem(
         preserveAspectRatio=false,

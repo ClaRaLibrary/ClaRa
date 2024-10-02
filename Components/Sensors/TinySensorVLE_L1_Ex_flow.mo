@@ -2,10 +2,10 @@ within ClaRa.Components.Sensors;
 model TinySensorVLE_L1_Ex_flow "Sensor that calculates exergy flow"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -50,8 +50,10 @@ model TinySensorVLE_L1_Ex_flow "Sensor that calculates exergy flow"
         iconTransformation(extent={{50,-70},{70,-50}})));
 
 protected
-  TILMedia.VLEFluid_pT ambience(p=simCenter.p_amb, T=simCenter.T_amb) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  TILMedia.VLEFluid_pT ambience(
+    vleFluidType=medium,        p=simCenter.p_amb, T=simCenter.T_amb) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   TILMedia.VLEFluid_ph fluid(
+    vleFluidType=medium,
     p=inlet.p,
     h=noEvent(actualStream(inlet.h_outflow)),
     xi=noEvent(actualStream(inlet.xi_outflow)))
@@ -82,8 +84,7 @@ equation
 <b>Acknowledgements:</b>
 <p>This model contribution is sponsored by Lausitz Energie Kraftwerke AG.</p>
 
-<p><a href=\"http://
-<a href=\"http://www.leag.de\">www.leag.de</a> </p>
+<p><a href=\"http://www.leag.de\">www.leag.de</a> </p>
 <p><b>CLA:</b> </p>
 <p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
 <p>By agreeing to ClaRa CLA, version 1.0 the author has granted the ClaRa development team a permanent right to use and modify his initial contribution as well as to publish it or its modified versions under the 3-clause BSD License.</p>

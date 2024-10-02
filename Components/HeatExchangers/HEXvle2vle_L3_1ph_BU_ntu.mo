@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block shape | U-type | NTU Ansatz"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -57,7 +57,8 @@ model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block sh
 
   replaceable model HeatTransfer_Shell =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellType_L2 "Heat transfer model at shell side"
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellTypeVLE_L2
+                                                                                      "Heat transfer model at shell side"
                                         annotation (Dialog(tab="Shell Side",
         group="Fundamental Definitions"), choicesAllMatching);
 
@@ -100,7 +101,8 @@ model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block sh
 
   replaceable model HeatTransferTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
-    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeType_L2 "Heat transfer mode at the tubes side"
+    constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeTypeVLE_L2
+                                                                                     "Heat transfer mode at the tubes side"
                                            annotation (Dialog(tab="Tubes",
         group="Fundamental Definitions"), choicesAllMatching);
   replaceable model PressureLossTubes =
@@ -192,15 +194,14 @@ model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block sh
         rotation=90,
         origin={30,0})));
 
-  Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 tubes(
+  Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 tubes(
     medium=medium_tubes,
     useHomotopy=useHomotopy,
     h_start=h_start_tubes,
     p_start=p_start_tubes,
     redeclare model HeatTransfer = HeatTransferTubes,
     redeclare model PressureLoss = PressureLossTubes,
-    redeclare model PhaseBorder =
-        ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
+    redeclare model PhaseBorder = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
     m_flow_nom=m_nom_tubes,
     p_nom=p_nom_tubes,
     h_nom=h_nom_tubes,
@@ -217,7 +218,7 @@ model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block sh
         rotation=90,
         origin={70,0})));
 
-  Basics.ControlVolumes.FluidVolumes.VolumeVLE_2 shell(
+  Basics.ControlVolumes.FluidVolumes.VolumeVLE_L2 shell(
     medium=medium_shell,
     redeclare model HeatTransfer = HeatTransfer_Shell,
     redeclare model PressureLoss = PressureLossShell,
@@ -227,8 +228,7 @@ model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block sh
     m_flow_nom=m_nom_shell,
     p_nom=p_nom_shell,
     h_nom=h_nom_shell,
-    redeclare model PhaseBorder =
-        ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
+    redeclare model PhaseBorder = ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.IdeallyStirred,
     showExpertSummary=showExpertSummary,
     redeclare model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes (
         z_out={z_out_shell},
@@ -347,7 +347,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

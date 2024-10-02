@@ -1,10 +1,10 @@
 within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model TestFuelSplit
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -30,7 +30,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(splitFuel_L1_flex.outlet[1], boundaryFuel_pTxi1.fuel_a) annotation (Line(
-      points={{8,-0.666667},{18,-0.666667},{18,50},{40,50}},
+      points={{8,-0.333333},{18,-0.333333},{18,50},{40,50}},
       color={27,36,42},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -40,7 +40,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=0.5));
   connect(splitFuel_L1_flex.outlet[3], boundaryFuel_pTxi2.fuel_a) annotation (Line(
-      points={{8,0.666667},{14,0.666667},{14,-2},{18,-2},{18,-82},{52,-82}},
+      points={{8,0.333333},{14,0.333333},{14,-2},{18,-2},{18,-82},{52,-82}},
       color={27,36,42},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -49,7 +49,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>
@@ -70,5 +70,6 @@ revisions=
 </body>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=1, __Dymola_Algorithm="Dassl"));
 end TestFuelSplit;

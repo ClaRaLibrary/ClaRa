@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block shape | U-type |"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -83,7 +83,8 @@ model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block
     annotation (Dialog(tab="Tubes", group="Fundamental Definitions"), choicesAllMatching);
   replaceable model HeatTransferTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3
-     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeType_L3 "Heat transfer mode at the tubes side" annotation (Dialog(tab="Tubes",
+     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeTypeVLE_L3
+                                                                                      "Heat transfer mode at the tubes side" annotation (Dialog(tab="Tubes",
         group="Fundamental Definitions"), choicesAllMatching);
   replaceable model PressureLossTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3
@@ -172,7 +173,7 @@ model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block
   ClaRa.Basics.Interfaces.GasPortOut Out1(Medium=medium1) "Outlet port"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-  Basics.ControlVolumes.FluidVolumes.VolumeVLE_3_TwoZones tubes(
+  Basics.ControlVolumes.FluidVolumes.VolumeVLE_L3_TwoZones tubes(
     medium=medium2,
     p_nom=p_nom2,
     m_flow_nom=m_nom2,
@@ -184,8 +185,7 @@ model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block
     level_rel_start=level_rel_start,
     h_liq_start=h_liq_start,
     h_vap_start=h_vap_start,
-    redeclare model Geometry =
-        Basics.ControlVolumes.Fundamentals.Geometry.PipeWithHotwell (
+    redeclare model Geometry = Basics.ControlVolumes.Fundamentals.Geometry.PipeWithHotwell (
         z_in={z_in_tubes},
         z_out={z_out_tubes},
         diameter=diameter_i,
@@ -195,14 +195,13 @@ model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block
         height_hotwell=height_hotwell,
         width_hotwell=width_hotwell,
         length_hotwell=length_hotwell),
-    redeclare model PhaseBorder =
-        Basics.ControlVolumes.Fundamentals.SpacialDistribution.RealSeparated,
+    redeclare model PhaseBorder = Basics.ControlVolumes.Fundamentals.SpacialDistribution.RealSeparated,
     Tau_cond=Tau_cond,
     Tau_evap=Tau_evap,
     alpha_ph=alpha_ph,
     expHT_phases=expHT_phases,
     A_heat_ph=A_phaseBorder,
-    initOption=initOptionTubes)  annotation (Placement(transformation(
+    initOption=initOptionTubes) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={70,0})));
@@ -275,13 +274,31 @@ public
         rotation=90,
         origin={33.5,0})));
 
-  Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then tubes.summary.outline.level_abs else tubes.summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
+//   Modelica.Blocks.Interfaces.RealOutput level = if outputAbs then tubes.summary.outline.level_abs else tubes.summary.outline.level_rel if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
+//         extent={{-10,-10},{10,10}},
+//         rotation=270,
+//         origin={80,-110})));
+
+
+  Modelica.Blocks.Interfaces.RealOutput level_abs_ = tubes.summary.outline.level_abs;
+  Modelica.Blocks.Interfaces.RealOutput level_rel_ = tubes.phaseBorder.level_rel;
+
+  Modelica.Blocks.Interfaces.RealOutput level if levelOutput annotation (Placement(transformation(extent={{204,-126},{224,-106}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,-110})));
+
+//   Modelica.Blocks.Sources.RealExpression level_abs_(y=tubes.summary.outline.level_abs);
+//   Modelica.Blocks.Sources.RealExpression level_rel_(y=tubes.phaseBorder.level_rel);
+
 equation
   assert(diameter_o > diameter_i,
     "Outer diameter of tubes must be greater than inner diameter");
+  if outputAbs then
+    connect(level_abs_, level);
+  else
+      connect(level_rel_, level);
+  end if;
 
   eye_int[1].m_flow = tubes.summary.outlet.m_flow;
   eye_int[1].T = tubes.summary.outlet.T - 273.15;
@@ -320,7 +337,7 @@ equation
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

@@ -9,7 +9,7 @@ record IComVLE_L3
   Units.MassFraction xi[N_cv,mediumModel.nc - 1] "Medium composition" annotation (Dialog(tab="System"));
   TILMedia.Internals.TILMediaExternalObject fluidPointer[N_cv] "|System||Fluid pointer of outlet ports" annotation(Dialog(tab="System"));
 
-  ClaRa.Basics.Units.Volume volume[N_cv] "|System||Volume of liquid and vapour zone" annotation (Dialog(tab="System"));
+//  ClaRa.Basics.Units.Volume volume[N_cv] "|System||Volume of liquid and vapour zone" annotation (Dialog(tab="System"));
   Units.EnthalpyMassSpecific h_in[N_inlet] "|Inlet||Fluid pointer of inlet ports" annotation (Dialog(tab="Inlet"));
   Units.EnthalpyMassSpecific h_out[N_outlet] "|Outlet||Fluid pointer of outlet ports" annotation (Dialog(tab="Outlet"));
 
@@ -20,7 +20,7 @@ annotation (Documentation(info="<html>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

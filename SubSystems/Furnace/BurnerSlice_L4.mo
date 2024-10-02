@@ -2,10 +2,10 @@ within ClaRa.SubSystems.Furnace;
 model BurnerSlice_L4 "Furnace slice of buner with cooled walls"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -138,6 +138,7 @@ model BurnerSlice_L4 "Furnace slice of buner with cooled walls"
         N_outlet=1,
         z_in={z_in_furnace},
         z_out={z_out_furnace},
+        height_fill=-1,
         height=abs(z_in_furnace - z_out_furnace),
         width=width_furnace,
         length=length_furnace,
@@ -258,8 +259,7 @@ annotation (Documentation(info="<html>
 <b>Acknowledgements:</b>
 <p>&nbsp;&nbsp;&nbsp;<img src=\"modelica://ClaRa/Resources/Images/Logos/LEAG.png\" height =27/> &nbsp;&nbsp; This model contribution is sponsored by Lausitz Energie Kraftwerke AG.</p>
 
-<p><a href=\"http://
-<a href=\"http://www.leag.de\">www.leag.de</a> </p>
+<p><a href=\"http://www.leag.de\">www.leag.de</a> </p>
 <p><b>CLA:</b> </p>
 <p>The author(s) have agreed to ClaRa CLA, version 1.0. See <a href=\"https://claralib.com/pdf/CLA.pdf\">https://claralib.com/pdf/CLA.pdf</a></p>
 </html>",

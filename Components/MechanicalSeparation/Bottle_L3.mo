@@ -175,7 +175,7 @@ model Bottle_L3 "A bottle"
     initOption=initOptionInsulation,
     T_start=T_startInsulation*ones(1)) if includeInsulation annotation (Placement(transformation(extent={{-10,56},{10,64}})));
   Modelica.Blocks.Sources.RealExpression heatFlowRatePrescribedAlpha(y=if includeInsulation then -alpha_prescribed*(length*Modelica.Constants.pi*(diameter_i + 2*thickness_wall + 2*thickness_insulation) + Modelica.Constants.pi*(diameter_i + 2*thickness_wall + 2*thickness_insulation)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb) else -alpha_prescribed*(length*Modelica.Constants.pi*(diameter_i + 2*thickness_wall) + Modelica.Constants.pi*(diameter_i + 2*thickness_wall)^2/4*2)*(prescribedHeatFlow.port[1].T - T_amb))
-                    if enableAmbientLosses==true annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+                                                 annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,120})));
   BoundaryConditions.PrescribedHeatFlow  prescribedHeatFlow(
@@ -184,7 +184,7 @@ model Bottle_L3 "A bottle"
     Delta_x=ClaRa.Basics.Functions.GenerateGrid(
         {0},
         length,
-        1))         if enableAmbientLosses==true annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        1))                                      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,92})));
 
@@ -246,20 +246,21 @@ equation
       connect(wall.outerPhase,insulation.innerPhase[1]);
       if enableAmbientLosses then
          connect(insulation.outerPhase[1],prescribedHeatFlow.port[1]);
-         connect(heatFlowRatePrescribedAlpha.y, prescribedHeatFlow.Q_flow);
+         //connect(heatFlowRatePrescribedAlpha.y, prescribedHeatFlow.Q_flow);
       end if;
     else
       if enableAmbientLosses then
          connect(wall.outerPhase,prescribedHeatFlow.port[1]);
-         connect(heatFlowRatePrescribedAlpha.y, prescribedHeatFlow.Q_flow);
+         //connect(heatFlowRatePrescribedAlpha.y, prescribedHeatFlow.Q_flow);
       end if;
     end if;
+  connect(heatFlowRatePrescribedAlpha.y, prescribedHeatFlow.Q_flow) annotation (Line(points={{-1.9984e-15,109},{-1.9984e-15,105.5},{1.88738e-15,105.5},{1.88738e-15,102}}, color={0,0,127}));
     annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

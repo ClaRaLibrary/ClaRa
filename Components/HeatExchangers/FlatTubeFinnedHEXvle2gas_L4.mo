@@ -1,10 +1,10 @@
 within ClaRa.Components.HeatExchangers;
 model FlatTubeFinnedHEXvle2gas_L4 "VLE 2 Gas | L4 | FlatTubeFinnedHEX"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
+// Component of the ClaRa library, version: 1.8.2                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
+// Copyright  2013-2024, ClaRa development team.                            //
 //                                                                          //
 // The ClaRa development team consists of the following partners:           //
 // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
@@ -279,8 +279,8 @@ model FlatTubeFinnedHEXvle2gas_L4 "VLE 2 Gas | L4 | FlatTubeFinnedHEX"
     N_pathes=N_tubes,
     T_start=T_w_tube_start,
     N_ax=N_cv_a,
-    each initOption=initOptionTubeWall,
-    each thickness_wall=thickness_tubeWall) annotation (Placement(transformation(extent={{-10,-8},{10,8}},
+    initOption=initOptionTubeWall,
+    thickness_wall=thickness_tubeWall) annotation (Placement(transformation(extent={{-10,-8},{10,8}},
         rotation=0,
         origin={0,60})));
 
@@ -293,8 +293,8 @@ model FlatTubeFinnedHEXvle2gas_L4 "VLE 2 Gas | L4 | FlatTubeFinnedHEX"
     N_pathes=if equalNumberOfPasses then N_tubes else N_tubes*N_passes,
     T_start=T_w_fin_start,
     N_ax=N_cv_b,
-    each initOption=initOptionFinWall,
-    each thickness_wall=s_f)                annotation (Placement(transformation(
+    initOption=initOptionFinWall,
+    thickness_wall=s_f)                annotation (Placement(transformation(
         extent={{-10,-8},{10,8}},
         rotation=0,
         origin={0,-60})));
@@ -342,23 +342,23 @@ public
         origin={-10,60})));
 
 equation
-  assert(integer(N_cv_a/N_passes_a)==N_cv_a/N_passes_a, "Number of cells per pass for flow_a must be a whole number but is "+String(N_cv_a/N_passes_a, significantDigits=3) + " in instance" + getInstanceName() + ".");
-  assert(integer(N_cv_b/N_passes_b)==N_cv_b/N_passes_b, "Number of cells per pass for flow_b must be a whole number but is "+String(N_cv_b/N_passes_b, significantDigits=3) + " in instance" + getInstanceName() + ".");
-  assert(if ((HeatExchangerType == 0 or HeatExchangerType == 1) and equalNumberOfPasses and N_cv_a>=N_cv_b) then integer(N_cv_a/N_cv_b)==N_cv_a/N_cv_b else true, "Number of cells for flow_a per number of cells for flow_b must be a whole number but is  "+String(N_cv_a/N_cv_b, significantDigits=3) + " in instance" + getInstanceName() + ".");
-  assert(if ((HeatExchangerType == 0 or HeatExchangerType == 1) and equalNumberOfPasses and N_cv_b>N_cv_a) then integer(N_cv_b/N_cv_a)==N_cv_b/N_cv_a else true, "Number of cells for flow_b per number of cells for flow_a must be a whole number but is  "+String(N_cv_b/N_cv_a, significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(mod(N_cv_a,N_passes_a)==0, "Number of cells per pass for flow_a must be a whole number but is "+String(N_cv_a/N_passes_a, significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(mod(N_cv_b,N_passes_b)==0, "Number of cells per pass for flow_b must be a whole number but is "+String(N_cv_b/N_passes_b, significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(if ((HeatExchangerType == 0 or HeatExchangerType == 1) and equalNumberOfPasses and N_cv_a>=N_cv_b) then mod(N_cv_a,N_cv_b)==0 else true, "Number of cells for flow_a per number of cells for flow_b must be a whole number but is  "+String(N_cv_a/N_cv_b, significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(if ((HeatExchangerType == 0 or HeatExchangerType == 1) and equalNumberOfPasses and N_cv_b>N_cv_a) then mod(N_cv_b,N_cv_a)==0 else true, "Number of cells for flow_b per number of cells for flow_a must be a whole number but is  "+String(N_cv_b/N_cv_a, significantDigits=3) + " in instance" + getInstanceName() + ".");
 //  assert(if ((HeatExchangerType == 0 or HeatExchangerType == 1) and not equalNumberOfPasses and (N_cv_a/N_passes_a)==N_cv_b) then integer(N_cv_a/N_passes_a)==N_cv_b else true, "Number of cells per pass for flow_a must be equal to number of cells for flow_b  "+String(N_cv_a/N_passes_a, significantDigits=3) + " in instance" + getInstanceName() + ".");
-  assert(if ((HeatExchangerType == 0 or HeatExchangerType == 1) and not equalNumberOfPasses and N_cv_b>(N_cv_a/N_passes_a)) then integer(N_cv_b/(N_cv_a/N_passes_a))>=2 and integer(N_cv_b/(N_cv_a/N_passes_a))==N_cv_b/(N_cv_a/N_passes_a) else true, "Number of cells for flow_b per number of cells per pass for flow_a must be whole number and equal or greater than 2"+String(N_cv_b/(N_cv_a/N_passes_a), significantDigits=3) + " in instance" + getInstanceName() + ".");
-  assert(if ((HeatExchangerType == 0 or HeatExchangerType == 1) and not equalNumberOfPasses and (N_cv_a/N_passes_a)>N_cv_b) then integer((N_cv_a/N_passes_a)/N_cv_b)>=2 and integer((N_cv_a/N_passes_a)/N_cv_b)==(N_cv_a/N_passes_a)/N_cv_b else true, "Number of cells per pass for flow_a per number of cells for flow_b must be whole number and equal or greater than 2"+String((N_cv_a/N_passes_a)/N_cv_b, significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(if ((HeatExchangerType == 0 or HeatExchangerType == 1) and not equalNumberOfPasses and N_cv_b>integer(N_cv_a/N_passes_a)) then integer(N_cv_b/(N_cv_a/N_passes_a))>=2 and mod(N_cv_b,integer(N_cv_a/N_passes_a))==0 else true, "Number of cells for flow_b per number of cells per pass for flow_a must be whole number and equal or greater than 2"+String(N_cv_b/(N_cv_a/N_passes_a), significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(if ((HeatExchangerType == 0 or HeatExchangerType == 1) and not equalNumberOfPasses and integer(N_cv_a/N_passes_a)>N_cv_b) then integer((N_cv_a/N_passes_a)/N_cv_b)>=2 and mod(integer(N_cv_a/N_passes_a),N_cv_b)==0 else true, "Number of cells per pass for flow_a per number of cells for flow_b must be whole number and equal or greater than 2"+String((N_cv_a/N_passes_a)/N_cv_b, significantDigits=3) + " in instance" + getInstanceName() + ".");
 //  assert(if (HeatExchangerType == 2 and not equalNumberOfPasses and N_passes_a==N_cv_b) then N_passes_a==N_cv_b else true, "Number of cells per pass for flow_a is equal to number of cells for flow_b"+String(N_passes_a, significantDigits=3) + " in instance" + getInstanceName() + ".");
-  assert(if (HeatExchangerType == 2 and not equalNumberOfPasses and N_cv_b>N_passes_a) then integer(N_cv_b/N_passes_a)>=2 and integer(N_cv_b/N_passes_a)==N_cv_b/N_passes_a else true, "Number of cells for flow_b per number of cells per pass for flow_a must be whole number and equal or greater than 2"+String(N_cv_b/N_passes_a, significantDigits=3) + " in instance" + getInstanceName() + ".");
-  assert(if (HeatExchangerType == 2 and not equalNumberOfPasses and N_passes_a>N_cv_b) then integer(N_passes_a/N_cv_b)>=2 and integer(N_passes_a/N_cv_b)==N_passes_a/N_cv_b else true, "Number of cells per pass for flow_a per number of cells for flow_b must be whole number and equal or greater than 2"+String(N_passes_a/N_cv_b, significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(if (HeatExchangerType == 2 and not equalNumberOfPasses and N_cv_b>N_passes_a) then integer(N_cv_b/N_passes_a)>=2 and mod(N_cv_b,N_passes_a)==0 else true, "Number of cells for flow_b per number of cells per pass for flow_a must be whole number and equal or greater than 2"+String(N_cv_b/N_passes_a, significantDigits=3) + " in instance" + getInstanceName() + ".");
+  assert(if (HeatExchangerType == 2 and not equalNumberOfPasses and N_passes_a>N_cv_b) then integer(N_passes_a/N_cv_b)>=2 and mod(N_passes_a,N_cv_b)==0 else true, "Number of cells per pass for flow_a per number of cells for flow_b must be whole number and equal or greater than 2"+String(N_passes_a/N_cv_b, significantDigits=3) + " in instance" + getInstanceName() + ".");
 
   connect(eye_int2,eye2)  annotation (Line(points={{-86,-80},{-102,-80}},            color={190,190,190}));
   connect(eye_int1,eye1)  annotation (Line(points={{86,80},{102,80}},                    color={190,190,190}));
 
    eye_int1.m_flow=-flow_a.outlet.m_flow;
    eye_int1.T=flow_a.summary.outlet.T-273.15;
-   eye_int1.s=flow_a.summary.outlet.s/1000;
+   eye_int1.s=flow_a.fluidOutlet.s/1000;
    eye_int1.h=flow_a.summary.outlet.h/1000;
    eye_int1.p=flow_a.summary.outlet.p/100000;
 

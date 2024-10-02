@@ -26,12 +26,15 @@ record IComBase_L3
   parameter Units.MassFlowRate m_flow_nom=1 "Nominal mass flow" annotation (Dialog(tab="Nominal"));
   parameter Units.EnthalpyMassSpecific h_nom=1e4 "Nominal enthalpy" annotation (Dialog(tab="Nominal"));
   parameter Units.MassFraction xi_nom[:]={1} "Nominal mass fraction" annotation (Dialog(tab="Nominal"));
+
+//____System_____________________________________________________________________________
+  ClaRa.Basics.Units.Volume volume[N_cv] "|System||Volume of liquid and vapour zone" annotation (Dialog(tab="System"));
 annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
 <p>&nbsp;</p>
 <p><br><b><span style=\"font-size: 10pt;\">Authorship and Copyright Statement for original (initial) Contribution</span></b></p>
 <p><b>Author:</b> </p>
-DYNCAP/DYNSTART development team, Copyright &copy; 2011-2022.</p>
+DYNCAP/DYNSTART development team, Copyright &copy; 2011-2024.</p>
 <p><b>References:</b> </p>
 <p> For references please consult the html-documentation shipped with ClaRa. </p>
 <p><b>Remarks:</b> </p>

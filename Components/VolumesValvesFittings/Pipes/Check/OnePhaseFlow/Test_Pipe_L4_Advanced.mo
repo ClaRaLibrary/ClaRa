@@ -1,20 +1,20 @@
 within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
 model Test_Pipe_L4_Advanced
-//__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.0                           //
-//                                                                          //
-// Licensed by the ClaRa development team under the 3-clause BSD License.   //
-// Copyright  2013-2022, ClaRa development team.                            //
-//                                                                          //
-// The ClaRa development team consists of the following partners:           //
-// TLK-Thermo GmbH (Braunschweig, Germany),                                 //
-// XRG Simulation GmbH (Hamburg, Germany).                                  //
-//__________________________________________________________________________//
-// Contents published in ClaRa have been contributed by different authors   //
-// and institutions. Please see model documentation for detailed information//
-// on original authorship and copyrights.                                   //
-//__________________________________________________________________________//
 
+//__________________________________________________________________________//
+  // Component of the ClaRa library, version: 1.8.2                           //
+  //                                                                          //
+  // Licensed by the ClaRa development team under the 3-clause BSD License.   //
+  // Copyright  2013-2024, ClaRa development team.                            //
+  //                                                                          //
+  // The ClaRa development team consists of the following partners:           //
+  // TLK-Thermo GmbH (Braunschweig, Germany),                                 //
+  // XRG Simulation GmbH (Hamburg, Germany).                                  //
+  //__________________________________________________________________________//
+  // Contents published in ClaRa have been contributed by different authors   //
+  // and institutions. Please see model documentation for detailed information//
+  // on original authorship and copyrights.                                   //
+  //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   Modelica.Blocks.Math.MultiSum multiSum(nu=2) annotation (Placement(
@@ -28,8 +28,8 @@ model Test_Pipe_L4_Advanced
     h_const=200e3,
     m_flow_nom=0,
     variable_h=true,
-    p_nom=1000) annotation (Placement(transformation(extent={{60,-69},{40,-49}})));
-  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_InterpolatedWater fluid1, useHomotopy=true) annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
+    p_nom=100000) annotation (Placement(transformation(extent={{60,-69},{40,-49}})));
+  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, useHomotopy=true) annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
   PipeFlowVLE_L4_Advanced tube(
     z_in=0,
     z_out=0,
@@ -46,7 +46,7 @@ model Test_Pipe_L4_Advanced
     p_start=ones(tube.N_cv)*1e5,
     suppressHighFrequencyOscillations=true,
     frictionAtOutlet=true,
-    frictionAtInlet=true,
+    frictionAtInlet= false,
     initOption=0,
     m_flow_start=ones(tube.geo.N_cv + 1)*200)
                   annotation (Placement(transformation(extent={{14,-64},{-14,-54}})));
