@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model IdeallySeparated "Separation | Ideal | outlet states depending on filling Level | All geometries"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -47,28 +47,28 @@ protected
 
 equation
   //_________________________Required Media Data__________________________________
-  h_dew = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi(
+  h_dew =TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.dewSpecificEnthalpy_pxi(
     iCom.p_bulk,
     iCom.xi_bulk,
     iCom.fluidPointer_bulk);
-  h_bubble = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi(
+  h_bubble =TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.bubbleSpecificEnthalpy_pxi(
     iCom.p_bulk,
     iCom.xi_bulk,
     iCom.fluidPointer_bulk);
-  rho_dew = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewDensity_pxi(
+  rho_dew =TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.dewDensity_pxi(
     iCom.p_bulk,
     iCom.xi_bulk,
     iCom.fluidPointer_bulk);
-  rho_bubble = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleDensity_pxi(
+  rho_bubble =TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.bubbleDensity_pxi(
     iCom.p_bulk,
     iCom.xi_bulk,
     iCom.fluidPointer_bulk);
-  rho_bulk = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
+  rho_bulk =TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi(
     iCom.p_bulk,
     iCom.h_bulk,
     iCom.xi_bulk,
     iCom.fluidPointer_bulk);
-  steamQuality_bulk = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi(
+  steamQuality_bulk =TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.steamMassFraction_phxi(
     iCom.p_bulk,
     iCom.h_bulk,
     iCom.xi_bulk,

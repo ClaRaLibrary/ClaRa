@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.HeatExchanger;
+﻿within ClaRa.StaticCycles.HeatExchanger;
 model Preheater_twoShell "Two cascade preheater || bubble state at shell outlets || par.: shell pressures, shell m_flows"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -56,10 +56,11 @@ model Preheater_twoShell "Two cascade preheater || bubble state at shell outlets
      h=h_tap2_out,
      p=p_tap2));
   //---------Summary Definition---------
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid vleMedium = simCenter.fluid1 "Medium in the component" annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid vleMedium=simCenter.fluid1 "Medium in the component" annotation (
+      choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Pressure p_tap1=1e5 "|Fundamental Definitions|Pressure of heating steam 1";
   parameter ClaRa.Basics.Units.Pressure p_tap2=1e5 "|Fundamental Definitions|Pressure of heating steam 2";
 
@@ -70,8 +71,8 @@ model Preheater_twoShell "Two cascade preheater || bubble state at shell outlets
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap1_in(fixed=false) "Spec. enthalpy at tapping 1 inlet";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap2_in(fixed=false) "Spec. enthalpy at tapping 2 inlet";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_in(fixed=false) "Spec. enthalpy at condensate inlet";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap1_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_tap1) "Spec. enthalpy of condensed tapping 1";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap2_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_tap2) "Spec. enthalpy of condensed tapping 2";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap1_out=TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     vleMedium, p_tap1) "Spec. enthalpy of condensed tapping 1";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_tap2_out=TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     vleMedium, p_tap2) "Spec. enthalpy of condensed tapping 2";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_out=(m_flow_tap2*h_tap2_in + m_flow_tap1*h_tap1_in + h_cond_in*m_flow_cond)/(m_flow_tap1 + m_flow_tap2 + m_flow_cond) "Spec. enthalpy ar condensate outlet";
   Fundamentals.SteamSignal_blue_a cond_in(p=p_cond, Medium=vleMedium) annotation (Placement(transformation(extent={{-110,-10},{-100,10}}), iconTransformation(extent={{-110,-10},{-100,10}})));
   Fundamentals.SteamSignal_blue_b cond_out(m_flow=m_flow_cond, h=h_cond_out, Medium=vleMedium) annotation (Placement(transformation(extent={{100,-10},{110,10}}), iconTransformation(extent={{100,-10},{110,10}})));

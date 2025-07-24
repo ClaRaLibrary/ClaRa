@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model Mixer4 "Mixer || yellow | yellow | yellow"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -41,7 +41,7 @@ model Mixer4 "Mixer || yellow | yellow | yellow"
      p=p));
   //---------Summary Definition---------
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component";
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component";
   parameter Real splitRatio = 0.5 "m_flow_1 / (m_flow_1 + m_flow_2)";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h1(fixed=false) "Specific enthalpy of flow 1";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h2(fixed=false) "Specific enthalpy of flow 2";

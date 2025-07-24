@@ -1,7 +1,7 @@
-within ClaRa.Visualisation.Check;
+﻿within ClaRa.Visualisation.Check;
 model IllustrateVisualisation
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -21,7 +21,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
     annotation (Placement(transformation(extent={{12,-36},{42,-26}})));
   ClaRa.Visualisation.DynDisplay dynDisplay(
     varname="pipe density",
-    x1=pipe.fluidOutlet.d,
+    x1=pipe.summary.outlet.rho,
     unit="kg/m^3",
     decimalSpaces=2)
     annotation (Placement(transformation(extent={{-62,14},{-42,34}})));

@@ -1,9 +1,9 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorVLE_L1_p "Ideal TINY one port pressure sensor"
   //This model douplicates the respective ClaRa sensor changing its icon size //
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -31,7 +31,7 @@ model TinySensorVLE_L1_p "Ideal TINY one port pressure sensor"
   ClaRa.Basics.Interfaces.FluidPortIn port(Medium=medium) annotation (Placement(
         transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1
     annotation (Placement(transformation(extent={{42,-2},{62,18}})));
 equation
   if unitOption==1 then

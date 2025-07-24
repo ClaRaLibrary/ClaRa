@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector EyeIn "Signal bus featuring pressure, specific enthalpy, temperature, specific entropy and mass flow rate"
   import SI = ClaRa.Basics.Units;
    input Real p "Pressure in bar" annotation(HideResult=false);

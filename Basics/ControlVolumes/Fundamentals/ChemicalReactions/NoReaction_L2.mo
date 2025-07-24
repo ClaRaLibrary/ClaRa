@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model NoReaction_L2 "Gas || L2 || No Chemical Reactions"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -26,7 +26,11 @@ equation
   //No auxillary step
   xi_aux=iCom.xi_in;
   m_flow_aux=iCom.m_flow_in;
-  h_aux=TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
+  h_aux=TILMedia.Gas.ObjectFunctions.specificEnthalpy_pTxi(
+    iCom.p_in,
+    iCom.T_in,
+    iCom.xi_in,
+    iCom.fluidPointer_in);
 
   if use_dynamicMassbalance then
      der(xi) =

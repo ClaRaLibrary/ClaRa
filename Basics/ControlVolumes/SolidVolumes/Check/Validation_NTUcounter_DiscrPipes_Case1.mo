@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discretized tube models || counter current || evaporating inner side ||H2O"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,8 +18,8 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   import SI = ClaRa.Basics.Units;
-  import fluidObjectFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
-  import fluidObjectFunction_h_dew = TILMedia.VLEFluidObjectFunctions.vapourSpecificEnthalpy_phxi;
+  import fluidObjectFunction_cp = TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.specificIsobaricHeatCapacity_phxi;
+  import fluidObjectFunction_h_dew = TILMedia.VLEFluid.ObjectFunctions.vapourSpecificEnthalpy_phxi;
 
   parameter Units.Temperature T_i_in=100 + 273.15 "Temperature of cold side";
   parameter Units.Temperature T_o_in=300 + 273.15 "Temperature of hot side";
@@ -41,17 +41,17 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   parameter Integer N_cv=100;
   //400 "Number of Cells";
 
-  parameter Units.EnthalpyMassSpecific h_i_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
+  parameter Units.EnthalpyMassSpecific h_i_in=TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_pTxi(
       simCenter.fluid1,
       p_i,
       T_i_in);
-  parameter Units.EnthalpyMassSpecific h_o_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
+  parameter Units.EnthalpyMassSpecific h_o_in=TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_pTxi(
       simCenter.fluid1,
       p_o,
       T_o_in);
 
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_o[N_cv](each vleFluidType=simCenter.fluid1);
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_i[N_cv](each vleFluidType=simCenter.fluid1);
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid ptr_o[N_cv](each vleFluidType=simCenter.fluid1);
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid ptr_i[N_cv](each vleFluidType=simCenter.fluid1);
 
   Units.HeatFlowRate Q_flow_tot;
   Units.HeatCapacityMassSpecific cp_o_m;
@@ -62,7 +62,8 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   Units.HeatCapacityMassSpecific cp_i_[N_cv];
 
   Real x[N_cv];
-  Real val = TILMedia.VLEFluidObjectFunctions.vapourSpecificEnthalpy_phxi(pipe_InnerSide.summary.fluid.p[1],pipe_InnerSide.summary.fluid.h[1],noEvent(actualStream(pipe_InnerSide.inlet.xi_outflow[:])),ptr_i[1].vleFluidPointer);
+  Real val = TILMedia.VLEFluid.ObjectFunctions.vapourSpecificEnthalpy_phxi(
+                                                                          pipe_InnerSide.summary.fluid.p[1],pipe_InnerSide.summary.fluid.h[1],noEvent(actualStream(pipe_InnerSide.inlet.xi_outflow[:])),ptr_i[1].vleFluidPointer);
   //Real val = pipe_InnerSide.summary.fluid.h_dew[1];
   Integer Cell_hv "Zelle bei der Phasenwechsel auftritt";
   Integer Cells_hv_p1=Cell_hv + 1;
@@ -70,7 +71,7 @@ model Validation_NTUcounter_DiscrPipes_Case1 "Validation: NTU method vs. discret
   inner SimCenter simCenter(
     steamCycleAllowFlowReversal=true,
     useHomotopy=false,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1,
     showExpertSummary=true) annotation (Placement(transformation(extent={{116,74},{136,94}})));
 
   Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple pipe_OuterSide(

@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model Sensor1
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(

@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Solids;
+﻿within ClaRa.Basics.Media.Solids;
 model SteelX8CrNiTi18_10 "SteelX8CrNiTi18_10 - 1.4878"
    //Source: http://www.edelstahl-service-center.de/tl_files/ThyssenKrupp/PDF/Datenblaetter/1.4878.pdf;"
 

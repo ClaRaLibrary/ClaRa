@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Compressors.Check;
+﻿within ClaRa.Components.TurboMachines.Compressors.Check;
 model Test_CompressorGas_L1_stageStacked
 //___________________________________________________________________________//
 // Component of the ClaRa library, version: 0.1 alpha                        //
@@ -15,9 +15,8 @@ model Test_CompressorGas_L1_stageStacked
 // XRG Simulation GmbH (Hamburg, Germany).                                   //
 //___________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
-  inner SimCenter simCenter(
-    redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel, T_amb=293.15)
-                  annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  inner SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel, T_amb=293.15)
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CompressorGas_L1_stageStacked GasFanAdvanced(
     rpm_nom=3000,
     Tau_aux=0.000001,

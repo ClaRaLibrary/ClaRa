@@ -18,8 +18,10 @@ model Test_FlueGasCleaning
     xi_const={0,0,0.21,0.00099,0.7,0.0393,0,0.0367,0},
     p_const=101800,
     T_const=293.15) annotation (Placement(transformation(extent={{52,24},{32,44}})));
-  inner SimCenter simCenter(contributeToCycleSummary=true, redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel,
-    showExpertSummary=true)                                                                                          annotation (Placement(transformation(extent={{68,68},{88,88}})));
+  inner SimCenter simCenter(
+    contributeToCycleSummary=true,
+    redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel,
+    showExpertSummary=true) annotation (Placement(transformation(extent={{68,68},{88,88}})));
   Denitrification.Denitrification_L2 deNOx(
     useHomotopy=simCenter.useHomotopy,
     use_dynamicMassbalance=true,
@@ -345,8 +347,9 @@ PURPOSE:
         Rectangle(
           extent={{-100,100},{320,-220}},
           lineColor={115,150,0},
+          lineThickness=0.5)}
 
-          lineThickness=0.5)}),
+),
 
     Icon(graphics,
          coordinateSystem(

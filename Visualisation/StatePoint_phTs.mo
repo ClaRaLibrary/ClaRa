@@ -1,7 +1,7 @@
 ﻿within ClaRa.Visualisation;
 model StatePoint_phTs "Complete state definition for visualisation in ph, TS, hs-diagrams"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,8 +17,8 @@ model StatePoint_phTs "Complete state definition for visualisation in ph, TS, hs
 
   outer SimCenter simCenter;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium= simCenter.fluid1 "Medium to be used"
-                                                                                              annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Integer stateViewerIndex=0 "Index for StateViewer" annotation(Dialog(group="StateViewer Index"));
   ClaRa.Basics.Units.Pressure p "Pressure of state";
@@ -30,9 +30,10 @@ model StatePoint_phTs "Complete state definition for visualisation in ph, TS, hs
   ClaRa.Basics.Interfaces.FluidPortIn port(Medium=medium)
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph state(p=p,h=h,
-    vleFluidType =    medium)
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph state(
+    p=p,
+    h=h,
+    vleFluidType=medium) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
 equation
   h=inStream(port.h_outflow);

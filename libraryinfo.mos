@@ -6,7 +6,7 @@ LibraryInfoMenuCommand(
  category="libraries",
  text = "ClaRa",
  reference= "ClaRa",
- version="1.8.2",
+ version="1.9.0",
  isModel=true,
  description="Simulation of Clausius-Rankine Cycles",
  iconName="Resources/Images/ClaRa-Logo.png",

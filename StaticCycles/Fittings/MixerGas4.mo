@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model MixerGas4 "brown | green | brown"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,8 +17,8 @@ model MixerGas4 "brown | green | brown"
   // Brown input:   Value of xi is known in component and provided FOR neighbor component, values of p, T and m_flow are unknown and provided BY neighbor component.
   // Purple input: Values of m_flow, T and xi are unknown and provided BY neighbor, values of p are known and provided BY component
   // Brown output:  Value of p, T and m_flow are known in component and provided FOR neighbor component, value of xi is unknown and provided BY neighbor component.
-  import TILMedia.GasFunctions.specificEnthalpy_pTxi;
-  import TILMedia.GasFunctions.temperature_phxi;
+  import TILMedia.Gas.Functions.specificEnthalpy_pTxi;
+  import TILMedia.Gas.Functions.temperature_phxi;
   outer ClaRa.SimCenter simCenter;
 
        //---------Summary Definition---------
@@ -47,7 +47,8 @@ model MixerGas4 "brown | green | brown"
      xi=xi_out));
   //---------Summary Definition---------
 
-  parameter TILMedia.GasTypes.BaseGas gas = simCenter.flueGasModel "Flue gas model used in component" annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_in2(fixed = false) "Mass flow through inlet 2";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_out(fixed = false) "Mass flow at outlet 1";

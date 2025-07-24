@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model FlowAnchor
 
   annotation (Diagram(graphics,

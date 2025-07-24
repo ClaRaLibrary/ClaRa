@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
 model QuadraticNominalPoint_L4 "VLE|| Quadratic PL with const. PL coeff"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,11 +16,11 @@ model QuadraticNominalPoint_L4 "VLE|| Quadratic PL with const. PL coeff"
 //__________________________________________________________________________//
 
   import SI = ClaRa.Basics.Units;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi;
   import Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL.PressureLoss_L4;
 
-  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       iCom.mediumModel,
       iCom.p_nom,
       iCom.h_nom,

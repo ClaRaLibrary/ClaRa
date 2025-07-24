@@ -1,8 +1,8 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model Homogeneous_L4 "Both phases are in mechanical equilibrium"
     extends ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.MechanicalEquilibrium_L4;
 
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi;
 
   Units.DensityMassSpecific rho_mix[geo.N_cv] "Mixture density";
   Real S[geo.N_cv] "Slip between phases";

@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Solids;
+﻿within ClaRa.Basics.Media.Solids;
 model SteelX3CrNiMo17_13 "SteelX3CrNiMo17_13 - 1.4910"
   //source: https://www.tugraz.at/fileadmin/user_upload/Institute/IEP/Thermophysics_Group/Files/Staehle-Richter.pdf
 

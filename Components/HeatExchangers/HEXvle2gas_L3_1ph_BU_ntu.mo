@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2gas_L3_1ph_BU_ntu "VLE 2 gas | L3 | 1 phase on each side | Block shape | U-type | NTU ansatz"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -47,9 +47,8 @@ model HEXvle2gas_L3_1ph_BU_ntu "VLE 2 gas | L3 | 1 phase on each side | Block sh
 
   // Parameters and other user definable settings~
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter TILMedia.GasTypes.BaseGas medium1=simCenter.flueGasModel "Medium to be used for gas flow"
-    annotation (Dialog(tab="Shell Side",
-        group="Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.Gas.Types.BaseGas medium1=simCenter.flueGasModel "Medium to be used for gas flow"
+    annotation (Dialog(tab="Shell Side", group="Fundamental Definitions"), choicesAllMatching);
   replaceable model HeatTransfer_Shell =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas_only "Heat transfer model at shell side"  annotation (Dialog(tab="Shell Side",
@@ -90,7 +89,7 @@ model HEXvle2gas_L3_1ph_BU_ntu "VLE 2 gas | L3 | 1 phase on each side | Block sh
        choice=210 "Steady density"));
   parameter ClaRa.Basics.Units.MassFraction xi_shell_start[medium1.nc - 1]=medium1.xi_default "|Shell Side|Initialisation|Start value of shell mass fraction";
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium2=simCenter.fluid1 "Medium to be used for water/steam flow"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium2=simCenter.fluid1 "Medium to be used for water/steam flow"
     annotation (Dialog(tab="Tubes", group="Fundamental Definitions"), choicesAllMatching);
   replaceable model HeatTransferTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
@@ -134,8 +133,9 @@ model HEXvle2gas_L3_1ph_BU_ntu "VLE 2 gas | L3 | 1 phase on each side | Block sh
                                                                                               choice=201 "Steady pressure",
                                                                                               choice = 202 "Steady enthalpy"));
 
-  replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder"
     annotation (choicesAllMatching=true, Dialog(tab="Tube Wall", group="Fundamental Definitions"));
   parameter Integer initOptionWall=0 "Init Option of Wall"
     annotation (Dialog(tab="Tube Wall", group="Initialisation"), choices(

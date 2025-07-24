@@ -1,7 +1,7 @@
-within ClaRa.Components.Furnace.FlameRoom;
+﻿within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoomWithTubeBundle_L2_Static "Model for a combustion chamber section with inner tube bundle heating surfaces"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -83,9 +83,11 @@ inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy met
                                                               annotation(Dialog(tab="Initialisation"));
   ClaRa.Basics.Units.EnthalpyMassSpecific h_flueGas_out_del "Gas outlet specific enthalpy - delayed";
 
-inner TILMedia.Gas_ph        flueGasOutlet(p(start = p_start_flueGas_out)=outlet.flueGas.p,xi=xi_flueGas,
-      gasType=flueGas, h=h_flueGas_out_del)
-      annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
+  inner TILMedia.Gas.Gas_ph flueGasOutlet(
+    p(start=p_start_flueGas_out) = outlet.flueGas.p,
+    xi=xi_flueGas,
+    gasType=flueGas,
+    h=h_flueGas_out_del) annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
 
 //## V A R I A B L E   P A R T##################################################################################
 //___________________/ iCom record \\__________________

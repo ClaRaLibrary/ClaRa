@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Solids;
+﻿within ClaRa.Basics.Media.Solids;
 model Steel10CrMo9_10 "Steel10CrMo9_10 - 1.7380"
    //source: http://www.thyssenkrupp-stahlkontor.de/tl_files/ThyssenKrupp/pdf/10CrMo9-10.pdf
 

@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions.TestCases;
+﻿within ClaRa.Basics.Functions.TestCases;
 model TestMaxAbs
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   Real x1=time;

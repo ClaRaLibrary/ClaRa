@@ -1,7 +1,7 @@
 ﻿within ClaRa.StaticCycles;
 model Quadruple "Visualise static cycle results"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,11 +16,10 @@ model Quadruple "Visualise static cycle results"
 //__________________________________________________________________________//
 
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
-    annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation (choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
   parameter Integer stacy_id = 0 "Identifier of the static cycle triple";
   DecimalSpaces decimalSpaces "Accuracy to be displayed" annotation(Dialog);
   parameter Boolean largeFonts= simCenter.largeFonts "True if visualisers shall be displayed as large as posible";
@@ -44,7 +43,7 @@ initial equation
   m_flow = steamSignal.m_flow;
   p=steamSignal.p;
   h=steamSignal.h;
-  T = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(medium, p, h);
+  T =TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(medium, p, h);
 
     annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>

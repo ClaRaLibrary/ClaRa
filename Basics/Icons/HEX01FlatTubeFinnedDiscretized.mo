@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model HEX01FlatTubeFinnedDiscretized
 
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1,

@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
 model QuadraticNominalPoint_L2 "All geo || Quadratic pressure loss || nominal point || density dependent "
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -24,7 +24,7 @@ model QuadraticNominalPoint_L2 "All geo || Quadratic pressure loss || nominal po
   final parameter Modelica.Fluid.Dissipation.Utilities.Types.PressureLossCoefficient zeta=2*Delta_p_nom*geo.A_cross^2*rho_nom/iCom.m_flow_nom^2 "Pressure loss coefficient for total pipe";
   Units.DensityMassSpecific rho_in "Inlet density";
 equation
-  rho_in = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
+  rho_in =TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi(
     iCom.p_in,
     iCom.h_in,
     iCom.xi_in,

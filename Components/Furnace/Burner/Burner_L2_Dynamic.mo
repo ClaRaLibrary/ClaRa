@@ -1,7 +1,7 @@
-within ClaRa.Components.Furnace.Burner;
+﻿within ClaRa.Components.Furnace.Burner;
 model Burner_L2_Dynamic "Model for a burner section inside a combustion chamber"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -113,16 +113,22 @@ public
 
 //_____________________/ Media Objects \_________________________________
 protected
-     TILMedia.Gas_pT    primaryAir_inlet(p=fuelFlueGas_inlet.flueGas.p, T=actualStream(fuelFlueGas_inlet.flueGas.T_outflow), xi=actualStream(
-        fuelFlueGas_inlet.flueGas.xi_outflow),
-     gasType=flueGas)
-     annotation (Placement(transformation(extent={{-290,-10},{-270,10}})));
-     TILMedia.Gas_pT     flueGasOutlet(p=outlet.flueGas.p, T= noEvent(actualStream(outlet.flueGas.T_outflow)),xi=noEvent(actualStream(outlet.flueGas.xi_outflow)),
-        gasType=flueGas)
-        annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
+  TILMedia.Gas.Gas_pT primaryAir_inlet(
+    p=fuelFlueGas_inlet.flueGas.p,
+    T=actualStream(fuelFlueGas_inlet.flueGas.T_outflow),
+    xi=actualStream(fuelFlueGas_inlet.flueGas.xi_outflow),
+    gasType=flueGas) annotation (Placement(transformation(extent={{-290,-10},{-270,10}})));
+  TILMedia.Gas.Gas_pT flueGasOutlet(
+    p=outlet.flueGas.p,
+    T=noEvent(actualStream(outlet.flueGas.T_outflow)),
+    xi=noEvent(actualStream(outlet.flueGas.xi_outflow)),
+    gasType=flueGas) annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
 
-  TILMedia.Gas_ph inlet_GasMix(p=inlet.flueGas.p,xi=xi_flueGasMix,gasType=flueGas,h(start = 1.0E4)=h_flueGasMix)
-     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+  TILMedia.Gas.Gas_ph inlet_GasMix(
+    p=inlet.flueGas.p,
+    xi=xi_flueGasMix,
+    gasType=flueGas,
+    h(start=1.0E4) = h_flueGasMix) annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
   Basics.Media.FuelObject fuelBurnerInlet(
   fuelModel=fuelModel,
@@ -131,12 +137,11 @@ protected
     T=noEvent(actualStream(fuelFlueGas_inlet.fuel.T_outflow))) annotation (Placement(transformation(extent={{-264,-28},{-244,-8}})));
 
 public
-    TILMedia.Gas_ph bulk(
+  TILMedia.Gas.Gas_ph bulk(
     p(start=p_start_flueGas_out) = outlet.flueGas.p,
     xi=xi_flueGas,
     gasType=flueGas,
-    h=h_flueGas_out)
-      annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
+    h=h_flueGas_out) annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
 
 //___________________/ iCom record \\__________________
 protected

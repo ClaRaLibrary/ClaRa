@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
 partial model HeatTransfer_L3 "L3 || HT-BaseClass"
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseVLE_L3;
   extends ClaRa.Basics.Icons.Alpha;

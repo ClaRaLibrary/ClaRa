@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Machines;
+﻿within ClaRa.StaticCycles.Machines;
 model Turbine "Turbine || par.: efficiency || green | blue"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -45,14 +45,13 @@ model Turbine "Turbine || par.: efficiency || green | blue"
      P_turbine=P_turbine));
   //---------Summary Definition---------
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
-    annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation (choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
 
   parameter Real efficiency= 1 "Hydraulic efficiency" annotation(Dialog(group="Fundamental Definitions"));
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_in,
       h_in) "Inlet density";
@@ -63,10 +62,10 @@ model Turbine "Turbine || par.: efficiency || green | blue"
   final parameter ClaRa.Basics.Units.Pressure p_out(fixed=false) "Outlet pressure";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false, start=1) "Mass flow rate";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in + efficiency*(TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_psxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_out=h_in + efficiency*(TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_psxi(
       medium,
       p_out,
-      TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEntropy_phxi(
+      TILMedia.VLEFluid.MixtureCompatible.Functions.specificEntropy_phxi(
         medium,
         p_in,
         h_in)) - h_in) "Outlet enthalpy";

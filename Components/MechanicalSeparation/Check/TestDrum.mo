@@ -1,8 +1,8 @@
-within ClaRa.Components.MechanicalSeparation.Check;
+﻿within ClaRa.Components.MechanicalSeparation.Check;
 model TestDrum "Initialisation of a natural circulation with drum and evaporator"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -59,8 +59,7 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
                                                          fixedTemperature
     annotation (Placement(transformation(extent={{42,-88},{22,-68}})));
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_Water
-                                            fluid1, useHomotopy=true)
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_Water fluid1, useHomotopy=true)
     annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
   ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valve_1(redeclare model PressureLoss =
         ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                  Delta_p_nom=10e5, m_flow_nom=10)) annotation (Placement(transformation(

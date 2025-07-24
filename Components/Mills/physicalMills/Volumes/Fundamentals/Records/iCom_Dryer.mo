@@ -1,7 +1,7 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Records;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Records;
 record iCom_Dryer
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                            //
+  // Component of the ClaRa library, version: 1.9.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
   // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //
@@ -18,7 +18,8 @@ record iCom_Dryer
   extends ClaRa.Basics.Icons.IComIcon;
 
     // Gas
-    replaceable parameter TILMedia.GasTypes.FlueGasTILMedia mediumModel "Used medium model" annotation(Dialog(tab="General"));
+  replaceable parameter TILMedia.Gas.Types.FlueGasTILMedia mediumModel "Used medium model"
+    annotation (Dialog(tab="General"));
     ClaRa.Basics.Units.MassFraction xi_gas_in[mediumModel.nc - 1] "|Inlet||Inlet medium composition";
     ClaRa.Basics.Units.MassFraction xi_gas_out_s "Saturation mass fraction of condensing component";
 

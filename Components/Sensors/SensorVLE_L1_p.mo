@@ -1,7 +1,7 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model SensorVLE_L1_p "Ideal one port pressure sensor"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -32,7 +32,7 @@ model SensorVLE_L1_p "Ideal one port pressure sensor"
         transformation(extent={{-10,-110},{10,-90}}),iconTransformation(extent={{-10,
             -110},{10,-90}})));
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1
     annotation (Placement(transformation(extent={{42,-2},{62,18}})));
 equation
   if unitOption==1 then

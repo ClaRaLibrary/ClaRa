@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model PlateHEXvle2vle_L4 "VLE 2 VLE | L4 | PlateHEX"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -40,13 +40,11 @@ model PlateHEXvle2vle_L4 "VLE 2 VLE | L4 | PlateHEX"
    //*********************************** / General \ ***********************************//
   //________________________________ Fundamentals _______________________________//
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_a=simCenter.fluid1 "Medium to be used  for flow 1"
-                                    annotation (Dialog(tab="General", group=
-          "Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_a=simCenter.fluid1 "Medium to be used  for flow 1"
+    annotation (Dialog(tab="General", group="Fundamental Definitions"), choicesAllMatching);
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_b=simCenter.fluid1 "Medium to be used for flow 2"
-                                   annotation (Dialog(tab="General",group=
-          "Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_b=simCenter.fluid1 "Medium to be used for flow 2"
+    annotation (Dialog(tab="General", group="Fundamental Definitions"), choicesAllMatching);
 
   parameter Integer HeatExchangerType = 0 "Type of Heat Exchanger"
                                                                   annotation (choices(choice=0 "CounterFlow",choice=1 "ParallelFlow"),Dialog(tab="General",group="Fundamental Definitions"));
@@ -133,8 +131,9 @@ model PlateHEXvle2vle_L4 "VLE 2 VLE | L4 | PlateHEX"
 
   //*********************************** / WALL \ ***********************************//
   //________________________________ Wall fundamentals _______________________________//
-  replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder"
     annotation (choicesAllMatching=true, Dialog(tab="Wall", group=
           "Fundamental Definitions"));
   parameter SI.Mass mass_struc=0 "Additional to mass of the plate HX calculated by density*length*width*thicknesswall" annotation (Dialog(tab="Wall", group="Fundamental Definitions"));
@@ -347,13 +346,13 @@ equation
 
    eye_int1.m_flow=-flow_a.outlet.m_flow;
    eye_int1.T=flow_a.summary.outlet.T-273.15;
-   eye_int1.s=flow_a.fluidOutlet.s/1000;
+   eye_int1.s=flow_a.summary.outlet.s/1000;
    eye_int1.h=flow_a.summary.outlet.h/1000;
    eye_int1.p=flow_a.summary.outlet.p/100000;
 
    eye_int2.m_flow=-flow_b.outlet.m_flow;
    eye_int2.T=flow_b.summary.outlet.T-273.15;
-   eye_int2.s=flow_b.fluidOutlet.s/1000;
+   eye_int2.s=flow_b.summary.outlet.s/1000;
    eye_int2.h=flow_b.summary.outlet.h/1000;
    eye_int2.p=flow_b.summary.outlet.p/100000;
 

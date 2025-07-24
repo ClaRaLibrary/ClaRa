@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector Slag_inlet
   parameter ClaRa.Basics.Media.Slag.PartialSlag slagType;
     //"Medium model";

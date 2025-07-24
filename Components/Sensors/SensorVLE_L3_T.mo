@@ -2,8 +2,11 @@
 model SensorVLE_L3_T
   extends ClaRa.Basics.Icons.Sensor1;
 
-  replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_StainlessSteel constrainedby TILMedia.SolidTypes.BaseSolid annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid FluidMedium=fluidVolume.simCenter.fluid1 "Medium in the component" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_StainlessSteel
+                                                                               constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                           annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid FluidMedium=fluidVolume.simCenter.fluid1 "Medium in the component"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter ClaRa.Basics.Units.Length diameter=0.1 "Diameter of component" annotation (Dialog(group="Component Definition"));
   parameter ClaRa.Basics.Units.Length length=0.1 "Length of component, if considerHeatConduction=true determines length of pipe affected by heat conduction from sensor" annotation (Dialog(group="Component Definition"));
@@ -24,12 +27,12 @@ model SensorVLE_L3_T
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start=1e5 "Start value of fluid's specific enthalpy" annotation (Dialog(group="Initialisation"));
   parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of fluid's pressure" annotation (Dialog(group="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start[FluidMedium.nc - 1]=fluidVolume.medium.xi_default "Start value for mass fraction" annotation (Dialog(group="Initialisation"));
-  parameter ClaRa.Basics.Units.Temperature T_sensor_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
+  parameter ClaRa.Basics.Units.Temperature T_sensor_start=TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(
       FluidMedium,
       p_start,
       h_start,
       xi_start) "Start temperature of sensor wall" annotation (Dialog(group="Initialisation"));
-  parameter ClaRa.Basics.Units.Temperature T_wall_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
+  parameter ClaRa.Basics.Units.Temperature T_wall_start=TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(
       FluidMedium,
       p_start,
       h_start,

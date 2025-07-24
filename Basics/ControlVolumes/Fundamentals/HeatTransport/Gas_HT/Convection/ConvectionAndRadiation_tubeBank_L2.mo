@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model ConvectionAndRadiation_tubeBank_L2 "Shell Geo || L2 || Convection And Radiation Inside Tube Banks"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -106,7 +106,7 @@ protected
   outer ClaRa.Basics.Units.MassFraction xi_fuel "Mean fuel composition";
   outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes geo;
 
-  TILMedia.Gas_pT properties(
+  TILMedia.Gas.Gas_pT properties(
     p=(iCom.p_in + iCom.p_out)/2,
     T=T_prop_am,
     xi=xi_mean,

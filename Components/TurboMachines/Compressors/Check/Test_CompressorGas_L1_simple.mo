@@ -1,7 +1,7 @@
-within ClaRa.Components.TurboMachines.Compressors.Check;
+﻿within ClaRa.Components.TurboMachines.Compressors.Check;
 model Test_CompressorGas_L1_simple
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

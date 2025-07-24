@@ -1,8 +1,8 @@
-within ClaRa.Components.MechanicalSeparation.Check;
+﻿within ClaRa.Components.MechanicalSeparation.Check;
 model TestSeparator_L3 "Check of normal operation and dry operation (Benson operation) is supported"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -52,8 +52,8 @@ model TestSeparator_L3 "Check of normal operation and dry operation (Benson oper
   Modelica.Blocks.Sources.TimeTable
                                ramp(table=[0,1; 15000,1; 15010,0; 20000,0; 20010,1; 60000,1])
                      annotation (Placement(transformation(extent={{50,-58},{30,-38}})));
-  inner ClaRa.SimCenter simCenter(showExpertSummary=true, redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1)
-                                                          annotation (Placement(transformation(extent={{40,-100},{80,-80}})));
+  inner ClaRa.SimCenter simCenter(showExpertSummary=true, redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{40,-100},{80,-80}})));
   ClaRa.Visualisation.Quadruple quadruple annotation (Placement(transformation(extent={{-42,-16},{-10,-6}})));
   ClaRa.Visualisation.Quadruple quadruple1 annotation (Placement(transformation(extent={{-52,-52},{-20,-42}})));
   ClaRa.Visualisation.Quadruple quadruple2 annotation (Placement(transformation(extent={{16,78},{48,88}})));

@@ -1,7 +1,7 @@
-within ClaRa.Components.TurboMachines.Turbines;
+﻿within ClaRa.Components.TurboMachines.Turbines;
 partial model SteamTurbine_base "Base class for steam turbines"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,8 +16,8 @@ partial model SteamTurbine_base "Base class for steam turbines"
 //__________________________________________________________________________//
 
   extends ClaRa.Basics.Icons.SimpleTurbine;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component"
-                                         annotation(choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
 
   ClaRa.Basics.Interfaces.FluidPortIn inlet(Medium=medium)
     annotation (Placement(transformation(extent={{-70,50},{-50,70}}),

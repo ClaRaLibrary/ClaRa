@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Furnace;
+﻿within ClaRa.StaticCycles.Furnace;
 model Boiler_simple "Boiler || HP: blue |green || IP: blue |green"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,7 +17,8 @@ model Boiler_simple "Boiler || HP: blue |green || IP: blue |green"
   // Blue input:   Value of p is known in component and provided FOR neighbor component, values of m_flow and h are unknown and provided BY neighbor component.
   // Green output: Values of p, m_flow and h are known in component and provided FOR neighbor component.
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component" annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"));
 
   outer parameter Real P_target_ "Target power in p.u.";
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_LS_nom "Live steam flow at nominal load" annotation (Dialog(group="Definition of the Nominal Operation Point"));
@@ -53,11 +54,11 @@ public
 
    final parameter Real Q_flow_RS_ = 1 - Q_flow_LS_ "Rprt: Heat release in reheated steam at current load";
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_LS_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_LS_out=TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_pTxi(
       medium,
       p_LS_out,
       T_LS_nom) "Outlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_RS_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_RS_out=TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_pTxi(
       medium,
       p_RS_out,
       T_RS_nom) "Outlet specific enthalpy";

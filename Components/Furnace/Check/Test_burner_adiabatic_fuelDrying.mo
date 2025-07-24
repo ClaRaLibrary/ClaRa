@@ -1,7 +1,7 @@
-within ClaRa.Components.Furnace.Check;
+﻿within ClaRa.Components.Furnace.Check;
 model Test_burner_adiabatic_fuelDrying
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -33,9 +33,10 @@ model Test_burner_adiabatic_fuelDrying
         rotation=270,
         origin={24,276})));
   inner SimCenter simCenter(
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
-    redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel,
-    redeclare ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v3 fuelModel1) annotation (Placement(transformation(extent={{98,62},{118,82}})));
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1,
+    redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel,
+    redeclare ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v3 fuelModel1)
+    annotation (Placement(transformation(extent={{98,62},{118,82}})));
   BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource(
     m_flow_const=15,
     T_const=293.15)                       annotation (Placement(transformation(extent={{-138,-30},{-118,-10}})));

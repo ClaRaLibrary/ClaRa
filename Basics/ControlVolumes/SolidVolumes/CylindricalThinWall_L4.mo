@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model CylindricalThinWall_L4 "A thin cylindric wall with axial discretisation"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,7 +17,9 @@ model CylindricalThinWall_L4 "A thin cylindric wall with axial discretisation"
 
   extends ClaRa.Basics.Icons.WallThinLarge;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L4");
-  replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                     constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                 "Material of the cylinder" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Boolean useAxialHeatConduction = false "True, if axial heat conduction through a wall shall be considered" annotation (Dialog(group="Fundamental Definitions"));
   input Real CF_lambda=1 "Time-dependent correction factor for thermal conductivity" annotation (Dialog(group="Fundamental Definitions"));
 
@@ -67,7 +69,8 @@ protected
 
 public
   ClaRa.Basics.Interfaces.HeatPort_a outerPhase[N_ax](T(start=T_start)) "outer side of the cylinder" annotation (Placement(transformation(extent={{-10,40},{10,60}}), iconTransformation(extent={{-10,40},{10,60}})));
-  TILMedia.Solid solid[N_ax](T(start=T_start) = T, redeclare each replaceable model SolidType = Material) annotation (Placement(transformation(extent={{48,8},{68,28}})));
+  TILMedia.Solid.Solid solid[N_ax](T(start=T_start) = T, redeclare each replaceable model SolidType = Material)
+    annotation (Placement(transformation(extent={{48,8},{68,28}})));
   ClaRa.Basics.Interfaces.HeatPort_b innerPhase[N_ax](T(start=T_start)) "Inner sider of the cylinder" annotation (Placement(transformation(extent={{-10,-60},{10,-40}}), iconTransformation(extent={{-10,-60},{10,-40}})));
 
   model Summary

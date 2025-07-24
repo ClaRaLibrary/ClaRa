@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 model ThreeWayValveGas_L1_simple "Three way valve for flue gas with controllable mass fraction"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -20,8 +20,8 @@ model ThreeWayValveGas_L1_simple "Three way valve for flue gas with controllable
   extends ClaRa.Basics.Interfaces.DataInterfaceVectorGas(final N_sets=2,eye(
                                                                            each medium =       medium));
 
-  parameter TILMedia.GasTypes.BaseGas               medium = simCenter.flueGasModel "Medium in the component"
-                              annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium in the component"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
  model FlangeGas "A summary record for gas flanges"
     extends ClaRa.Basics.Icons.RecordIcon;

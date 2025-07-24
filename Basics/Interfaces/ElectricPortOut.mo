@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector ElectricPortOut
   extends Basics.Interfaces.ElectricPortIn;
     annotation (Documentation(info="<html>

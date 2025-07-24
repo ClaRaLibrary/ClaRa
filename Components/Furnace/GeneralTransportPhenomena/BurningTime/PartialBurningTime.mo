@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime;
+﻿within ClaRa.Components.Furnace.GeneralTransportPhenomena.BurningTime;
 partial model PartialBurningTime "Base class for the burning time"
 
   ClaRa.Basics.Units.Time t;

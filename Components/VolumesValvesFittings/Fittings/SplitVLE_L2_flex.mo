@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitVLE_L2_flex "A voluminous split for an arbitrary number of inputs NOT CAPABLE FOR PHASE-CHANGE"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -36,8 +36,8 @@ model Summary
   ClaRa.Basics.Records.FluidVLE_L2           fluid;
 end Summary;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component"
-                               annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"));
   parameter Integer N_ports_out(min=1)=1 "Number of outlet  ports"
     annotation(Evaluate=true, Dialog(tab="General",group="Fundamental Definitions"));//connectorSizing=true,
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
@@ -59,7 +59,7 @@ end Summary;
                                                                                 annotation(Dialog(tab="Summary and Visualisation"));
   parameter Boolean preciseTwoPhase = true "|Expert Stettings||True, if two-phase transients should be capured precisely";
 protected
-  parameter Modelica.Units.SI.Density rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter Modelica.Units.SI.Density rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -87,9 +87,20 @@ public
   ClaRa.Basics.Interfaces.FluidPortOut outlet[N_ports_out](each Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(vleFluidType =    medium,    p = p, h=h) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(vleFluidType =    medium,    p = inlet.p, h=noEvent(actualStream(inlet.h_outflow))) annotation (Placement(transformation(extent={{20,-32},{40,-12}},rotation=0)));
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut[N_ports_out](each vleFluidType =    medium,    p = outlet.p, h=noEvent(actualStream(outlet.h_outflow))) annotation (Placement(transformation(extent={{30,6},{50,26}},   rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph bulk(
+    vleFluidType=medium,
+    p=p,
+    h=h) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
+    vleFluidType=medium,
+    p=inlet.p,
+    h=noEvent(actualStream(inlet.h_outflow)))
+    annotation (Placement(transformation(extent={{20,-32},{40,-12}}, rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut[N_ports_out](
+    each vleFluidType=medium,
+    p=outlet.p,
+    h=noEvent(actualStream(outlet.h_outflow)))
+    annotation (Placement(transformation(extent={{30,6},{50,26}}, rotation=0)));
 equation
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Asserts ~~~~~~~~~~~~~~~~~~~

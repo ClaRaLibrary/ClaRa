@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport;
 partial model HeatTransferBasePlateVLE_L4 "Partial heat transfer model for plate geometry VLE-type models L4"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

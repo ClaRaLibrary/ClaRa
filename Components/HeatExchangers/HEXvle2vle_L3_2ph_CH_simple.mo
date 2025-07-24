@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_CH_simple "VLE 2 VLE | L3 | 2 phase at shell side | Cylinder shape | Header type | simple HT"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -45,13 +45,12 @@ model HEXvle2vle_L3_2ph_CH_simple "VLE 2 VLE | L3 | 2 phase at shell side | Cyli
 
   //*********************************** / SHELL SIDE \ ***********************************//
   //________________________________ Shell fundamentals _______________________________//
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_shell=simCenter.fluid1 "Medium to be used for shell flow"
-                                       annotation (choices(
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_shell=simCenter.fluid1 "Medium to be used for shell flow"
+    annotation (choices(
       choice=simCenter.fluid1 "First fluid defined in global simCenter",
       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-      choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(tab=
-          "Shell Side", group="Fundamental Definitions"));
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(tab="Shell Side", group=
+          "Fundamental Definitions"));
   replaceable model HeatTransfer_Shell =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.ShellTypeVLE_L3
@@ -91,8 +90,8 @@ model HEXvle2vle_L3_2ph_CH_simple "VLE 2 VLE | L3 | 2 phase at shell side | Cyli
   final parameter Real yps_nom[2]={yps_liq_nom, 1-yps_liq_nom} "Relative volume of liquid phase [1] and vapour phase [2] at nominal point";
 
   //________________________________ Shell initialisation  _______________________________________//
-  parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Shell Side", group="Initialisation"));
-  parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Shell Side", group="Initialisation"));
+  parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     medium_shell, p_start_shell) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Shell Side", group="Initialisation"));
+  parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluid.MixtureCompatible.Functions.dewSpecificEnthalpy_pxi(                                     medium_shell, p_start_shell) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Shell Side", group="Initialisation"));
 
   parameter Basics.Units.Pressure p_start_shell=1e5 "Start value of shell fluid pressure" annotation (Dialog(tab="Shell Side", group="Initialisation"));
   parameter Real level_rel_start=0.5 "Start value for relative filling Level" annotation (Dialog(tab="Shell Side", group="Initialisation"));
@@ -106,12 +105,12 @@ model HEXvle2vle_L3_2ph_CH_simple "VLE 2 VLE | L3 | 2 phase at shell side | Cyli
   //*********************************** / TUBE SIDE \ ***********************************//
   //________________________________ Tubes fundamentals _______________________________//
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_tubes=simCenter.fluid1 "Medium to be used for tubes flow" annotation (choices(
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_tubes=simCenter.fluid1 "Medium to be used for tubes flow"
+    annotation (choices(
       choice=simCenter.fluid1 "First fluid defined in global simCenter",
       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-      choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(tab="Tubes",
-        group="Fundamental Definitions"));
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(tab="Tubes", group=
+          "Fundamental Definitions"));
   replaceable model HeatTransferTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.TubeTypeVLE_L2
@@ -158,8 +157,9 @@ model HEXvle2vle_L3_2ph_CH_simple "VLE 2 VLE | L3 | 2 phase at shell side | Cyli
                                                                                               choice = 202 "Steady enthalpy"));
 
   //***********************************/ WALL \ *****************************************//
-  replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder"
     annotation (choicesAllMatching=true, Dialog(tab="Tube Wall", group=
           "Fundamental Definitions"));
 

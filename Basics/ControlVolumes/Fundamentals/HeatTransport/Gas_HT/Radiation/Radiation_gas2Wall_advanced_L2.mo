@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation;
 model Radiation_gas2Wall_advanced_L2 "All Geo || L2 || Radiation Between Gas And Wall (Advanced)"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -100,7 +100,7 @@ protected
   ClaRa.Basics.Units.MassFraction xi_mean[iCom.mediumModel.nc - 1] "Mean flue gas composition";
   outer ClaRa.Basics.Units.MassFraction xi_fuel "Mean fuel composition";
 
-  TILMedia.Gas_pT properties(
+  TILMedia.Gas.Gas_pT properties(
     p=(iCom.p_in + iCom.p_out)/2,
     T=Delta_T_mean,
     xi=xi_mean,

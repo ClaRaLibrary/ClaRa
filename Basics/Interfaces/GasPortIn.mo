@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector GasPortIn
   extends GasMassSpecific;
     annotation (Documentation(info="<html>

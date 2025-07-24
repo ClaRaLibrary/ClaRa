@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons.PackageIcons;
+﻿within ClaRa.Basics.Icons.PackageIcons;
 partial package Critical
 
   annotation (Icon(graphics={

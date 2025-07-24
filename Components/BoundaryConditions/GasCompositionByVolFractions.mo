@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model GasCompositionByVolFractions "set (flue) gas composition graphically by volume fractions"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,7 +18,7 @@ extends ClaRa.Basics.Icons.VolumeComposition;
   Modelica.Blocks.Interfaces.RealOutput X[medium.nc - 1] "composition of gas to be set"
     annotation (Placement(transformation(extent={{120,0},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  TILMedia.Gas_pT gas(
+  TILMedia.Gas.Gas_pT gas(
     gasType=medium,
     p=100000,
     T=293.15) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
@@ -38,7 +38,7 @@ protected
   outer ClaRa.SimCenter simCenter;
 public
   ClaRa.Basics.Units.MassFraction xi_in[medium.nc - 1];
-  TILMedia.GasTypes.BaseGas      medium = simCenter.flueGasModel;
+  TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel;
 
 equation
   M_avg = eps_ASH * gas.M_i[1] + eps_CO * gas.M_i[2] + eps_CO2 * gas.M_i[3] + eps_SO2 * gas.M_i[4]

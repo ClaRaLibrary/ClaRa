@@ -1,8 +1,8 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_2ph_CH_ntu
 
 //__________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                           //
+  // Component of the ClaRa library, version: 1.9.0                           //
   //                                                                          //
   // Licensed by the ClaRa development team under the 3-clause BSD License.   //
   // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,11 +19,13 @@ model Test_HEXvle2vle_L3_2ph_CH_ntu
 
   HEXvle2vle_L3_2ph_CH_ntu hex(
     mass_struc=1,
-    redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum,
-    redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.QuadraticNominalPoint_L2,
+    redeclare model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum,
+    redeclare model PressureLossTubes =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.QuadraticNominalPoint_L2,
     redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.NoFriction_L3,
     z_in_shell=10,
-    redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L2 (alpha_nom=5000),
+    redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L2 (
+          alpha_nom=5000),
     p_start_tubes=250e5,
     m_flow_nom_shell=42,
     p_nom_shell=53e5,
@@ -38,9 +40,11 @@ model Test_HEXvle2vle_L3_2ph_CH_ntu
     m_flow_nom_tubes=416,
     z_out_shell=0.1,
     level_rel_start=0.2,
-    redeclare model HeatCapacityAveraging = ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.InputOnly,
+    redeclare model HeatCapacityAveraging =
+        ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.InputOnly,
     N_tubes=300,
-    redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1000,5000}),
+    redeclare model HeatTransfer_Shell =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1000,5000}),
     initOptionTubes=0,
     initOptionShell=204,
     initOptionWall=0) annotation (Placement(transformation(extent={{-6,-72},{14,-52}})));
@@ -87,7 +91,7 @@ model Test_HEXvle2vle_L3_2ph_CH_ntu
                    annotation (Placement(transformation(extent={{100,-94},{80,-74}})));
   inner SimCenter simCenter(
     useHomotopy=true,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1,
     showExpertSummary=true) annotation (Placement(transformation(extent={{40,40},{80,60}})));
   Visualisation.Hexdisplay_3 hexdisplay_3_1(
     T_o=hex.wall.summary.T_o - fill(273.15, 6),

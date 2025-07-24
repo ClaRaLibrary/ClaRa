@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
+﻿within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
 partial model PumpVLE_affinityBase "Base class for affinity law based pumps"
   //
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

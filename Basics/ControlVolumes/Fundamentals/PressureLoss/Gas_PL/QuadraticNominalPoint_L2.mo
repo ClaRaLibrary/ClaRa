@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
 model QuadraticNominalPoint_L2 "Gas || Quadratic PL based on nominal values"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -25,7 +25,7 @@ model QuadraticNominalPoint_L2 "Gas || Quadratic PL based on nominal values"
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL.PressureLoss_L2;
 
-  final parameter  ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.GasFunctions.density_phxi(
+  final parameter  ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.Gas.Functions.density_phxi(
       iCom.mediumModel,
       iCom.p_nom,
       iCom.h_nom,
@@ -42,11 +42,11 @@ model QuadraticNominalPoint_L2 "Gas || Quadratic PL based on nominal values"
   ClaRa.Basics.Units.DensityMassSpecific rho "Density";
 
 equation
- rho = TILMedia.GasObjectFunctions.density_pTxi(
-   iCom.p_bulk,
-   iCom.T_bulk,
-   iCom.xi_bulk,
-   iCom.fluidPointer_bulk);
+ rho =TILMedia.Gas.ObjectFunctions.density_pTxi(
+    iCom.p_bulk,
+    iCom.T_bulk,
+    iCom.xi_bulk,
+    iCom.fluidPointer_bulk);
 
 
   iCom.m_flow_in = if useHomotopy then homotopy(rho*geo.A_cross* SmoothPower( Delta_p, Delta_p_smooth, 0.5)/(0.5*zeta*rho)^0.5,

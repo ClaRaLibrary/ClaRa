@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SprayInjectorVLE_L3 "A spray injector for i.e. temperature control"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -46,10 +46,11 @@ model SprayInjectorVLE_L3 "A spray injector for i.e. temperature control"
     Wall_L4 wall;
   end Summary;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=
-                                                      simCenter.fluid1 "Medium in the component"
-                              annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
-  replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                     constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                 "Material of the cylinder"
                                annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
 
   parameter Modelica.Units.SI.Length diameter_o=0.5 "Diameter of the component" annotation (Dialog(group="Geometry"));
@@ -138,7 +139,7 @@ model SprayInjectorVLE_L3 "A spray injector for i.e. temperature control"
 protected
   parameter Modelica.Units.SI.SpecificEnthalpy h_nom_mix=(h_nom_Main*m_flow_nom_main + h_nom_Spray*m_flow_nom_spray)/(m_flow_nom_main + m_flow_nom_spray) "Nominal mix enthalpy";
   parameter Modelica.Units.SI.SpecificEnthalpy h_start_mix=(h_start_Main*m_flow_nom_main + h_start_Spray*m_flow_nom_spray)/(m_flow_nom_main + m_flow_nom_spray) "Nominal mix enthalpy";
-  parameter Modelica.Units.SI.Temperature T_wall_start[N_wall]=ones(N_wall)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
+  parameter Modelica.Units.SI.Temperature T_wall_start[N_wall]=ones(N_wall)*TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(
       medium,
       p_start - Delta_p_nom,
       h_start_mix) "Start values of wall temperature" annotation (Dialog(group="Initialisation"));

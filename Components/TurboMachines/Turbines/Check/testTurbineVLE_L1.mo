@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Turbines.Check;
+﻿within ClaRa.Components.TurboMachines.Turbines.Check;
 model testTurbineVLE_L1
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -87,7 +87,7 @@ model testTurbineVLE_L1
     variable_p=true,
     energyType=1) annotation (Placement(transformation(extent={{-168,34},{-148,54}})));
   inner ClaRa.SimCenter simCenter(
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1,
     contributeToCycleSummary=true,
     showExpertSummary=true) annotation (Placement(transformation(extent={{-200,-80},{-160,-60}})));
   Modelica.Blocks.Sources.Ramp ramp(

@@ -1,7 +1,7 @@
 ﻿within ClaRa.Components.Sensors;
 model SensorVLE_L1_T "Ideal one port temperature sensor"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,7 +17,8 @@ model SensorVLE_L1_T "Ideal one port temperature sensor"
 
   extends ClaRa.Basics.Icons.Sensor1;
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium= simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching, Dialog( group="Fundamental Definitions"), choices(choice=1 "Kelvin", choice=2 "Degree Celsius",
                                                                                               choice=3 "Degree Fahrenheit", choice = 4 "per Unit"));
   parameter ClaRa.Basics.Units.Temperature T_ref[2]={0,273.15} "Reference temperature [min,max]" annotation (Dialog(group="Fundamental Definitions", enable=(unitOption == 4)));
@@ -32,12 +33,11 @@ public
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
         iconTransformation(extent={{-10,-110},{10,-90}})));
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluid(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluid(
     h=inStream(port.h_outflow),
     p=port.p,
     xi=inStream(port.xi_outflow),
-    vleFluidType=medium)
-    annotation (Placement(transformation(extent={{-48,28},{-28,48}})));
+    vleFluidType=medium) annotation (Placement(transformation(extent={{-48,28},{-28,48}})));
 equation
   if unitOption == 1 then //Kelvin
     T = fluid.T;

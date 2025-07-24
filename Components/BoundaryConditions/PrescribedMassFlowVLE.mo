@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model PrescribedMassFlowVLE "A mass flow anchor with prescribed mass flow rate"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,7 +19,7 @@ model PrescribedMassFlowVLE "A mass flow anchor with prescribed mass flow rate"
 
   //extends BaseClasses.Interfaces.DataInterface(p_int=outlet.p/1e5,h_int=outlet.h_outflow/1e3, m_flow_int=-outlet.m_flow, T_int=refrigerant.T-273.15, s_int=refrigerant.s/1e3);
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   //   parameter Modelica.SIunits.AbsolutePressure dp_nominal
   //     "Nominal pressure drop at full opening" annotation(Dialog(group="Nominal Values"));
@@ -74,11 +74,11 @@ end Summary;
         iconTransformation(extent={{90,-50},{110,-30}})));
 
 protected
-   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     p=outlet.p,
-    h=noEvent(actualStream(outlet.h_outflow)), xi = noEvent(actualStream(outlet.xi_outflow)))
-     annotation (Placement(transformation(extent={{22,-20},{42,0}})));
+    h=noEvent(actualStream(outlet.h_outflow)),
+    xi=noEvent(actualStream(outlet.xi_outflow))) annotation (Placement(transformation(extent={{22,-20},{42,0}})));
 
 equation
   if (not m_flowInputIsActive) then

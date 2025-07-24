@@ -1,7 +1,7 @@
-within ClaRa.Components.Control.PredictorModels_3508;
+﻿within ClaRa.Components.Control.PredictorModels_3508;
 model CoalSupplyBoiler_01_XRG "A simple coal supply and boiler model using characteristic lines and transfer functions"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,10 +19,10 @@ model CoalSupplyBoiler_01_XRG "A simple coal supply and boiler model using chara
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="01");
 
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
-    annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation (choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
 
   parameter ClaRa.Basics.Units.Pressure p_LS_nom= 300e5 "Nominal life steam pressure"
                                                                                   annotation(Dialog(group="Nominal values"));
@@ -54,8 +54,9 @@ model CoalSupplyBoiler_01_XRG "A simple coal supply and boiler model using chara
   parameter Real p_LS_0=1 "Initial value of life steam pressure in p.u." annotation(Dialog(group="Initialisation"));
 
 protected
-  Modelica.Blocks.Sources.RealExpression h(y=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(medium, p_LS, T_LS)/h_LS_nom) "Life Steam specific enthalpy"
-                                   annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  Modelica.Blocks.Sources.RealExpression h(y=TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_pTxi(medium,
+        p_LS, T_LS)/h_LS_nom) "Life Steam specific enthalpy"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
 public
   Modelica.Blocks.Continuous.LimIntegrator

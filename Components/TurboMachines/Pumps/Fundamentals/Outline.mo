@@ -1,4 +1,4 @@
-within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
+﻿within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
 model Outline
  extends ClaRa.Basics.Icons.RecordIcon;
   input Basics.Units.VolumeFlowRate V_flow "Volume flow rate";

@@ -1,6 +1,6 @@
-within ClaRa.Basics.Media.Solids;
+﻿within ClaRa.Basics.Media.Solids;
 partial model BaseSolid
-  extends TILMedia.SolidTypes.BaseSolid;
+  extends TILMedia.Solid.Types.BaseSolid;
 
   constant Real nu_nominal "Poisson's ratio at standard reference point";
   constant ClaRa.Basics.Units.ElasticityModule E_nominal

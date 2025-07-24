@@ -1,7 +1,7 @@
-within ClaRa;
+﻿within ClaRa;
 model SimCenter
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,19 +17,21 @@ model SimCenter
 
 //extends ClaRa.Basics.Functions.ClaRaDelay.DelayInit;
 
-  replaceable parameter TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1 constrainedby TILMedia.VLEFluidTypes.BaseVLEFluid(
-                                         final ID=1) "Medium name of working fluid in steam cycle"
-                                                                annotation(Dialog(tab="Media and Materials", group="ClaRa-based Models: VLE Components"),choicesAllMatching);
-  replaceable parameter TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid2 constrainedby TILMedia.VLEFluidTypes.BaseVLEFluid(
-                                         final ID=2) "Medium name of working fluid in steam cycle"
-                                                                annotation(Dialog(tab="Media and Materials", group="ClaRa-based Models: VLE Components"),choicesAllMatching);
-  replaceable parameter TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid3 constrainedby TILMedia.VLEFluidTypes.BaseVLEFluid(
-                                         final ID=3) "Medium name of working fluid in steam cycle"
-                                                                annotation(Dialog(tab="Media and Materials", group="ClaRa-based Models: VLE Components"),choicesAllMatching);
-  replaceable parameter TILMedia.GasTypes.MoistAirMixture airModel constrainedby TILMedia.GasTypes.BaseGas "Medium name of air model"
-                              annotation(Dialog(tab="Media and Materials", group="ClaRa-based Models: Gas Components"),choicesAllMatching);
-  replaceable parameter TILMedia.GasTypes.FlueGasTILMedia flueGasModel constrainedby TILMedia.GasTypes.BaseGas "Medium name of flue gas model"
-                                    annotation(Dialog(tab="Media and Materials", group="ClaRa-based Models: Gas Components"),choicesAllMatching);
+  replaceable parameter TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1 constrainedby
+    TILMedia.VLEFluid.Types.BaseVLEFluid(final ID=1) "Medium name of working fluid in steam cycle"
+    annotation (Dialog(tab="Media and Materials", group="ClaRa-based Models: VLE Components"), choicesAllMatching);
+  replaceable parameter TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid2 constrainedby
+    TILMedia.VLEFluid.Types.BaseVLEFluid(final ID=2) "Medium name of working fluid in steam cycle"
+    annotation (Dialog(tab="Media and Materials", group="ClaRa-based Models: VLE Components"), choicesAllMatching);
+  replaceable parameter TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid3 constrainedby
+    TILMedia.VLEFluid.Types.BaseVLEFluid(final ID=3) "Medium name of working fluid in steam cycle"
+    annotation (Dialog(tab="Media and Materials", group="ClaRa-based Models: VLE Components"), choicesAllMatching);
+  replaceable parameter TILMedia.Gas.Types.MoistAirMixture airModel constrainedby TILMedia.Gas.Types.BaseGas
+    "Medium name of air model"
+    annotation (Dialog(tab="Media and Materials", group="ClaRa-based Models: Gas Components"), choicesAllMatching);
+  replaceable parameter TILMedia.Gas.Types.FlueGasTILMedia flueGasModel constrainedby TILMedia.Gas.Types.BaseGas
+    "Medium name of flue gas model"
+    annotation (Dialog(tab="Media and Materials", group="ClaRa-based Models: Gas Components"), choicesAllMatching);
 
   replaceable parameter ClaRa.Basics.Media.FuelTypes.Fuel_refvalues_v1 fuelModel1 constrainedby ClaRa.Basics.Media.FuelTypes.EmptyFuel
                                                                                                                                 "Fuel 1" annotation(Dialog(tab="Media and Materials", group="ClaRa-based Models: Fuel, Coal and Slag"),choicesAllMatching);
@@ -80,9 +82,12 @@ model SimCenter
   ClaRa.Basics.Units.EntropyMassSpecific s_amb_fluid3 "Ambient entropy of VLE fluid 3";
 
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid vleFluid_amb1(vleFluidType=fluid1) annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid vleFluid_amb2(vleFluidType=fluid2) annotation (Placement(transformation(extent={{-60,-12},{-40,8}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid vleFluid_amb3(vleFluidType=fluid3) annotation (Placement(transformation(extent={{-30,-12},{-10,8}})));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid vleFluid_amb1(vleFluidType=fluid1)
+    annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid vleFluid_amb2(vleFluidType=fluid2)
+    annotation (Placement(transformation(extent={{-60,-12},{-40,8}})));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid vleFluid_amb3(vleFluidType=fluid3)
+    annotation (Placement(transformation(extent={{-30,-12},{-10,8}})));
 
 public
 record summary_clara

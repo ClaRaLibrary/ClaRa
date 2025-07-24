@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.BaseClasses;
+﻿within ClaRa.Components.Furnace.BaseClasses;
 partial model CombustionChamberBase
   import ClaRa;
 
@@ -9,7 +9,8 @@ partial model CombustionChamberBase
   inner parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Fuel elemental composition used for combustion" annotation(choices(choice=simCenter.fuelModel1 "Fuel model 1 as defined in simCenter"),
                                                                                             Dialog(group="Media Definitions"));
   parameter ClaRa.Basics.Media.Slag.PartialSlag slagType=simCenter.slagModel "Slag properties" annotation (choices(choice=simCenter.slagModel "Slag model 1 as defined in simCenter"), Dialog(group="Media Definitions"));
-  inner parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component" annotation(choicesAllMatching, Dialog(group="Media Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (choicesAllMatching, Dialog(group="Media Definitions"));
 
   parameter Integer slagTemperature_calculationType=1 "Calculation type of outflowing slag temperature" annotation (Dialog(tab="Combustion Settings",group="Slag temperature definitions"), choices(
       choice=1 "Fixed slag temperature",
@@ -42,8 +43,8 @@ partial model CombustionChamberBase
                                              annotation (Dialog(tab="Combustion Settings",group="Combustion"), choicesAllMatching=true);
 
   //__________________________/ Geometry \______________________________________________
-  replaceable model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical, height_fill=-1)
-                                                                                                                                                     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry   "1st: choose geometry definition | 2nd: edit corresponding record"
+  replaceable model Geometry = ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlock (flowOrientation=ClaRa.Basics.Choices.GeometryOrientation.vertical)
+                                                                                                                                                     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.GenericGeometry(height_fill=-1)   "1st: choose geometry definition | 2nd: edit corresponding record"
     annotation (Dialog(group="Geometry"), choicesAllMatching=true);
 
   //__________________________/ Pressure Loss \______________________________________________
@@ -68,7 +69,8 @@ partial model CombustionChamberBase
   parameter ClaRa.Basics.Units.Temperature T_start_flueGas_out=700 "Start temperature at outlet" annotation (Dialog(tab="Initialisation"));
   inner parameter ClaRa.Basics.Units.Temperature T_top_initial= T_start_flueGas_out "Initial temperature of top volume" annotation(Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start_flueGas_out[flueGas.nc - 1]=flueGas.xi_default "Start composition of flue gas" annotation (Dialog(tab="Initialisation"));
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(flueGas, p_start_flueGas_out, T_start_flueGas_out, xi_start_flueGas_out) "Start flue gas enthalpy"
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start = TILMedia.Gas.Functions.specificEnthalpy_pTxi(
+                                                                                                                flueGas, p_start_flueGas_out, T_start_flueGas_out, xi_start_flueGas_out) "Start flue gas enthalpy"
                                                                                             annotation(Dialog(tab="Initialisation"));
 
   constant Real T_0=298.15 "Reference temperature";
@@ -158,9 +160,11 @@ public
 
    //_____________________/ Media Objects \_________________________________
 protected
-    TILMedia.Gas_pT     flueGasInlet(p=inlet.flueGas.p, T= noEvent(actualStream(inlet.flueGas.T_outflow)), xi=noEvent(actualStream(inlet.flueGas.xi_outflow)),
-      gasType=flueGas)
-      annotation (Placement(transformation(extent={{-130,-88},{-110,-68}})));
+  TILMedia.Gas.Gas_pT flueGasInlet(
+    p=inlet.flueGas.p,
+    T=noEvent(actualStream(inlet.flueGas.T_outflow)),
+    xi=noEvent(actualStream(inlet.flueGas.xi_outflow)),
+    gasType=flueGas) annotation (Placement(transformation(extent={{-130,-88},{-110,-68}})));
   ClaRa.Basics.Media.FuelObject fuelInlet(
     fuelModel=fuelModel,
     p=inlet.fuel.p,
@@ -172,11 +176,10 @@ protected
     T=noEvent(actualStream(outlet.fuel.T_outflow)),
     xi_c=noEvent(actualStream(outlet.fuel.xi_outflow))) annotation (Placement(transformation(extent={{-156,68},{-136,88}})));
 public
-  TILMedia.Gas_pT ideal_combustion(
+  TILMedia.Gas.Gas_pT ideal_combustion(
     p=outlet.flueGas.p,
     gasType=flueGas,
-    T=298.15)
-    annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
+    T=298.15) annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
 
 public
   inner Geometry geo annotation(Placement(transformation(extent={{-250,50},{-230,
@@ -203,8 +206,7 @@ public
   ClaRa.Basics.Interfaces.EyeOutGas
                            eyeOut(medium=flueGas) annotation (Placement(transformation(extent={{-280,78},
             {-308,102}}),         iconTransformation(extent={{-290,70},{-310,90}})));
-protected
-           ClaRa.Basics.Interfaces.EyeInGas
+protected  ClaRa.Basics.Interfaces.EyeInGas
                                    eye_int[1](each medium=flueGas)
                                 annotation (Placement(transformation(extent={{-254,84},
             {-266,96}}),      iconTransformation(extent={{240,-64},{232,-56}})));

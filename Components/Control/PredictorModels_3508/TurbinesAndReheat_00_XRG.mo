@@ -1,7 +1,7 @@
-within ClaRa.Components.Control.PredictorModels_3508;
+﻿within ClaRa.Components.Control.PredictorModels_3508;
 model TurbinesAndReheat_00_XRG "A predictor for the generator power including the HP and IP/LP turbines as well as the energy storage in the reheater - unmodified"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

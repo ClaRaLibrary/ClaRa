@@ -1,4 +1,4 @@
-within ClaRa.Components.BoundaryConditions.Check;
+﻿within ClaRa.Components.BoundaryConditions.Check;
 model TestPrescribedHeatFlow
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow boundaryVLE_hxim_flow(
@@ -28,5 +28,6 @@ equation
   connect(quadruple2.eye, boundaryVLE_phxi.eye) annotation (Line(points={{50,-21},{50,-8},{60,-8}}, color={190,190,190}));
   connect(quadruple.eye, boundaryVLE_hxim_flow.eye) annotation (Line(points={{-70,-19},{-70,-12},{-54,-12},{-54,-8},{-60,-8}}, color={190,190,190}));
   connect(realExpression.y, prescribedHeatFlowVLE.Q_flow_in) annotation (Line(points={{-19,-36},{0,-36},{0,-11}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=1, __Dymola_Algorithm="Dassl"));
 end TestPrescribedHeatFlow;

@@ -1,4 +1,6 @@
 PressureLoss_L2
 QuadraticNominalPoint_L2
 PressureLoss_L4
+PressureLossFlatTubeFinned_L4
 QuadraticNominalPoint_L4
+QuadraticFlatTubeFinnedNominalPoint_L4

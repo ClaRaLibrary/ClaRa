@@ -1,8 +1,8 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Check;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model Test_EN60534_compressible
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,8 +18,8 @@ model Test_EN60534_compressible
 
 
     extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
-  inner SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_GERGCO2 fluid1)
-                            annotation (Placement(transformation(extent={{-101,-100},{-59,-80}})));
+  inner SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_GERGCO2 fluid1)
+    annotation (Placement(transformation(extent={{-101,-100},{-59,-80}})));
   GenericValveVLE_L1 valveEN_60534_compressible(showExpertSummary=true, redeclare model PressureLoss =
         Fundamentals.Quadratic_EN60534_compressible)                                                                                                annotation (Placement(transformation(extent={{-10,44},{10,56}})));
   BoundaryConditions.BoundaryVLE_phxi                  pressureSink_XRG10(p_const=10e5, h_const=3000e3)

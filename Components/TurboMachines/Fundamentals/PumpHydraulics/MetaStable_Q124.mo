@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics;
+﻿within ClaRa.Components.TurboMachines.Fundamentals.PumpHydraulics;
 model MetaStable_Q124 "Metastable(d Delta_p/d V_flow) = 0 at V_flow = 0 | normal pumping, rev. turbining, dissipation mode "
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

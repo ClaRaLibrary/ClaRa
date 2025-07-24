@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model Tube1 " Tube || blue | blue"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,11 +18,10 @@ model Tube1 " Tube || blue | blue"
   // Blue output:  Value of p is unknown and provided BY neighbor component, values of m_flow and h are known in component and provided FOR neighbor component.
   outer ClaRa.SimCenter simCenter;
   outer parameter Real P_target_ "Target power in p.u.";
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
-    annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation (choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
 
   //---------Summary Definition---------
   model Summary
@@ -57,7 +56,7 @@ model Tube1 " Tube || blue | blue"
   final parameter ClaRa.Basics.Units.Pressure p_in=p_out + Delta_p_fric + Delta_p_geo "Pressure at tube inlet";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Spec. enthalpy at tube inlet";
   constant ClaRa.Basics.Units.MassFraction[:] xi=zeros(medium.nc - 1) "VLE composition in component, pure fluids supported only!";
-  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_out,
       h_in,

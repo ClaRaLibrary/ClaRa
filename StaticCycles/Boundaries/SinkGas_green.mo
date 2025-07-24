@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Boundaries;
+﻿within ClaRa.StaticCycles.Boundaries;
 model SinkGas_green
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,7 +16,7 @@ model SinkGas_green
 //__________________________________________________________________________//
   // Green gas inlet:   Values of p, m_flow, T and xi are unknown in component and provided BY neighbor component.
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component";
+  parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model used in component";
 
   final parameter ClaRa.Basics.Units.Temperature T(fixed=false);
   final parameter ClaRa.Basics.Units.MassFraction xi[flueGas.nc-1](each fixed=false);

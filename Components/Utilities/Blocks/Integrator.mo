@@ -1,7 +1,7 @@
-within ClaRa.Components.Utilities.Blocks;
+﻿within ClaRa.Components.Utilities.Blocks;
 block Integrator "Output the integral of the input signal - variable Integrator time constant"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

@@ -1,7 +1,7 @@
-within ClaRa.Components.MechanicalSeparation;
+﻿within ClaRa.Components.MechanicalSeparation;
 model Drum_L3 "Drum : separated volume approach | level-dependent phase separation"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,13 +19,15 @@ extends ClaRa.Basics.Icons.Drum;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L3");
 
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid
-                                      medium=simCenter.fluid1 "Medium in the component"
-                              annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
-  replaceable model material = TILMedia.SolidTypes.TILMedia_Steel constrainedby TILMedia.SolidTypes.BaseSolid "Material of the walls" annotation (Dialog(group="Fundamental Definitions"),choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  replaceable model material = TILMedia.Solid.Types.TILMedia_Steel
+                                                                  constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                              "Material of the walls" annotation (Dialog(group="Fundamental Definitions"),choicesAllMatching);
   parameter Boolean includeInsulation=false  "True, if insulation is included" annotation(Dialog(group="Fundamental Definitions"));
   replaceable model insulationMaterial=Basics.Media.Solids.InsulationOrstechLSP_H_const
-                                                                            constrainedby TILMedia.SolidTypes.BaseSolid "Insulation material" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions", enable=(includeInsulation==true)));
+                                                                            constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                        "Insulation material" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions", enable=(includeInsulation==true)));
 
   parameter ClaRa.Basics.Units.Length diameter=1 "Diameter of the component" annotation (Dialog(group="Geometry", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/Drum.png"));
   parameter ClaRa.Basics.Units.Length length=1 "Length of the component" annotation (Dialog(group="Geometry"));
@@ -54,8 +56,8 @@ extends ClaRa.Basics.Icons.Drum;
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation", group="Volume"));
 
-  parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Initialisation", group="Volume"));
-  parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, volume.p_start) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Initialisation", group="Volume"));
+  parameter Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     medium, volume.p_start) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Initialisation", group="Volume"));
+  parameter Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluid.MixtureCompatible.Functions.dewSpecificEnthalpy_pxi(                                     medium, volume.p_start) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Initialisation", group="Volume"));
   parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Initialisation", group="Volume"));
   parameter Real level_rel_start = 0.5 "Initial filling level" annotation(Dialog(tab="Initialisation", group="Volume"));
   inner parameter Integer initOption = 211 "Type of initialisation"

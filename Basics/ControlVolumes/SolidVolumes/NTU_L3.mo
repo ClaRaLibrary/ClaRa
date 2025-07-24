@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L3 "Base heat exchanger wall model with liquid, vapour and 2ph zones"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -24,11 +24,13 @@ model NTU_L3 "Base heat exchanger wall model with liquid, vapour and 2ph zones"
 
 //_____________material definitions_________________________________________//
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium_shell=simCenter.fluid1 "Medium of shell side"
-                              annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium_tubes=simCenter.fluid1 "Medium of tubes side"
-                              annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
-  replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_shell=simCenter.fluid1 "Medium of shell side"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_tubes=simCenter.fluid1 "Medium of tubes side"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                     constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                 "Material of the cylinder"
                                                                annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   replaceable model HeatExchangerType =
@@ -164,54 +166,45 @@ model ECom
   input SI.EnthalpyMassSpecific h_o[6] "Specific enthalpies (i/o) of outer flow zones |1|2|3|";
 end ECom;
 public
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph O1_in(
-     vleFluidType=medium_shell,
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph O1_in(
+    vleFluidType=medium_shell,
     h=(iCom.h_o_in[1]),
-    p=p_o)
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+    p=p_o) annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph   O3_out(
-     vleFluidType=medium_shell,
-    p=p_o,
-    h=iCom.h_o_out[3])
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
-
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph   I1_out(
-     vleFluidType=medium_tubes,
-    p=p_i,
-    h=iCom.h_i_out[1])
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph O2_in(
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph O3_out(
     vleFluidType=medium_shell,
     p=p_o,
-    h=iCom.h_o_in[2])
-    annotation (Placement(transformation(extent={{-32,10},{-12,30}})));
+    h=iCom.h_o_out[3]) annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph I2_out(
-     vleFluidType=medium_tubes,
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph I1_out(
+    vleFluidType=medium_tubes,
     p=p_i,
-    h=iCom.h_i_out[2])
-    annotation (Placement(transformation(extent={{-34,-30},{-14,-10}})));
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph I3_in(
-   vleFluidType=medium_tubes,
-    p=p_i,
-    h=iCom.h_i_in[3])
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph O2_out(
+    h=iCom.h_i_out[1]) annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph O2_in(
     vleFluidType=medium_shell,
     p=p_o,
-    h=iCom.h_o_out[2])
-    annotation (Placement(transformation(extent={{14,10},{34,30}})));
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph I2_in(
-     vleFluidType=medium_tubes,
-    p=p_i,
-    h=iCom.h_i_in[2])
-    annotation (Placement(transformation(extent={{14,-30},{34,-10}})));
+    h=iCom.h_o_in[2]) annotation (Placement(transformation(extent={{-32,10},{-12,30}})));
 
-   TILMedia.Solid solid[3](redeclare replaceable model SolidType = Material, T=(
-        T_w_i + T_w_o)/2)
-     annotation (Placement(transformation(extent={{40,54},{60,74}})));
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph I2_out(
+    vleFluidType=medium_tubes,
+    p=p_i,
+    h=iCom.h_i_out[2]) annotation (Placement(transformation(extent={{-34,-30},{-14,-10}})));
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph I3_in(
+    vleFluidType=medium_tubes,
+    p=p_i,
+    h=iCom.h_i_in[3]) annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph O2_out(
+    vleFluidType=medium_shell,
+    p=p_o,
+    h=iCom.h_o_out[2]) annotation (Placement(transformation(extent={{14,10},{34,30}})));
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph I2_in(
+    vleFluidType=medium_tubes,
+    p=p_i,
+    h=iCom.h_i_in[2]) annotation (Placement(transformation(extent={{14,-30},{34,-10}})));
+
+  TILMedia.Solid.Solid solid[3](redeclare replaceable model SolidType = Material, T=(T_w_i + T_w_o)/2)
+    annotation (Placement(transformation(extent={{40,54},{60,74}})));
 public
   Summary summary(eCom( z_o = HEXtype.z_o,
     z_i = HEXtype.z_i,
@@ -270,26 +263,22 @@ public
     annotation (Placement(transformation(extent={{60,-102},{80,-82}})));
 
 protected
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph O1_out(
-     vleFluidType=medium_shell,
-    p=p_o,
-    h=iCom.h_o_out[1])
-    annotation (Placement(transformation(extent={{-54,10},{-34,30}})));
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph O3_in(
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph O1_out(
     vleFluidType=medium_shell,
     p=p_o,
-    h=iCom.h_o_in[3])
-    annotation (Placement(transformation(extent={{34,10},{54,30}})));
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph I1_in(
+    h=iCom.h_o_out[1]) annotation (Placement(transformation(extent={{-54,10},{-34,30}})));
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph O3_in(
+    vleFluidType=medium_shell,
+    p=p_o,
+    h=iCom.h_o_in[3]) annotation (Placement(transformation(extent={{34,10},{54,30}})));
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph I1_in(
     vleFluidType=medium_tubes,
     p=p_i,
-    h=iCom.h_i_in[1])
-    annotation (Placement(transformation(extent={{-54,-30},{-34,-10}})));
-inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph I3_out(
-   vleFluidType=medium_tubes,
+    h=iCom.h_i_in[1]) annotation (Placement(transformation(extent={{-54,-30},{-34,-10}})));
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph I3_out(
+    vleFluidType=medium_tubes,
     p=p_i,
-    h=iCom.h_i_out[3])
-annotation (Placement(transformation(extent={{36,-30},{56,-10}})));
+    h=iCom.h_i_out[3]) annotation (Placement(transformation(extent={{36,-30},{56,-10}})));
 
 
 equation

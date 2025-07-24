@@ -1,4 +1,4 @@
-within ClaRa.Basics.Records;
+﻿within ClaRa.Basics.Records;
 record IComVLE_L3_OnePort
   extends IComVLE_L3(
   final N_inlet=1,

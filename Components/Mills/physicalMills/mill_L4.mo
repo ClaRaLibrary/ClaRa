@@ -1,7 +1,7 @@
-within ClaRa.Components.Mills.PhysicalMills;
+﻿within ClaRa.Components.Mills.PhysicalMills;
 model Mill_L4 "Aerosol component | box module to capsule mill components"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -21,7 +21,8 @@ model Mill_L4 "Aerosol component | box module to capsule mill components"
   // PARAMETER DECLARATION: #########################################################################################
 
   // Global nominal values: ---------------------------------------------------------------
-  parameter TILMedia.GasTypes.BaseGas gas = simCenter.flueGasModel "Medium model" annotation(Dialog(tab="General",group="Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Medium model"
+    annotation (Dialog(tab="General", group="Fundamental Definitions"), choicesAllMatching);
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Coal elemental composition used for combustion" annotation (choicesAllMatching, Dialog(tab="General",group="Fundamental Definitions"));
   parameter Volumes.Fundamentals.Records.FuelClassification_base classification=Volumes.Fundamentals.Records.FuelClassification_example_21classes() "Classification record" annotation (Dialog(tab="General", group="Fundamental Definitions"), choicesAllMatching=true);
   parameter ClaRa.Basics.Units.MassFraction classFraction[classification.N_class-1] = ((1/classification.N_class)*ones(classification.N_class-1)) "Particle class mass fraction" annotation(Dialog(tab="General",group="Fundamental Definitions"));

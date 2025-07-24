@@ -1,9 +1,9 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorGas_L1_m_flow "Ideal TINY one port mass flow sensor"
   //This model douplicates the respective ClaRa sensor changing its icon size //
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,8 +19,8 @@ model TinySensorGas_L1_m_flow "Ideal TINY one port mass flow sensor"
 
   extends ClaRa.Basics.Icons.FlowSensor;
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used"
-                         annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"), choices(choice=1 "kg/s", choice=2 "t/h", choice=3 "kg/h", choice=4 "t/s", choice=5 "per Unit"));
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_ref[2]={0,1} "Reference flow rate [min,max]" annotation (Dialog(group="Fundamental Definitions", enable=(unitOption == 5)));
   final parameter String unit = if unitOption==1 then " kg/s" elseif unitOption==2 then " t/h" elseif unitOption==3 then " kg/h" elseif unitOption==4 then " t/s" else " p.u.";

@@ -1,9 +1,9 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundaryElectricFrequency
   extends ClaRa.Basics.Icons.FlowSink;
 
   parameter Boolean variable_f = false "True, if frequency defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
-  parameter ClaRa.Basics.Units.Frequency f_const=50 "Constant frequency" annotation (Dialog(group="Constant Boundaries", enable=not variable_p));
+  parameter ClaRa.Basics.Units.Frequency f_const=50 "Constant frequency" annotation (Dialog(group="Constant Boundaries", enable=not variable_f));
 
 protected
   ClaRa.Basics.Units.Frequency f_in;

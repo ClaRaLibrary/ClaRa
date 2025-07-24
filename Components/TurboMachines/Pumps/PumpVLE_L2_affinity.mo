@@ -1,7 +1,7 @@
-within ClaRa.Components.TurboMachines.Pumps;
+﻿within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, based on affinity laws"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -37,7 +37,8 @@ model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, b
     ClaRa.Basics.Records.FlangeVLE  outlet;
   end Summary;
 
-   parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component" annotation(choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
 
   parameter Boolean useMechanicalPort=false "True, if a mechenical flange should be used" annotation (Dialog( group = "Fundamental Definitions"));
   parameter Boolean steadyStateTorque=false "True, if steady state mechanical momentum shall be used" annotation (Dialog( group = "Fundamental Definitions"));
@@ -53,7 +54,7 @@ model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, b
 //   parameter ClaRa.Basics.Units.Temperature T_nom_char = 293.15 "Nominal temperature related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic Field", enable= useHead or (not useHead and useDensityAffinity)));
 //   parameter ClaRa.Basics.Units.Pressure p_nom_char = 1e5 "Nominal pressure related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic Field", enable= useHead or (not useHead and useDensityAffinity)));
 //   parameter ClaRa.Basics.Units.MassFraction xi_nom_char[medium.nc-1] = medium.xi_default "Nominal mass fraction related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic Field", enable= useHead or (not useHead and useDensityAffinity)));
-  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_pTxi(medium,1e5,293.15,medium.xi_default) "Nominal density related to Delta_p_max" annotation(Dialog(group="Characteristic Field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom = TILMedia.VLEFluid.MixtureCompatible.Functions.density_pTxi(                                     medium,1e5,293.15,medium.xi_default) "Nominal density related to Delta_p_max" annotation(Dialog(group="Characteristic Field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_eps = V_flow_max/100 "Minimum volumetric flow rate for which hydraulic characteristic is still scaled with respect to density | For V_flow < abs(V_flow_eps) no density scalling is used." annotation(Dialog(tab="Expert Settings", enable = useDensityAffinity));
 
 
@@ -93,10 +94,16 @@ model PumpVLE_L2_affinity "A pump for VLE mixtures with a finite fluid volume, b
   ClaRa.Basics.Interfaces.FluidPortIn inlet( Medium=medium) annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   ClaRa.Basics.Interfaces.FluidPortOut outlet(Medium=medium) annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidIn(vleFluidType =    medium, p=inlet.p,
-    h=homotopy(noEvent(actualStream(inlet.h_outflow)), inStream(inlet.h_outflow)))                                                                            annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidOut( vleFluidType =    medium, p=outlet.p,
-    h=homotopy(noEvent(actualStream(outlet.h_outflow)), outlet.h_outflow))                                                                                        annotation (Placement(transformation(extent={{70,14},{90,34}})));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
+    vleFluidType=medium,
+    p=inlet.p,
+    h=homotopy(noEvent(actualStream(inlet.h_outflow)), inStream(inlet.h_outflow)))
+    annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
+    vleFluidType=medium,
+    p=outlet.p,
+    h=homotopy(noEvent(actualStream(outlet.h_outflow)), outlet.h_outflow))
+    annotation (Placement(transformation(extent={{70,14},{90,34}})));
 public
   Basics.Interfaces.EyeOut       eye if showData annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));

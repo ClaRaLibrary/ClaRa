@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Solids;
+﻿within ClaRa.Basics.Media.Solids;
 model SteelX2CrNiMo17_12_2 "SteelX2CrNiMo17_12_2 - 1.4404"
    //Source: http://www.thyssenkrupp.at/files/rohre/Werkstoffdatenblaetter/1.4404.pdf"
 

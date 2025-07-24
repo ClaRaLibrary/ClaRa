@@ -1,7 +1,7 @@
-within ClaRa.Components.MechanicalSeparation;
+﻿within ClaRa.Components.MechanicalSeparation;
 model SteamSeparatorVLE_L3
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -20,7 +20,7 @@ model SteamSeparatorVLE_L3
 
   //_____________________________________________________
   //_______________replaceable models____________________
-  inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
 
   //replaceable model HeatTransfer = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.HeatTransfer_L3 annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
@@ -78,8 +78,8 @@ model SteamSeparatorVLE_L3
 
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
     annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluid.MixtureCompatible.Functions.dewSpecificEnthalpy_pxi(                                     medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
 
   parameter ClaRa.Basics.Units.MassFraction xi_liq_start[medium.nc - 1]=medium.xi_default "|Initialisation||Initial composition of liquid phase";
   parameter ClaRa.Basics.Units.MassFraction xi_vap_start[medium.nc - 1]=medium.xi_default "|Initialisation||Initial composition of vapour phase";

@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model Valve_dp_nom4 "Valve || par.: dp_nom || yellow | yellow"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -24,22 +24,29 @@ model Valve_dp_nom4 "Valve || par.: dp_nom || yellow | yellow"
     ClaRa.Basics.Records.StaCyFlangeVLE_a outlet;
   end Summary;
 
-  Summary summary(
-  inlet(
-     m_flow=m_flow,
-     h=h_in,
-     p=p_in,
-     rho = TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_in, h_in, vleMedium.xi_default)),
-  outlet(
-     m_flow=m_flow,
-     h=h_out,
-     p=p_out,
-     rho=TILMedia.VLEFluidFunctions.density_phxi(vleMedium, p_out, h_out, vleMedium.xi_default)));
+  Summary summary(inlet(
+      m_flow=m_flow,
+      h=h_in,
+      p=p_in,
+      rho=TILMedia.VLEFluid.Functions.density_phxi(
+          vleMedium,
+          p_in,
+          h_in,
+          vleMedium.xi_default)), outlet(
+      m_flow=m_flow,
+      h=h_out,
+      p=p_out,
+      rho=TILMedia.VLEFluid.Functions.density_phxi(
+          vleMedium,
+          p_out,
+          h_out,
+          vleMedium.xi_default)));
   //---------Summary Definition---------
   outer parameter Real P_target_ "Target power in p.u.";
   outer ClaRa.SimCenter simCenter;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid vleMedium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Pressure Delta_p_nom "Nominal pressure drop" annotation(Dialog(group="Fundamental Definitions"));
   parameter Real CharLine_Delta_p_P_target_[:,2] = [0,0;1,1] "Pressure drop depending on rel. power in p.u."
                                                                                               annotation(Dialog(group="Fundamental Definitions"));

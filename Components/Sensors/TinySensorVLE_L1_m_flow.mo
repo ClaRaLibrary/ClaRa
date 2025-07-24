@@ -1,9 +1,9 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorVLE_L1_m_flow "Ideal TINY one port mass flow sensor"
   //This model douplicates the respective ClaRa sensor changing its icon size //
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,7 +19,7 @@ model TinySensorVLE_L1_m_flow "Ideal TINY one port mass flow sensor"
 
   extends ClaRa.Basics.Icons.FlowSensor;
   outer ClaRa.SimCenter simCenter;
-    inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"), choices(choice=1 "kg/s", choice=2 "t/h", choice=3 "kg/h", choice=4 "t/s", choice=5 "per Unit"));
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_ref[2]={0,1} "Reference flow rate [min,max]" annotation (Dialog(group="Fundamental Definitions", enable=(unitOption == 5)));

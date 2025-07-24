@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block shape | U-type | NTU ansatz"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -48,13 +48,12 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
 
   //*********************************** / SHELL SIDE \ ***********************************//
   //________________________________ Shell fundamentals _______________________________//
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_shell=simCenter.fluid1 "Medium to be used for shell flow"
-                                       annotation (choices(
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_shell=simCenter.fluid1 "Medium to be used for shell flow"
+    annotation (choices(
       choice=simCenter.fluid1 "First fluid defined in global simCenter",
       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-      choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(tab=
-          "Shell Side", group="Fundamental Definitions"));
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(tab="Shell Side", group=
+          "Fundamental Definitions"));
 
   replaceable model HeatTransfer_Shell =
      ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3
@@ -100,9 +99,9 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
 
   //________________________________ Shell initialisation  _______________________________________//
    parameter SI.EnthalpyMassSpecific h_liq_start=-10 +
-       TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start specific enthalpy of liquid phase" annotation (Dialog(tab="Shell Side", group="Initialisation"));
+       TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     medium_shell, p_start_shell) "Start specific enthalpy of liquid phase" annotation (Dialog(tab="Shell Side", group="Initialisation"));
    parameter SI.EnthalpyMassSpecific h_vap_start=+10 +
-       TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium_shell, p_start_shell) "Start specific enthalpy of steam phase" annotation (Dialog(tab="Shell Side", group="Initialisation"));
+       TILMedia.VLEFluid.MixtureCompatible.Functions.dewSpecificEnthalpy_pxi(                                     medium_shell, p_start_shell) "Start specific enthalpy of steam phase" annotation (Dialog(tab="Shell Side", group="Initialisation"));
 
 //   parameter SI.SpecificEnthalpy h_start_shell=1e5
 //     "Start value of sytsem specific enthalpy"
@@ -115,13 +114,12 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
 
   //*********************************** / TUBE SIDE \ ***********************************//
   //________________________________ Tubes fundamentals _______________________________//
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_tubes=simCenter.fluid1 "Medium to be used for tubes flow"
-                                       annotation (choices(
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_tubes=simCenter.fluid1 "Medium to be used for tubes flow"
+    annotation (choices(
       choice=simCenter.fluid1 "First fluid defined in global simCenter",
       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-      choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(tab="Tubes",
-        group="Fundamental Definitions"));
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(tab="Tubes", group=
+          "Fundamental Definitions"));
 
   replaceable model HeatTransferTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
@@ -178,8 +176,9 @@ model HEXvle2vle_L3_2ph_BU_ntu "VLE 2 VLE | L3 | two phase at shell side | Block
 
   //*********************************** / WALL \ ***********************************//
   //________________________________ Wall fundamentals _______________________________//
-  replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder"
     annotation (choicesAllMatching=true, Dialog(tab="Tube Wall", group=
           "Fundamental Definitions"));
   parameter SI.Mass mass_struc=0 "Mass of inner structure elements, additional to the tubes itself"

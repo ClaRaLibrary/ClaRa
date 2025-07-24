@@ -1,11 +1,12 @@
-within ClaRa.Visualisation.Check;
+﻿within ClaRa.Visualisation.Check;
 model TestSixtuple
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   Sixtuple                         sixtuple(decimalSpaces(s=3, e=2), vleFluid=1) annotation (Placement(transformation(extent={{16,-18},{46,-8}})));
   inner ClaRa.SimCenter simCenter(
     p_amb=1e5,
     T_amb=273.15 + 25,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_GERGCO2 fluid2) annotation (Placement(transformation(extent={{-100,80},{-60,100}})));
+    redeclare TILMedia.VLEFluid.Types.TILMedia_GERGCO2 fluid2)
+    annotation (Placement(transformation(extent={{-100,80},{-60,100}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_Txim_flow boundaryVLE_hxim_flow(
     m_flow_const=1,
     T_const=550 + 273.15)    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));

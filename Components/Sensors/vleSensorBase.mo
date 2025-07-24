@@ -1,7 +1,7 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model vleSensorBase "Base class for gas sensors"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -25,7 +25,7 @@ model vleSensorBase "Base class for gas sensors"
   extends ClaRa.Basics.Icons.Sensor1;
   outer ClaRa.SimCenter simCenter;
 
-  inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 equation

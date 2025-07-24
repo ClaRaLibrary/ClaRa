@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals;
 record ICom_NTU_L3
   extends ClaRa.Basics.Icons.RecordIcon;
   parameter String media[2] = {"vle", "vle"} "Outer side medium | innner side medium";

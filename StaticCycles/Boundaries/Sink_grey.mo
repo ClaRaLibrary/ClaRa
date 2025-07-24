@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Boundaries;
+﻿within ClaRa.StaticCycles.Boundaries;
 model Sink_grey "A boundary for power connections"
 
   final parameter ClaRa.Basics.Units.Power P(fixed=false) "Power to sink";

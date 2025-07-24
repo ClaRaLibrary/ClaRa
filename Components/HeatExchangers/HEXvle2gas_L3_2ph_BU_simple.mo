@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block shape | U-type |"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -40,9 +40,8 @@ model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block
 
   // Parameters and other user definable settings~
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  parameter TILMedia.GasTypes.BaseGas medium1=simCenter.flueGasModel "Medium to be used for gas flow"
-    annotation (Dialog(tab="Shell Side",
-        group="Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.Gas.Types.BaseGas medium1=simCenter.flueGasModel "Medium to be used for gas flow"
+    annotation (Dialog(tab="Shell Side", group="Fundamental Definitions"), choicesAllMatching);
   replaceable model HeatTransfer_Shell =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas_only "Heat transfer model at shell side"  annotation (Dialog(tab="Shell Side",
@@ -79,7 +78,7 @@ model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block
        choice=208 "Steady pressure and enthalpy",
        choice=210 "Steady density"));
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium2=simCenter.fluid1 "Medium to be used for water/steam flow"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium2=simCenter.fluid1 "Medium to be used for water/steam flow"
     annotation (Dialog(tab="Tubes", group="Fundamental Definitions"), choicesAllMatching);
   replaceable model HeatTransferTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3
@@ -122,8 +121,8 @@ model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block
   final parameter Real yps_nom[2]={yps_liq_nom, 1-yps_liq_nom} "Relative volume of liquid phase [1] and vapour phase [2] at nominal point";
 
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium2, p_start_tubes) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Tubes", group="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium2, p_start_tubes) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Tubes", group="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     medium2, p_start_tubes) "Start value of liquid specific enthalpy" annotation (Dialog(tab="Tubes", group="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluid.MixtureCompatible.Functions.dewSpecificEnthalpy_pxi(                                     medium2, p_start_tubes) "Start value of vapour specific enthalpy" annotation (Dialog(tab="Tubes", group="Initialisation"));
 
   parameter ClaRa.Basics.Units.Pressure p_start_tubes=1e5 "Start value of sytsem pressure" annotation (Dialog(tab="Tubes", group="Initialisation"));
   parameter Real level_rel_start=0.5 "Start value for relative filling Level" annotation (Dialog(tab="Tubes", group="Initialisation"));
@@ -134,8 +133,9 @@ model HEXvle2gas_L3_2ph_BU_simple "VLE 2 gas | L3 | 1 phase on each side | Block
                                                                                               choice=204 "Fixed volume fraction",
                                                                                               choice=211 "Fixed values in level, enthalpies and vapour pressure"));
 
-  replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder"
     annotation (choicesAllMatching=true, Dialog(tab="Tube Wall", group="Fundamental Definitions"));
   parameter Integer initOptionWall=213 "Init Option of Wall"
     annotation (Dialog(tab="Tube Wall", group="Initialisation"), choices(

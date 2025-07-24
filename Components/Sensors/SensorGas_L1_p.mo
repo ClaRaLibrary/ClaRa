@@ -1,7 +1,7 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model SensorGas_L1_p "Ideal one port pressure sensor"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,8 +17,10 @@ model SensorGas_L1_p "Ideal one port pressure sensor"
   extends ClaRa.Basics.Icons.Sensor1;
   outer ClaRa.SimCenter simCenter;
 
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel
-    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"),Placement(transformation(extent={{42,-2},{62,18}})));
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel annotation (
+    choicesAllMatching,
+    Dialog(group="Fundamental Definitions"),
+    Placement(transformation(extent={{42,-2},{62,18}})));
 
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching,  Dialog(group="Fundamental Definitions"), choices(choice=1 "Pa", choice=2 "bar", choice=3 "mbar", choice=4 "MPa", choice = 5 "per Unit"));
 

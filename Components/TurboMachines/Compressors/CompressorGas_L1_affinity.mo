@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Compressors;
+﻿within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_affinity "A gas compressor or fan based on affinity laws"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -47,7 +47,7 @@ parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary 
     ClaRa.Basics.Records.FlangeGas  outlet;
   end Summary;
 
-  inner parameter TILMedia.GasTypes.BaseGas    medium = simCenter.flueGasModel;
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel;
 
   final parameter Boolean allow_reverseFlow = false;
 
@@ -71,11 +71,17 @@ protected
 //  ClaRa.Basics.Units.DensityMassSpecific rho_nom_char = TILMedia.GasObjectFunctions.density_pTxi(p_nom_char,T_nom_char,xi_nom_char,InletNom.gasPointer) "Nominal density related to Delta_p_max";
 
 public
-  TILMedia.Gas_pT flueGas_inlet( p = inlet.p, T = inStream(inlet.T_outflow), xi = inStream(inlet.xi_outflow), gasType = medium)
-    annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
+  TILMedia.Gas.Gas_pT flueGas_inlet(
+    p=inlet.p,
+    T=inStream(inlet.T_outflow),
+    xi=inStream(inlet.xi_outflow),
+    gasType=medium) annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
 
-  TILMedia.Gas_ph flueGas_outlet( gasType = medium, h = h_out, p = outlet.p,  xi = flueGas_inlet.xi)
-    annotation (Placement(transformation(extent={{70,-12},{90,8}})));
+  TILMedia.Gas.Gas_ph flueGas_outlet(
+    gasType=medium,
+    h=h_out,
+    p=outlet.p,
+    xi=flueGas_inlet.xi) annotation (Placement(transformation(extent={{70,-12},{90,8}})));
 
   //__________________________/ Parameters \_____________________________
   parameter Modelica.Units.SI.Inertia J "Moment of Inertia" annotation (Dialog(group="Fundamental Definitions", enable=not steadyStateTorque));
@@ -93,7 +99,8 @@ public
 //   parameter ClaRa.Basics.Units.Temperature T_nom_char = 293.15 "Nominal temperature related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
 //   parameter ClaRa.Basics.Units.Pressure p_nom_char = 1e5 "Nominal pressure related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
 //   parameter ClaRa.Basics.Units.MassFraction xi_nom_char[medium.nc - 1]={0,0,0,0,0.76,0.23,0,0,0} "Nominal gas composition related to Delta_p_max (related to nominal hydraulic characterisic)" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
-  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom = TILMedia.GasObjectFunctions.density_pTxi(1e5,293.15,{0,0,0,0,0.76,0.23,0,0,0},InletNom.gasPointer) "Nominal density related to Delta_p_max" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom = TILMedia.Gas.ObjectFunctions.density_pTxi(
+                                                                                                      1e5,293.15,{0,0,0,0,0.76,0.23,0,0,0},InletNom.gasPointer) "Nominal density related to Delta_p_max" annotation(Dialog(group="Characteristic field", enable= (useHead and not useDensityAffinity) or (not useHead and useDensityAffinity)));
   parameter Real exp_hyd= 0.5 "|Characteristic field|Exponent for affinity law";
 
   parameter Real eta = 0.85 "isentropic efficiency";
@@ -124,7 +131,7 @@ protected
   Real kappaB_aux;
   Real kappaA_aux;
 
-  TILMedia.Gas InletNom(gasType=medium);
+  TILMedia.Gas.Gas InletNom(gasType=medium);
 
 public
   ClaRa.Basics.Interfaces.EyeOutGas

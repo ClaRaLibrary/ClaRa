@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.GasVolumes;
+﻿within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L2_chem "A 0-d control volume for flue gas with chemical reactions"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,8 +19,8 @@ model VolumeGas_L2_chem "A 0-d control volume for flue gas with chemical reactio
   outer ClaRa.SimCenter simCenter;
 
 // ***************************** defintion of medium used in cell *************************************************
-inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used in tubes"
-                                  annotation(choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
 
 // ************************* replacable models for heat transfer, pressure loss and geometry **********************
   replaceable model HeatTransfer =
@@ -68,7 +68,8 @@ inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog
   parameter ClaRa.Basics.Units.Temperature T_start= 273.15 + 100.0 "Start value of system temperature"
                                         annotation(Dialog(tab="Initialisation"));
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start=
-          TILMedia.GasFunctions.specificEnthalpy_pTxi(medium, p_start, T_start, xi_start) "Start value of system specific enthalpy";
+          TILMedia.Gas.Functions.specificEnthalpy_pTxi(
+                                                      medium, p_start, T_start, xi_start) "Start value of system specific enthalpy";
 //          TILMedia.GasFunctions.specificEnthalpy_pTxi(medium, p_start, T_start, xi_start[1:end-1]/sum(xi_start))
 //    "Start value of system specific enthalpy";
   parameter ClaRa.Basics.Units.Pressure p_start= 1.013e5 "Start value of sytsem pressure"
@@ -99,16 +100,24 @@ public
           allow_reverseFlow then Modelica.Constants.inf else -1e-5)) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  TILMedia.Gas_pT     flueGasInlet(gasType = medium, p=inlet.p, T=noEvent(actualStream(inlet.T_outflow)), xi=noEvent(actualStream(inlet.xi_outflow)),
-    computeTransportProperties=true)
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  TILMedia.Gas_pT     flueGasOutlet(gasType = medium, p=outlet.p, T=noEvent(actualStream(outlet.T_outflow)), xi=noEvent(actualStream(outlet.xi_outflow)))
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  inner TILMedia.Gas_ph     bulk(
+  TILMedia.Gas.Gas_pT flueGasInlet(
+    gasType=medium,
+    p=inlet.p,
+    T=noEvent(actualStream(inlet.T_outflow)),
+    xi=noEvent(actualStream(inlet.xi_outflow)),
+    computeTransportProperties=true) annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  TILMedia.Gas.Gas_pT flueGasOutlet(
+    gasType=medium,
+    p=outlet.p,
+    T=noEvent(actualStream(outlet.T_outflow)),
+    xi=noEvent(actualStream(outlet.xi_outflow))) annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+  inner TILMedia.Gas.Gas_ph bulk(
     computeTransportProperties=false,
-    gasType = medium,p=p,h=h,xi=xi,
-    stateSelectPreferForInputs=true)
-    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+    gasType=medium,
+    p=p,
+    h=h,
+    xi=xi,
+    stateSelectPreferForInputs=true) annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
 
   ClaRa.Basics.Interfaces.HeatPort_a  heat "heat port"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));

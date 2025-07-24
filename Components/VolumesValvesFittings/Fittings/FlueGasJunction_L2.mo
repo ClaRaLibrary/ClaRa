@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model FlueGasJunction_L2 "Adiabatic junction volume"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -46,8 +46,8 @@ inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog
       choice=210 "Steady density"));
 
 // ***************************** defintion of medium used in cell *************************************************
-inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used in tubes"
-                                  annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   Basics.Interfaces.GasPortIn      portA(Medium = medium, m_flow)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
@@ -66,26 +66,28 @@ inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Mediu
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
                                                               annotation(Dialog(tab="Initialisation"));
 
-  TILMedia.Gas_pT flueGasIn(
+  TILMedia.Gas.Gas_pT flueGasIn(
     gasType=medium,
     p=p,
     T=noEvent(actualStream(portA.T_outflow)),
     xi=noEvent(actualStream(portA.xi_outflow))) annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
-  TILMedia.Gas_pT flueGasOut1(
+  TILMedia.Gas.Gas_pT flueGasOut1(
     gasType=medium,
     p=portB.p,
     T=noEvent(actualStream(portB.T_outflow)),
     xi=noEvent(actualStream(portB.xi_outflow))) annotation (Placement(transformation(extent={{60,-14},{80,6}})));
-  TILMedia.Gas_pT flueGasOut2(
+  TILMedia.Gas.Gas_pT flueGasOut2(
     gasType=medium,
     p=portC.p,
     T=noEvent(actualStream(portC.T_outflow)),
     xi=noEvent(actualStream(portC.xi_outflow))) annotation (Placement(transformation(extent={{-10,-82},{10,-62}})));
-  inner TILMedia.Gas_ph     bulk(
+  inner TILMedia.Gas.Gas_ph bulk(
     computeTransportProperties=false,
-    gasType = medium,p=p,h=h,xi=xi,
-    stateSelectPreferForInputs=true)
-    annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
+    gasType=medium,
+    p=p,
+    h=h,
+    xi=xi,
+    stateSelectPreferForInputs=true) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
 
   parameter Boolean showData=true "|Summary and Visualisation||True, if a data port containing p,T,h,s,m_flow shall be shown, else false";
 
@@ -100,7 +102,8 @@ public
 
   parameter ClaRa.Basics.Units.MassFraction[medium.nc - 1] xi_start=medium.xi_default "Initial value for mixing ratio" annotation(Dialog(tab="Initialisation"));
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start = TILMedia.GasFunctions.specificEnthalpy_pTxi(medium, p_start, T_start, xi_start) "Start value for specific Enthalpy inside volume";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start = TILMedia.Gas.Functions.specificEnthalpy_pTxi(
+                                                                                                                medium, p_start, T_start, xi_start) "Start value for specific Enthalpy inside volume";
 
   ClaRa.Basics.Units.MassFraction xi[medium.nc - 1](start=xi_start);
   ClaRa.Basics.Units.EnthalpyMassSpecific h(start=h_start) "Specific enthalpy";

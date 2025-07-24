@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL;
 model PressureLossCoeffcient_L2 "All geo || Quadratic pressure loss || constant pressure loss coefficient || density dependent "
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,7 +18,7 @@ model PressureLossCoeffcient_L2 "All geo || Quadratic pressure loss || constant 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.VLE_PL.PressureLoss_L2;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.TubeTypeVLE_L2;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.ShellTypeVLE_L2;
-  import TILMedia.Internals.VLEFluidObjectFunctions.density_phxi;
+  import TILMedia.VLEFluid.ObjectFunctions.density_phxi;
   import ClaRa.Basics.Functions.Stepsmoother;
 protected
   ClaRa.Basics.Units.DensityMassSpecific rho_in "Density at inlet";

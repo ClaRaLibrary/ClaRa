@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector Slag_outlet
   extends ClaRa.Basics.Interfaces.Slag_inlet;
     annotation (Documentation(info="<html>

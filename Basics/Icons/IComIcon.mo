@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 record IComIcon
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

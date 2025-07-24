@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
 partial model PressureLoss_L4 "Gas || PL Base Class"
   extends ClaRa.Basics.Icons.Delta_p;
   extends ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseGas_L4;

@@ -1,8 +1,9 @@
-within ClaRa.StaticCycles.Boundaries;
+﻿within ClaRa.StaticCycles.Boundaries;
 model Sink_blue "Blue sink"
   // Blue input:  Value of p is unknown and provided BY neighbor component, values of m_flow and h are known in component and provided FOR neighbor component.
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid vleMedium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow(fixed=false) "Mass flowing into the sink";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h(fixed=false) "Spec.enthalpy flowing into the sink";
   parameter ClaRa.Basics.Units.Pressure p(fixed=true) "Pressure at the boundary";

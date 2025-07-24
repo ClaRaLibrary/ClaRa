@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_finnedTubes_L2 "Shell Geo || L2 || Convection Finned Tube Bank VDI WA"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -33,8 +33,9 @@ model Convection_finnedTubes_L2 "Shell Geo || L2 || Convection Finned Tube Bank 
       choice=2 "Inner heat transfer surface",
       choice=3 "Selection to be extended"));
 
-  replaceable model solidType = TILMedia.SolidTypes.TILMedia_Steel
-    constrainedby TILMedia.SolidTypes.BaseSolid "Fin material"
+  replaceable model solidType = TILMedia.Solid.Types.TILMedia_Steel
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Fin material"
     annotation (choicesAllMatching=true, Dialog(group="Fin material"));
 public
   ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha;
@@ -66,15 +67,15 @@ protected
   outer ClaRa.Basics.ControlVolumes.Fundamentals.Geometry.HollowBlockWithTubes geo;
   ClaRa.Basics.Units.MassFraction xi_mean[iCom.mediumModel.nc - 1] "Mean medium composition";
 
-  TILMedia.Gas_pT properties(
+  TILMedia.Gas.Gas_pT properties(
     p=(iCom.p_in + iCom.p_out)/2,
     T=T_prop_am,
     xi=xi_mean,
     gasType=iCom.mediumModel,
     computeTransportProperties=true) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  TILMedia.Solid solid_f(T=T_f, redeclare model SolidType =
-        solidType)                                                     annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=0)));
+  TILMedia.Solid.Solid solid_f(T=T_f, redeclare model SolidType = solidType)
+    annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=0)));
     Real x1;
     Real x2;
 equation

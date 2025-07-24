@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector FluidPortOut
   extends ClaRa.Basics.Interfaces.FluidPortIn;
     annotation (Documentation(info="<html>

@@ -1,7 +1,7 @@
-within ClaRa.Examples;
+﻿within ClaRa.Examples;
 model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger and pump models"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -22,19 +22,17 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_HP.p_in,
     m_flow_nom=NOM.Turbine_HP.m_flow,
     Pi=NOM.Turbine_HP.p_out/NOM.Turbine_HP.p_in,
-    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_HP.p_in,
         NOM.Turbine_HP.h_in),
     allowFlowReversal=true,
-    redeclare model Efficiency =
-        ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (
-         eta_mflow=([0.0,NOM.efficiency_Turb_HP; 1,NOM.efficiency_Turb_HP])),
+    redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow
+          =([0.0,NOM.efficiency_Turb_HP; 1,NOM.efficiency_Turb_HP])),
     p_in_start=INIT.Turbine_HP.p_in,
     p_out_start=INIT.Turbine_HP.p_out,
     useMechanicalPort=true,
-    eta_mech=NOM.Turbine_HP.efficiency)
-    annotation (Placement(transformation(extent={{-58,40},{-48,60}})));
+    eta_mech=NOM.Turbine_HP.efficiency) annotation (Placement(transformation(extent={{-58,40},{-48,60}})));
 
   ClaRa.SubSystems.Boiler.SteamGenerator_L3 steamGenerator(
     p_LS_start=INIT.boiler.p_LS_out,
@@ -63,38 +61,36 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_IP1(
     contributeToCycleSummary=false,
     allowFlowReversal=true,
-    redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_IP1.efficiency; 1,NOM.Turbine_IP1.efficiency])),
+    redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow
+          =([0.0,NOM.Turbine_IP1.efficiency; 1,NOM.Turbine_IP1.efficiency])),
     p_in_start=INIT.Turbine_IP1.p_in,
     p_out_start=INIT.Turbine_IP1.p_out,
     p_nom=NOM.Turbine_IP1.p_in,
     m_flow_nom=NOM.Turbine_IP1.m_flow,
     Pi=NOM.Turbine_IP1.p_out/NOM.Turbine_IP1.p_in,
-    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_IP1.p_in,
         NOM.Turbine_IP1.h_in),
     useMechanicalPort=true,
-    eta_mech=NOM.Turbine_IP1.efficiency)
-                            annotation (Placement(transformation(extent={{26,40},{36,60}})));
+    eta_mech=NOM.Turbine_IP1.efficiency) annotation (Placement(transformation(extent={{26,40},{36,60}})));
 
   ClaRa.Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_LP4(
     contributeToCycleSummary=false,
     allowFlowReversal=true,
-    redeclare model Efficiency =
-        ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (
-         eta_mflow=([0.0,NOM.Turbine_LP4.efficiency; 1,NOM.Turbine_LP4.efficiency])),
+    redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow
+          =([0.0,NOM.Turbine_LP4.efficiency; 1,NOM.Turbine_LP4.efficiency])),
     p_in_start=INIT.Turbine_LP4.p_in,
     p_out_start=INIT.Turbine_LP4.p_out,
     useMechanicalPort=true,
     p_nom=NOM.Turbine_LP4.p_in,
     m_flow_nom=NOM.Turbine_LP4.m_flow,
     Pi=NOM.Turbine_LP4.p_out/NOM.Turbine_LP4.p_in,
-    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP4.p_in,
         NOM.Turbine_LP4.h_in),
-    eta_mech=NOM.Turbine_LP4.efficiency)
-    annotation (Placement(transformation(extent={{366,40},{376,60}})));
+    eta_mech=NOM.Turbine_LP4.efficiency) annotation (Placement(transformation(extent={{366,40},{376,60}})));
 
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_simple Pump_FW(eta_mech=NOM.efficiency_Pump_cond)
                                                                                annotation (Placement(transformation(extent={{30,-170},{10,-190}})));
@@ -185,19 +181,17 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     p_nom=NOM.Turbine_LP1.p_in,
     m_flow_nom=NOM.Turbine_LP1.m_flow,
     Pi=NOM.Turbine_LP1.p_out/NOM.Turbine_LP1.p_in,
-    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP1.p_in,
         NOM.Turbine_LP1.h_in),
     allowFlowReversal=true,
-    redeclare model Efficiency =
-        ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (
-         eta_mflow=([0.0,NOM.Turbine_LP1.efficiency; 1,NOM.Turbine_LP1.efficiency])),
+    redeclare model Efficiency = ClaRa.Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow
+          =([0.0,NOM.Turbine_LP1.efficiency; 1,NOM.Turbine_LP1.efficiency])),
     p_in_start=INIT.Turbine_LP1.p_in,
     p_out_start=INIT.Turbine_LP1.p_out,
     useMechanicalPort=true,
-    eta_mech=NOM.Turbine_LP1.efficiency)
-    annotation (Placement(transformation(extent={{246,40},{256,60}})));
+    eta_mech=NOM.Turbine_LP1.efficiency) annotation (Placement(transformation(extent={{246,40},{256,60}})));
 
   ClaRa.Visualisation.Quadruple quadruple7
     annotation (Placement(transformation(extent={{-30,-10},{30,10}},
@@ -241,8 +235,8 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
         rotation=0,
         origin={-88,18})));
 
-  Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_ntu          preheater_HP(
-    redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
+  Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_ntu preheater_HP(
+    redeclare replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Steel,
     m_flow_nom_shell=NOM.preheater_HP.m_flow_tap,
     p_nom_shell=NOM.preheater_HP.p_tap,
     h_nom_shell=NOM.preheater_HP.h_tap_out,
@@ -262,19 +256,24 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     Tau_cond=0.3,
     Tau_evap=0.03,
     alpha_ph=50000,
-    redeclare model HeatTransferTubes = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (alpha_nom=3500),
+    redeclare model HeatTransferTubes = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (
+          alpha_nom=3500),
     p_nom_tubes=NOM.preheater_HP.p_cond,
     p_start_tubes(displayUnit="bar") = INIT.preheater_HP.p_cond,
-    redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={1000,1000,1000}),
-    redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=10),
+    redeclare model PressureLossShell =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={1000,1000,
+            1000}),
+    redeclare model PressureLossTubes =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=10),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall= 0,
+    initOptionWall=0,
     levelOutput=true,
-    redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1650,10000}),
+    redeclare model HeatTransfer_Shell =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1650,10000}),
     diameter_i=0.02,
     diameter_o=0.028,
-    N_tubes=2000)     annotation (Placement(transformation(
+    N_tubes=2000) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-88,-182})));
@@ -300,8 +299,8 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
         rotation=0,
         origin={-46,-220})));
   ClaRa.Visualisation.StatePoint_phTs statePoint annotation (Placement(transformation(extent={{-160,-180},{-142,-160}})));
-  Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_ntu          preheater_LP1(
-    redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
+  Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_ntu preheater_LP1(
+    redeclare replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Steel,
     m_flow_nom_shell=NOM.preheater_LP1.m_flow_tap,
     p_nom_shell=NOM.preheater_LP1.p_tap,
     h_nom_shell=NOM.preheater_LP1.h_tap_out,
@@ -315,26 +314,32 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     z_in_tubes=preheater_LP1.diameter/2,
     z_out_tubes=preheater_LP1.diameter/2,
     z_out_shell=0.1,
-    redeclare model HeatTransferTubes = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (PL_alpha=[0,0.55; 0.5,0.65; 0.7,0.72; 0.8,0.77; 1,1], alpha_nom=3000),
-    redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000),
+    redeclare model HeatTransferTubes = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (
+          PL_alpha=[0,0.55; 0.5,0.65; 0.7,0.72; 0.8,0.77; 1,1], alpha_nom=3000),
+    redeclare model PressureLossTubes =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000),
     Tau_cond=0.3,
     Tau_evap=0.03,
-    redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
+    redeclare model PressureLossShell =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,
+            100}),
     p_nom_tubes=NOM.preheater_LP1.p_cond,
     p_start_tubes(displayUnit="bar") = INIT.preheater_LP1.p_cond,
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall= 0,
+    initOptionWall=0,
     levelOutput=true,
     length=10,
     diameter=3,
     diameter_i=0.05,
     diameter_o=0.052,
     level_rel_start=0.1,
-    redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
+    redeclare model HeatTransfer_Shell =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
     N_tubes=1000,
-    redeclare model HeatCapacityAveraging = ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.InputOnly)
-                      annotation (Placement(transformation(
+    redeclare model HeatCapacityAveraging =
+        ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp.InputOnly) annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={200,-124})));
@@ -474,40 +479,40 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     preheater_HP_p_tap=46e5)  annotation (Placement(transformation(extent={{-312,-236},{-292,-216}})));
   inner SimCenter simCenter(
     contributeToCycleSummary=true,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1,
     showExpertSummary=true) annotation (Placement(transformation(extent={{-280,-220},{-240,-200}})));
   Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_IP3(
     contributeToCycleSummary=false,
     allowFlowReversal=true,
-    redeclare model Efficiency = Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_IP1.efficiency; 1,NOM.Turbine_IP1.efficiency])),
+    redeclare model Efficiency = Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,
+            NOM.Turbine_IP1.efficiency; 1,NOM.Turbine_IP1.efficiency])),
     p_in_start=INIT.Turbine_IP1.p_in,
     p_out_start=INIT.Turbine_IP1.p_out,
     useMechanicalPort=true,
     p_nom=NOM.Turbine_IP3.p_in,
     m_flow_nom=NOM.Turbine_IP3.m_flow,
     Pi=NOM.Turbine_IP3.p_out/NOM.Turbine_IP3.p_in,
-    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_IP3.p_in,
         NOM.Turbine_IP3.h_in),
-    eta_mech=NOM.Turbine_IP3.efficiency)
-                            annotation (Placement(transformation(extent={{106,40},{116,60}})));
+    eta_mech=NOM.Turbine_IP3.efficiency) annotation (Placement(transformation(extent={{106,40},{116,60}})));
   Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_IP2(
     contributeToCycleSummary=false,
     allowFlowReversal=true,
-    redeclare model Efficiency = Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_IP1.efficiency; 1,NOM.Turbine_IP1.efficiency])),
+    redeclare model Efficiency = Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,
+            NOM.Turbine_IP1.efficiency; 1,NOM.Turbine_IP1.efficiency])),
     p_in_start=INIT.Turbine_IP1.p_in,
     p_out_start=INIT.Turbine_IP1.p_out,
     useMechanicalPort=true,
     p_nom=NOM.Turbine_IP2.p_in,
     m_flow_nom=NOM.Turbine_IP2.m_flow,
     Pi=NOM.Turbine_IP2.p_out/NOM.Turbine_IP2.p_in,
-    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_IP2.p_in,
         NOM.Turbine_IP2.h_in),
-    eta_mech=NOM.Turbine_IP2.efficiency)
-                            annotation (Placement(transformation(extent={{66,40},{76,60}})));
+    eta_mech=NOM.Turbine_IP2.efficiency) annotation (Placement(transformation(extent={{66,40},{76,60}})));
   Components.VolumesValvesFittings.Fittings.SplitVLE_L2_Y split_IP2(
     volume=0.1,
     initOption=0,
@@ -534,38 +539,38 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     annotation (Placement(transformation(extent={{80,80},{140,100}})));
   Visualisation.Quadruple       quadruple16
     annotation (Placement(transformation(extent={{120,60},{180,80}})));
-  Components.TurboMachines.Turbines.SteamTurbineVLE_L1       Turbine_LP3(
+  Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_LP3(
     contributeToCycleSummary=false,
     allowFlowReversal=true,
-    redeclare model Efficiency = Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_LP1.efficiency; 1,NOM.Turbine_LP1.efficiency])),
+    redeclare model Efficiency = Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,
+            NOM.Turbine_LP1.efficiency; 1,NOM.Turbine_LP1.efficiency])),
     p_in_start=INIT.Turbine_LP1.p_in,
     p_out_start=INIT.Turbine_LP1.p_out,
     useMechanicalPort=true,
     p_nom=NOM.Turbine_LP3.p_in,
     m_flow_nom=NOM.Turbine_LP3.m_flow,
     Pi=NOM.Turbine_LP3.p_out/NOM.Turbine_LP3.p_in,
-    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP3.p_in,
         NOM.Turbine_LP3.h_in),
-    eta_mech=NOM.Turbine_LP3.efficiency)
-    annotation (Placement(transformation(extent={{326,40},{336,60}})));
-  Components.TurboMachines.Turbines.SteamTurbineVLE_L1       Turbine_LP2(
+    eta_mech=NOM.Turbine_LP3.efficiency) annotation (Placement(transformation(extent={{326,40},{336,60}})));
+  Components.TurboMachines.Turbines.SteamTurbineVLE_L1 Turbine_LP2(
     contributeToCycleSummary=false,
     allowFlowReversal=true,
-    redeclare model Efficiency = Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,NOM.Turbine_LP1.efficiency; 1,NOM.Turbine_LP1.efficiency])),
+    redeclare model Efficiency = Components.TurboMachines.Fundamentals.TurbineEfficiency.TableMassFlow (eta_mflow=([0.0,
+            NOM.Turbine_LP1.efficiency; 1,NOM.Turbine_LP1.efficiency])),
     p_in_start=INIT.Turbine_LP1.p_in,
     p_out_start=INIT.Turbine_LP1.p_out,
     useMechanicalPort=true,
     p_nom=NOM.Turbine_LP2.p_in,
     m_flow_nom=NOM.Turbine_LP2.m_flow,
     Pi=NOM.Turbine_LP2.p_out/NOM.Turbine_LP2.p_in,
-    rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+    rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
         simCenter.fluid1,
         NOM.Turbine_LP2.p_in,
         NOM.Turbine_LP2.h_in),
-    eta_mech=NOM.Turbine_LP2.efficiency)
-    annotation (Placement(transformation(extent={{286,40},{296,60}})));
+    eta_mech=NOM.Turbine_LP2.efficiency) annotation (Placement(transformation(extent={{286,40},{296,60}})));
   Components.VolumesValvesFittings.Fittings.SplitVLE_L2_Y       join_LP2(
     volume=0.1,
     initOption=0,
@@ -596,15 +601,18 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
         rotation=270,
         origin={270,-30})));
   Components.HeatExchangers.HEXvle2vle_L3_2ph_CH_simple preheater_LP2(
-    redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
+    redeclare replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Steel,
     N_passes=1,
     Q_flow_nom=2e8,
     z_out_shell=0.1,
-    redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (PL_alpha=[0,0.55; 0.5,0.65; 0.7,0.72; 0.8,0.77; 1,1], alpha_nom=3000),
-    redeclare model PressureLossTubes = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000),
+    redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (
+          PL_alpha=[0,0.55; 0.5,0.65; 0.7,0.72; 0.8,0.77; 1,1], alpha_nom=3000),
+    redeclare model PressureLossTubes =
+        Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000),
     Tau_cond=0.3,
     Tau_evap=0.03,
-    redeclare model PressureLossShell = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
+    redeclare model PressureLossShell =
+        Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
     levelOutput=true,
@@ -625,7 +633,8 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     h_start_tubes=INIT.preheater_LP2.h_cond_out,
     p_start_tubes(displayUnit="bar") = INIT.preheater_LP2.p_cond,
     level_rel_start=0.2,
-    redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
+    redeclare model HeatTransfer_Shell =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
     T_w_start={320,340,360},
     N_tubes=1000,
     initOptionWall=1) annotation (Placement(transformation(
@@ -633,14 +642,17 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
         rotation=180,
         origin={270,-124})));
   Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_simple preheater_LP3(
-    redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
+    redeclare replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Steel,
     Q_flow_nom=2e8,
     z_out_shell=0.1,
-    redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (PL_alpha=[0,0.55; 0.5,0.65; 0.7,0.72; 0.8,0.77; 1,1], alpha_nom=3000),
-    redeclare model PressureLossTubes = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000),
+    redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (
+          PL_alpha=[0,0.55; 0.5,0.65; 0.7,0.72; 0.8,0.77; 1,1], alpha_nom=3000),
+    redeclare model PressureLossTubes =
+        Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000),
     Tau_cond=0.3,
     Tau_evap=0.03,
-    redeclare model PressureLossShell = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
+    redeclare model PressureLossShell =
+        Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
     levelOutput=true,
@@ -663,25 +675,29 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     N_tubes=500,
     z_in_tubes=0.1,
     z_out_tubes=0.1,
-    redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
+    redeclare model HeatTransfer_Shell =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
     T_w_start={300,320,340},
     z_in_aux1=0.1,
     initOptionWall=1) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={340,-124})));
-  Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_ntu          preheater_LP4(
-    redeclare replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
+  Components.HeatExchangers.HEXvle2vle_L3_2ph_CU_ntu preheater_LP4(
+    redeclare replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Steel,
     Q_flow_nom=2e8,
     z_out_shell=0.1,
-    redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (PL_alpha=[0,0.55; 0.5,0.65; 0.7,0.72; 0.8,0.77; 1,1], alpha_nom=3000),
-    redeclare model PressureLossTubes = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000),
+    redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2 (
+          PL_alpha=[0,0.55; 0.5,0.65; 0.7,0.72; 0.8,0.77; 1,1], alpha_nom=3000),
+    redeclare model PressureLossTubes =
+        Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2 (Delta_p_nom=1000),
     Tau_cond=0.3,
     Tau_evap=0.03,
-    redeclare model PressureLossShell = Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
+    redeclare model PressureLossShell =
+        Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearParallelZones_L3 (Delta_p_nom={100,100,100}),
     initOptionTubes=0,
     initOptionShell=204,
-    initOptionWall= 0,
+    initOptionWall=0,
     levelOutput=true,
     z_in_shell=preheater_LP4.length,
     m_flow_nom_shell=NOM.preheater_LP4.m_flow_tap,
@@ -697,7 +713,8 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     N_passes=2,
     z_in_tubes=0.1,
     z_out_tubes=0.1,
-    redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
+    redeclare model HeatTransfer_Shell =
+        Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent (alpha_nom={1500,10000}),
     T_w_i_start=ones(3)*(273.15 + 35),
     T_w_o_start=ones(3)*(273.15 + 40),
     z_in_aux1=preheater_LP4.length,
@@ -707,8 +724,7 @@ model SteamCycle_02 "As example SteamCycle_02 with more detailed heat exchanger 
     diameter=2,
     N_tubes=600,
     p_start_shell=INIT.preheater_LP4.p_tap*0.75,
-    level_rel_start=0.2)
-                      annotation (Placement(transformation(
+    level_rel_start=0.2) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={410,-124})));

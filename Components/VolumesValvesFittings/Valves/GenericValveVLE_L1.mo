@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 model GenericValveVLE_L1 "Valve for VLE fluid flows with replaceable flow models"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -37,7 +37,7 @@ model GenericValveVLE_L1 "Valve for VLE fluid flows with replaceable flow models
     ClaRa.Basics.Records.FlangeVLE           inlet;
     ClaRa.Basics.Records.FlangeVLE           outlet;
   end Summary;
-  inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   replaceable model PressureLoss =
@@ -122,56 +122,117 @@ public
       rho=fluidOut.d))
     annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
 public
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
     p=outlet.p,
     vleFluidType=medium,
-    h=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ <
-        opening_leak_) then outlet.h_outflow else ClaRa.Basics.Functions.Stepsmoother(10,-10,pressureLoss.Delta_p)*outlet.h_outflow + ClaRa.Basics.Functions.Stepsmoother(-10,10,pressureLoss.Delta_p)*inStream(outlet.h_outflow),
-    xi=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_) then outlet.xi_outflow else ClaRa.Basics.Functions.Stepsmoother(10,-10,pressureLoss.Delta_p)*outlet.xi_outflow + ClaRa.Basics.Functions.Stepsmoother(-10,10,pressureLoss.Delta_p)*inStream(outlet.xi_outflow))
+    h=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_) then outlet.h_outflow else
+        ClaRa.Basics.Functions.Stepsmoother(
+        10,
+        -10,
+        pressureLoss.Delta_p)*outlet.h_outflow + ClaRa.Basics.Functions.Stepsmoother(
+        -10,
+        10,
+        pressureLoss.Delta_p)*inStream(outlet.h_outflow),
+    xi=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_) then outlet.xi_outflow else
+        ClaRa.Basics.Functions.Stepsmoother(
+        10,
+        -10,
+        pressureLoss.Delta_p)*outlet.xi_outflow + ClaRa.Basics.Functions.Stepsmoother(
+        -10,
+        10,
+        pressureLoss.Delta_p)*inStream(outlet.xi_outflow))
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 public
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     p=inlet.p,
-    h=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ <
-        opening_leak_) then inStream(inlet.h_outflow) else ClaRa.Basics.Functions.Stepsmoother(10,-10,pressureLoss.Delta_p)*inStream(inlet.h_outflow) + ClaRa.Basics.Functions.Stepsmoother(-10,10,pressureLoss.Delta_p)*inlet.h_outflow,
-    xi=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_) then inStream(inlet.xi_outflow) else ClaRa.Basics.Functions.Stepsmoother(10,-10,pressureLoss.Delta_p)*inStream(inlet.xi_outflow) + ClaRa.Basics.Functions.Stepsmoother(-10,10,pressureLoss.Delta_p)*inlet.xi_outflow)
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    h=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_) then inStream(inlet.h_outflow)
+         else ClaRa.Basics.Functions.Stepsmoother(
+        10,
+        -10,
+        pressureLoss.Delta_p)*inStream(inlet.h_outflow) + ClaRa.Basics.Functions.Stepsmoother(
+        -10,
+        10,
+        pressureLoss.Delta_p)*inlet.h_outflow,
+    xi=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_) then inStream(inlet.xi_outflow)
+         else ClaRa.Basics.Functions.Stepsmoother(
+        10,
+        -10,
+        pressureLoss.Delta_p)*inStream(inlet.xi_outflow) + ClaRa.Basics.Functions.Stepsmoother(
+        -10,
+        10,
+        pressureLoss.Delta_p)*inlet.xi_outflow) annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
 protected
-  inner Fundamentals.ICom    iCom(
+  inner Fundamentals.ICom iCom(
     p_in=inlet.p,
     p_out=outlet.p,
     opening_leak_=opening_leak_,
-    rho_in(start=1)=if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ <
-        opening_leak_) then fluidIn.d else (if useHomotopy then homotopy(
-        ClaRa.Basics.Functions.Stepsmoother(
-        10,
-        -10,
-        pressureLoss.Delta_p)*fluidIn.d + ClaRa.Basics.Functions.Stepsmoother(
-        -10,
-        10,
-        pressureLoss.Delta_p)*fluidOut.d, fluidIn.d) else
-        ClaRa.Basics.Functions.Stepsmoother(
-        10,
-        -10,
-        pressureLoss.Delta_p)*fluidIn.d + ClaRa.Basics.Functions.Stepsmoother(
-        -10,
-        10,
-        pressureLoss.Delta_p)*fluidOut.d),
-        gamma_in(start=2)=(SM(fluidIn.VLE.h_v+1000,fluidIn.VLE.h_v,fluidIn.h)*fluidIn.cp+
-                          SM(fluidIn.VLE.h_v,fluidIn.VLE.h_v+1000,fluidIn.h)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi(fluidIn.p, fluidIn.VLE.h_v, fluidIn.xi, fluidIn.vleFluidPointer))/
-                          (SM(fluidIn.VLE.h_v+1000,fluidIn.VLE.h_v,fluidIn.h)*fluidIn.cv+
-                          SM(fluidIn.VLE.h_v,fluidIn.VLE.h_v+1000,fluidIn.h)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_phxi(fluidIn.p, fluidIn.VLE.h_v, fluidIn.xi, fluidIn.vleFluidPointer)),
-    gamma_out(start=2)=(SM(fluidOut.VLE.h_v+1000,fluidOut.VLE.h_v,fluidOut.h)*fluidOut.cp+
-                          SM(fluidOut.VLE.h_v,fluidOut.VLE.h_v+1000,fluidOut.h)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi(fluidOut.p, fluidOut.VLE.h_v, fluidOut.xi, fluidOut.vleFluidPointer))/
-                          (SM(fluidOut.VLE.h_v+1000,fluidOut.VLE.h_v,fluidOut.h)*fluidOut.cv+
-                          SM(fluidOut.VLE.h_v,fluidOut.VLE.h_v+1000,fluidOut.h)*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsochoricHeatCapacity_phxi(fluidOut.p, fluidOut.VLE.h_v, fluidOut.xi, fluidOut.vleFluidPointer)),
+    rho_in(start=1) = if noEvent((checkValve == true and opening_leak_ <= 0) or opening_ < opening_leak_) then fluidIn.d
+       else (if useHomotopy then homotopy(ClaRa.Basics.Functions.Stepsmoother(
+      10,
+      -10,
+      pressureLoss.Delta_p)*fluidIn.d + ClaRa.Basics.Functions.Stepsmoother(
+      -10,
+      10,
+      pressureLoss.Delta_p)*fluidOut.d, fluidIn.d) else ClaRa.Basics.Functions.Stepsmoother(
+      10,
+      -10,
+      pressureLoss.Delta_p)*fluidIn.d + ClaRa.Basics.Functions.Stepsmoother(
+      -10,
+      10,
+      pressureLoss.Delta_p)*fluidOut.d),
+    gamma_in(start=2) = (SM(
+      fluidIn.VLE.h_v + 1000,
+      fluidIn.VLE.h_v,
+      fluidIn.h)*fluidIn.cp + SM(
+      fluidIn.VLE.h_v,
+      fluidIn.VLE.h_v + 1000,
+      fluidIn.h)*TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.specificIsobaricHeatCapacity_phxi(
+      fluidIn.p,
+      fluidIn.VLE.h_v,
+      fluidIn.xi,
+      fluidIn.vleFluidPointer))/(SM(
+      fluidIn.VLE.h_v + 1000,
+      fluidIn.VLE.h_v,
+      fluidIn.h)*fluidIn.cv + SM(
+      fluidIn.VLE.h_v,
+      fluidIn.VLE.h_v + 1000,
+      fluidIn.h)*TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.specificIsochoricHeatCapacity_phxi(
+      fluidIn.p,
+      fluidIn.VLE.h_v,
+      fluidIn.xi,
+      fluidIn.vleFluidPointer)),
+    gamma_out(start=2) = (SM(
+      fluidOut.VLE.h_v + 1000,
+      fluidOut.VLE.h_v,
+      fluidOut.h)*fluidOut.cp + SM(
+      fluidOut.VLE.h_v,
+      fluidOut.VLE.h_v + 1000,
+      fluidOut.h)*TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.specificIsobaricHeatCapacity_phxi(
+      fluidOut.p,
+      fluidOut.VLE.h_v,
+      fluidOut.xi,
+      fluidOut.vleFluidPointer))/(SM(
+      fluidOut.VLE.h_v + 1000,
+      fluidOut.VLE.h_v,
+      fluidOut.h)*fluidOut.cv + SM(
+      fluidOut.VLE.h_v,
+      fluidOut.VLE.h_v + 1000,
+      fluidOut.h)*TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.specificIsochoricHeatCapacity_phxi(
+      fluidOut.p,
+      fluidOut.VLE.h_v,
+      fluidOut.xi,
+      fluidOut.vleFluidPointer)),
     opening_=opening_,
     h_in=fluidIn.h,
     p_crit=fluidIn.crit.p,
-    p_vap_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubblePressure_Txi(max(fluidIn.T,fluidOut.T),fluidIn.xi, fluidIn.vleFluidPointer)) "mind that: gamma is kept constant at dew line value for h<h_dew, also for supercritical region"
+    p_vap_in=TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.bubblePressure_Txi(
+        max(fluidIn.T, fluidOut.T),
+        fluidIn.xi,
+        fluidIn.vleFluidPointer))
+    "mind that: gamma is kept constant at dew line value for h<h_dew, also for supercritical region"
     annotation (Placement(transformation(extent={{-60,-52},{-40,-32}})));
 
 public

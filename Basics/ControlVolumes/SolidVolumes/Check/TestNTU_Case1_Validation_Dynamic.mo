@@ -1,8 +1,8 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Check;
 model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.TestNTU_Case2"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -59,7 +59,8 @@ model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.Test
     steamCycleAllowFlowReversal=true,
     showExpertSummary=true,
     useHomotopy=true,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{80,75},{100,95}})));
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{80,75},{100,95}})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.NTU_L3_standalone NTU(
     N_t=N_tubes,
@@ -233,6 +234,8 @@ model TestNTU_Case1_Validation_Dynamic "Validation with TestThermalElements.Test
      variable_p=false) annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
    ClaRa.Components.Sensors.SensorVLE_L1_T Hot_out_degC annotation (Placement(transformation(extent={{16,22},{36,42}})));
    ClaRa.Components.Sensors.SensorVLE_L1_T Cold_out_degC annotation (Placement(transformation(extent={{-42,-10},{-22,10}})));
+  ClaRa.Components.VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1(redeclare model PressureLoss =
+        ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                                                            m_flow_nom=10, Delta_p_nom=1000)) annotation (Placement(transformation(extent={{-34,-94},{-54,-82}})));
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 thinWall(
     diameter_o=diameter_o,
     diameter_i=diameter_i,
@@ -325,8 +328,18 @@ equation
       points={{-9,-70.8},{-9,-78}},
       color={167,25,48},
       thickness=0.5));
+  connect(valveVLE_L1_1.inlet, innerVol.outlet) annotation (Line(
+      points={{-34,-88},{-19,-88}},
+      color={0,131,169},
+      pattern=LinePattern.Solid,
+      thickness=0.5));
   connect(Cold_out_degC1.port, innerVol.outlet) annotation (Line(
       points={{-26,-88},{-19,-88}},
+      color={0,131,169},
+      pattern=LinePattern.Solid,
+      thickness=0.5));
+  connect(InnerSide_out1.steam_a, valveVLE_L1_1.outlet) annotation (Line(
+      points={{-58,-88},{-54,-88}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
@@ -363,13 +376,8 @@ equation
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));
-  connect(Cold_out_degC.port, InnerSide_out.steam_a) annotation (Line(
-      points={{-32,-10},{-60,-10}},
-      color={0,131,169},
-      pattern=LinePattern.Solid,
-      thickness=0.5));
-  connect(Cold_out_degC1.port, InnerSide_out1.steam_a) annotation (Line(
-      points={{-26,-88},{-58,-88}},
+  connect(pipe_ColdSide.outlet, InnerSide_out.steam_a) annotation (Line(
+      points={{-26,-10},{-60,-10}},
       color={0,131,169},
       pattern=LinePattern.Solid,
       thickness=0.5));

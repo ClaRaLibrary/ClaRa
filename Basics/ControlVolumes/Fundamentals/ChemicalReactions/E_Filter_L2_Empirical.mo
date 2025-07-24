@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model E_Filter_L2_Empirical "Gas || L2 || Empirical E-Filter"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -39,13 +39,29 @@ equation
   //No auxillary step
   xi_aux=iCom.xi_in;
   m_flow_aux=iCom.m_flow_in;
-  h_aux=TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
+  h_aux=TILMedia.Gas.ObjectFunctions.specificEnthalpy_pTxi(
+    iCom.p_in,
+    iCom.T_in,
+    iCom.xi_in,
+    iCom.fluidPointer_in);
 
   xi_dust = {if i==1  then 0.99999 else if i==5 then 0.00001 else 0 for i in 1:iCom.mediumModel.nc-1}; //Dust removed is treated as ash
 
-  h_reaction[1] = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(iCom.p_bulk,iCom.T_bulk,xi_dust,iCom.fluidPointer_bulk);
-  d_flueGas_in = TILMedia.GasObjectFunctions.density_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
-  d_flueGas_out = TILMedia.GasObjectFunctions.density_pTxi(iCom.p_out,iCom.T_out,iCom.xi_out,iCom.fluidPointer_out);
+  h_reaction[1] =TILMedia.Gas.ObjectFunctions.specificEnthalpy_pTxi(
+    iCom.p_bulk,
+    iCom.T_bulk,
+    xi_dust,
+    iCom.fluidPointer_bulk);
+  d_flueGas_in =TILMedia.Gas.ObjectFunctions.density_pTxi(
+    iCom.p_in,
+    iCom.T_in,
+    iCom.xi_in,
+    iCom.fluidPointer_in);
+  d_flueGas_out =TILMedia.Gas.ObjectFunctions.density_pTxi(
+    iCom.p_out,
+    iCom.T_out,
+    iCom.xi_out,
+    iCom.fluidPointer_out);
 
   k_eff = 1e-30+V_flow/A_el;
   separationRate = 1-Modelica.Math.exp(-0.2*w_m/sqrt(k_eff^2));

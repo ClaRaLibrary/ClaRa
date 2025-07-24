@@ -1,8 +1,8 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorVLE_L1_Ex_flow "Sensor that calculates exergy flow"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,7 +18,7 @@ model TinySensorVLE_L1_Ex_flow "Sensor that calculates exergy flow"
   import      Modelica.Units.SI;
   extends ClaRa.Basics.Icons.FlowSensor;
   outer ClaRa.SimCenter simCenter;
-    inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
     final parameter String unit = "kJ/s";
   Modelica.Blocks.Interfaces.RealOutput Ex_flow "Exergy flow" annotation (Placement(transformation(origin={0,100}, extent={{20,-20},{-20,20}},rotation=270), iconTransformation(extent={{10,-10},{-10,10}},
@@ -50,14 +50,15 @@ model TinySensorVLE_L1_Ex_flow "Sensor that calculates exergy flow"
         iconTransformation(extent={{50,-70},{70,-50}})));
 
 protected
-  TILMedia.VLEFluid_pT ambience(
-    vleFluidType=medium,        p=simCenter.p_amb, T=simCenter.T_amb) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  TILMedia.VLEFluid_ph fluid(
+  TILMedia.VLEFluid.VLEFluid_pT ambience(
+    vleFluidType=medium,
+    p=simCenter.p_amb,
+    T=simCenter.T_amb) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  TILMedia.VLEFluid.VLEFluid_ph fluid(
     vleFluidType=medium,
     p=inlet.p,
     h=noEvent(actualStream(inlet.h_outflow)),
-    xi=noEvent(actualStream(inlet.xi_outflow)))
-                             annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    xi=noEvent(actualStream(inlet.xi_outflow))) annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation
   inlet.p = outlet.p;

@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 partial model ThreeWayValve_baseGas
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -14,7 +14,7 @@ partial model ThreeWayValve_baseGas
 // and institutions. Please see model documentation for detailed information//
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Flue gas model used in component"
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Flue gas model used in component"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   outer ClaRa.SimCenter simCenter;
@@ -25,22 +25,22 @@ partial model ThreeWayValve_baseGas
   parameter Real splitRatio_fixed = 0.5 annotation(Dialog(enable=not splitRatio_input));
   Real splitRatio;
 protected
-TILMedia.Gas_pT      gasIn(gasType=medium,
+  TILMedia.Gas.Gas_pT gasIn(
+    gasType=medium,
     T=noEvent(actualStream(inlet.T_outflow)),
     xi=noEvent(actualStream(inlet.xi_outflow)),
-    p=inlet.p)                                                           annotation (Placement(transformation(extent={{-90,-12},
-            {-70,8}},                                                                                                   rotation=0)));
-TILMedia.Gas_pT      gasOut2(gasType=medium,
+    p=inlet.p) annotation (Placement(transformation(extent={{-90,-12},{-70,8}}, rotation=0)));
+  TILMedia.Gas.Gas_pT gasOut2(
+    gasType=medium,
     T=noEvent(actualStream(outlet2.T_outflow)),
     xi=noEvent(actualStream(outlet2.xi_outflow)),
-    p=outlet2.p)                                                         annotation (Placement(transformation(extent={{-10,-70},
-            {10,-50}},                                                                                                  rotation=0)));
+    p=outlet2.p) annotation (Placement(transformation(extent={{-10,-70},{10,-50}}, rotation=0)));
 protected
-TILMedia.Gas_pT      gasOut1(gasType=medium,
+  TILMedia.Gas.Gas_pT gasOut1(
+    gasType=medium,
     T=noEvent(actualStream(outlet1.T_outflow)),
     xi=noEvent(actualStream(outlet1.xi_outflow)),
-    p=outlet1.p)                                                         annotation (Placement(transformation(extent={{70,-10},
-            {90,10}},                                                                                                   rotation=0)));
+    p=outlet1.p) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
 public
   Modelica.Blocks.Interfaces.RealInput splitRatio_external(min=0,max=1)=splitRatio if splitRatio_input "Controls mass fraction m2/m1"
     annotation (Placement(transformation(

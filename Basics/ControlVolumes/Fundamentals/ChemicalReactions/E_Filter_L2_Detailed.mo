@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model E_Filter_L2_Detailed "Gas || L2 || Detailed E-Filter"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -59,13 +59,29 @@ equation
   //No auxillary step
   xi_aux=iCom.xi_in;
   m_flow_aux=iCom.m_flow_in;
-  h_aux=TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
+  h_aux=TILMedia.Gas.ObjectFunctions.specificEnthalpy_pTxi(
+    iCom.p_in,
+    iCom.T_in,
+    iCom.xi_in,
+    iCom.fluidPointer_in);
 
   xi_dust = {if i==1  then 0.99999 else if i==5 then 0.00001 else 0 for i in 1:iCom.mediumModel.nc-1}; //Dust removed is treated as ash
 
-  h_reaction[1] = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(iCom.p_bulk,iCom.T_bulk,xi_dust,iCom.fluidPointer_bulk);
-  d_flueGas_in = TILMedia.GasObjectFunctions.density_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
-  d_flueGas_out = TILMedia.GasObjectFunctions.density_pTxi(iCom.p_out,iCom.T_out,iCom.xi_out,iCom.fluidPointer_out);
+  h_reaction[1] =TILMedia.Gas.ObjectFunctions.specificEnthalpy_pTxi(
+    iCom.p_bulk,
+    iCom.T_bulk,
+    xi_dust,
+    iCom.fluidPointer_bulk);
+  d_flueGas_in =TILMedia.Gas.ObjectFunctions.density_pTxi(
+    iCom.p_in,
+    iCom.T_in,
+    iCom.xi_in,
+    iCom.fluidPointer_in);
+  d_flueGas_out =TILMedia.Gas.ObjectFunctions.density_pTxi(
+    iCom.p_out,
+    iCom.T_out,
+    iCom.xi_out,
+    iCom.fluidPointer_out);
 
   E_applied = U_applied/d_plate;
 
@@ -78,7 +94,11 @@ equation
   //with lambda the mean free path of molecules/paticles in the flueGas (check, which diameter is physical plausible)
   lambda = 1.0/(4.0*Modelica.Constants.pi*sqrt(2.0)*diameter_particle^2*Modelica.Constants.N_A/(Modelica.Constants.R*iCom.T_in/iCom.p_in));
 
-  mu_flueGas  = TILMedia.GasObjectFunctions.dynamicViscosity_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
+  mu_flueGas  =TILMedia.Gas.ObjectFunctions.dynamicViscosity_pTxi(
+    iCom.p_in,
+    iCom.T_in,
+    iCom.xi_in,
+    iCom.fluidPointer_in);
 
   separationRate =  1- Modelica.Math.exp(-w_m*A_filter/V_flow);
   powerConsumption = V_flow * specific_powerConsumption*3600.;

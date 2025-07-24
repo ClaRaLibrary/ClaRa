@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model FlatTubeFinnedHEXvle2gas_L4 "VLE 2 Gas | L4 | FlatTubeFinnedHEX"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -40,13 +40,11 @@ model FlatTubeFinnedHEXvle2gas_L4 "VLE 2 Gas | L4 | FlatTubeFinnedHEX"
    //*********************************** / General \ ***********************************//
   //________________________________ Fundamentals _______________________________//
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_a=simCenter.fluid1 "Medium to be used  for flow 1"
-                                    annotation (Dialog(tab="General", group=
-          "Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_a=simCenter.fluid1 "Medium to be used  for flow 1"
+    annotation (Dialog(tab="General", group="Fundamental Definitions"), choicesAllMatching);
 
-  parameter TILMedia.GasTypes.BaseGas medium_b=simCenter.flueGasModel "Medium to be used for flow 2"
-                                   annotation (Dialog(tab="General",group=
-          "Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.Gas.Types.BaseGas medium_b=simCenter.flueGasModel "Medium to be used for flow 2"
+    annotation (Dialog(tab="General", group="Fundamental Definitions"), choicesAllMatching);
 
   parameter Integer HeatExchangerType = 0 "Type of Heat Exchanger"
                                                                   annotation (choices(choice=0 "CounterFlow",choice=1 "ParallelFlow", choice=2 "CrossFlow"),Dialog(tab="General",group="Fundamental Definitions"));
@@ -140,13 +138,15 @@ model FlatTubeFinnedHEXvle2gas_L4 "VLE 2 Gas | L4 | FlatTubeFinnedHEX"
 
   //*********************************** / WALL \ ***********************************//
   //________________________________ Wall fundamentals _______________________________//
-  replaceable model TubeWallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the tube"
+  replaceable model TubeWallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the tube"
     annotation (choicesAllMatching=true, Dialog(tab="Wall", group=
           "Tube wall"));
   parameter SI.Mass mass_struc_tubeWall=0 "Additional mass to tubeWall calculated by density*flow_b.geo.length_plate*flow_b.geo.h_f*flow_b.geo.N_f*s_f*N_passes" annotation (Dialog(tab="Wall", group="Tube wall"));
-  inner replaceable model FinWallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the fin"
+  inner replaceable model FinWallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the fin"
     annotation (choicesAllMatching=true, Dialog(tab="Wall", group=
           "Fin wall"));
   parameter SI.Mass mass_struc_finWall=0 "Additional mass to finWall calculated by density*length*width*thickness_tubeWall*N_passes" annotation (Dialog(tab="Wall", group="Fin wall"));
@@ -358,7 +358,7 @@ equation
 
    eye_int1.m_flow=-flow_a.outlet.m_flow;
    eye_int1.T=flow_a.summary.outlet.T-273.15;
-   eye_int1.s=flow_a.fluidOutlet.s/1000;
+   eye_int1.s=flow_a.summary.outlet.s/1000;
    eye_int1.h=flow_a.summary.outlet.h/1000;
    eye_int1.p=flow_a.summary.outlet.p/100000;
 

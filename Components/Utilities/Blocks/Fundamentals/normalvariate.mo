@@ -1,4 +1,4 @@
-within ClaRa.Components.Utilities.Blocks.Fundamentals;
+﻿within ClaRa.Components.Utilities.Blocks.Fundamentals;
 function normalvariate "Normally distributed random variable"
   extends ClaRa.Basics.Icons.Function;
   input Real mu "Mean value";

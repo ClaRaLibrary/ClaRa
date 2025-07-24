@@ -1,7 +1,7 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector FluidPortIn
 
-  TILMedia.VLEFluidTypes.BaseVLEFluid  Medium "Medium model";
+  TILMedia.VLEFluid.Types.BaseVLEFluid Medium "Medium model";
 public
   flow Modelica.Units.SI.MassFlowRate m_flow "Mass flow rate from the connection point into the component";
   Modelica.Units.SI.AbsolutePressure p "Thermodynamic pressure in the connection point";

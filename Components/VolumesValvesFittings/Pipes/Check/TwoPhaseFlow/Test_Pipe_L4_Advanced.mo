@@ -1,7 +1,7 @@
 ﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.TwoPhaseFlow;
 model Test_Pipe_L4_Advanced
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -100,7 +100,7 @@ model Test_Pipe_L4_Advanced
     diameter_i=tube.diameter_i,
     diameter_o=tube.diameter_i + 0.01,
     T_start=573*ones(tube.N_cv),
-    redeclare model Material = TILMedia.SolidTypes.TILMedia_Steel,
+    redeclare model Material = TILMedia.Solid.Types.TILMedia_Steel,
     stateLocation=2,
     N_tubes=tube.N_tubes,
     initOption=213) annotation (Placement(transformation(extent={{4,13},{16,27}})));

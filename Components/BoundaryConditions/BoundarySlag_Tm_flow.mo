@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundarySlag_Tm_flow "A source defining mass flow and temperature"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -39,8 +39,7 @@ protected
   Basics.Units.Temperature T_in;
   Basics.Units.EnthalpyMassSpecific h_slag;
 
-public
-        ClaRa.Basics.Interfaces.Slag_outlet slag_outlet(final slagType=slagType)
+public  ClaRa.Basics.Interfaces.Slag_outlet slag_outlet(final slagType=slagType)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   Modelica.Blocks.Interfaces.RealInput m_flow=m_flow_in if (variable_m_flow) "Variable mass flow rate"

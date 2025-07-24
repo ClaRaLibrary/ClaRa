@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.FluidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L4_Advanced "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with detailed dynamic momentum and energy balance."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -79,7 +79,8 @@ protected
    final parameter Units.MassFlowRate m_flow_eps=abs(m_flow_nom)/1e4;
 //____Media Data_____________________________________________________________________________________
 public
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component" annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"));
 
 //____Physical Effects_____________________________________________________________________________________
 
@@ -116,7 +117,7 @@ public
   inner parameter Units.MassFlowRate m_flow_nom=100 "Nominal mass flow for single tube" annotation (Dialog(group="Nominal Values"));
   inner parameter Units.Pressure Delta_p_nom=1e4 "Nominal pressure loss w.r.t. all parallel tubes" annotation (Dialog(group="Nominal Values"));
 
-  final parameter Units.DensityMassSpecific rho_nom[geo.N_cv]=TILMedia.VLEFluidFunctions.density_phxi(
+  final parameter Units.DensityMassSpecific rho_nom[geo.N_cv]=TILMedia.VLEFluid.Functions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -267,30 +268,31 @@ public
          origin={0,40})));
 //___Instantiation of Replaceable Models___________________________________________________________________________
 
-  inner TILMedia.VLEFluid_ph  fluid[geo.N_cv](
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluid[geo.N_cv](
     each computeSurfaceTension=false,
     p=p,
     h=h,
     each vleFluidType=medium,
     each computeTransportProperties=true,
-    xi=xi)                       annotation (Placement(transformation(extent={{-10,-50},
-            {10,-30}},                                                                                                   rotation=0)));
+    xi=xi) annotation (Placement(transformation(extent={{-10,-50},{10,-30}}, rotation=0)));
 
-  inner TILMedia.VLEFluid_ph fluidInlet(
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidInlet(
     computeSurfaceTension=false,
     p=inlet.p,
-    xi={(inStream(inlet.xi_outflow[i])+inlet.xi_outflow[i])/2 for i in 1:medium.nc - 1},
+    xi={(inStream(inlet.xi_outflow[i]) + inlet.xi_outflow[i])/2 for i in 1:medium.nc - 1},
     vleFluidType=medium,
-    h=if useHomotopy then homotopy(h_in, inStream(inlet.h_outflow)) else h_in) "if useHomotopy then homotopy(inStream(inlet.h_outflow), h_in) else h_in" annotation (Placement(transformation(extent={{-90,
-            -30},{-70,-10}}, rotation=0)));
+    h=if useHomotopy then homotopy(h_in, inStream(inlet.h_outflow)) else h_in)
+    "if useHomotopy then homotopy(inStream(inlet.h_outflow), h_in) else h_in"
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}}, rotation=0)));
 
-  inner TILMedia.VLEFluid_ph fluidOutlet(
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOutlet(
     computeSurfaceTension=false,
     p=outlet.p,
-    xi={(inStream(outlet.xi_outflow[i])+outlet.xi_outflow[i])/2 for i in 1:medium.nc - 1},
+    xi={(inStream(outlet.xi_outflow[i]) + outlet.xi_outflow[i])/2 for i in 1:medium.nc - 1},
     vleFluidType=medium,
-    h=if useHomotopy then homotopy(h_out, outlet.h_outflow) else h_out) "(outlet.h_outflow + inStream(outlet.h_outflow))/2" annotation (Placement(transformation(extent={{70,
-            -30},{90,-10}}, rotation=0)));
+    h=if useHomotopy then homotopy(h_out, outlet.h_outflow) else h_out)
+    "(outlet.h_outflow + inStream(outlet.h_outflow))/2"
+    annotation (Placement(transformation(extent={{70,-30},{90,-10}}, rotation=0)));
 
 protected
   inner Basics.Records.IComVLE_L3_OnePort iCom(

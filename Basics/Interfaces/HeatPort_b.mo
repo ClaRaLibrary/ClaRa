@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector HeatPort_b
   extends Modelica.Thermal.HeatTransfer.Interfaces.HeatPort;
    annotation(defaultComponentName = "heatPort",

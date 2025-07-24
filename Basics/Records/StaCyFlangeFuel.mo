@@ -1,4 +1,4 @@
-within ClaRa.Basics.Records;
+﻿within ClaRa.Basics.Records;
 model StaCyFlangeFuel "A summary record for fuel flanges"
     extends ClaRa.Basics.Icons.RecordIcon;
   replaceable parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel "Used medium model" annotation (Dialog(tab="System"));

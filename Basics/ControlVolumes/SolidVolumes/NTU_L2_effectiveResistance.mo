@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_L2_effectiveResistance "NTU  using an effective nominal  value for the product of heat transport coefficient and the heat transfer area"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,7 +19,9 @@ model NTU_L2_effectiveResistance "NTU  using an effective nominal  value for the
   extends ClaRa.Basics.Icons.NTU;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L2");
 
-replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                   constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                               "Material of the cylinder"
                                annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 //_____________fundamental definitions_________________________________________//
@@ -91,8 +93,8 @@ public
                                          annotation (Placement(transformation(
           extent={{-10,-100},{10,-80}},
                                       rotation=0)));
-   TILMedia.Solid solid(redeclare replaceable model SolidType = Material, T=(T_w_i+T_w_a)/2)
-     annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  TILMedia.Solid.Solid solid(redeclare replaceable model SolidType = Material, T=(T_w_i + T_w_a)/2)
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
   HeatExchangerType heatExchangerType(NTU_1=NTU_ctr,
                                                    R_1=R_1) annotation (Placement(transformation(
           extent={{20,20},{40,40}},   rotation=0)));

@@ -1,7 +1,7 @@
-within ClaRa.Components.TurboMachines.Pumps;
+﻿within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L1_simple "A pump for VLE mixtures with a volume flow rate depending on drive power and pressure difference only"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,7 +17,7 @@ model PumpVLE_L1_simple "A pump for VLE mixtures with a volume flow rate dependi
 
   extends ClaRa.Components.TurboMachines.Pumps.Fundamentals.Pump_Base(inlet(m_flow(start=m_flow_start)));
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L1");
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubblePressure_Txi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.bubblePressure_Txi;
 
   ClaRa.Basics.Interfaces.Connected2SimCenter connected2SimCenter(
     powerIn=0,

@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
 model NusseltPipe_L4 "Pipe || VLE || Nusselt || 1ph"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,15 +17,15 @@ model NusseltPipe_L4 "Pipe || VLE || Nusselt || 1ph"
 
   extends ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.HeatTransfer_L4;
   // TILMedia VLEFluidFunctions
-  import fluidFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificIsobaricHeatCapacity_phxi;
-  import fluidFunction_lambda = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.thermalConductivity_phxi;
-  import fluidFunction_eta = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dynamicViscosity_phxi;
-  import fluidFunction_rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi;
+  import fluidFunction_cp = TILMedia.VLEFluid.MixtureCompatible.Functions.specificIsobaricHeatCapacity_phxi;
+  import fluidFunction_lambda = TILMedia.VLEFluid.MixtureCompatible.Functions.thermalConductivity_phxi;
+  import fluidFunction_eta = TILMedia.VLEFluid.MixtureCompatible.Functions.dynamicViscosity_phxi;
+  import fluidFunction_rho = TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi;
 
-  import fluidObjectFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
-  import fluidObjectFunction_lambda = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.thermalConductivity_phxi;
-  import fluidObjectFunction_eta = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dynamicViscosity_phxi;
-  import fluidObjectFunction_rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi;
+  import fluidObjectFunction_cp = TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.specificIsobaricHeatCapacity_phxi;
+  import fluidObjectFunction_lambda = TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.thermalConductivity_phxi;
+  import fluidObjectFunction_eta = TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.dynamicViscosity_phxi;
+  import fluidObjectFunction_rho = TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi;
   import sm = ClaRa.Basics.Functions.Stepsmoother;
 
   ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha[iCom.N_cv] "Heat transfer coefficient";

@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 model ThreeWayValveVLE_L2 "A voluminous three way valve for VLE media"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -37,8 +37,8 @@ end Summary;
       ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.IdealSymetric_TWV                      constrainedby ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.TWV_L2 "Pressure loss model"
                                                                                             annotation(choicesAllMatching);
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component"
-                               annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"));
 
   parameter Boolean splitRatio_input=false "= true, if split ratio is defined by input"
                                                  annotation(Dialog(group="Fundamental Definitions"));
@@ -60,7 +60,7 @@ end Summary;
   parameter Boolean preciseTwoPhase = true "|Expert Settings||True, if two-phase transients should be capured precisely";
 
 protected
-  parameter Basics.Units.DensityMassSpecific rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -83,8 +83,10 @@ public
     annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
 
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(each vleFluidType = medium, p = p,h=h) annotation (Placement(transformation(extent={{-10,-12},
-            {10,8}},rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph bulk(
+    each vleFluidType=medium,
+    p=p,
+    h=h) annotation (Placement(transformation(extent={{-10,-12},{10,8}}, rotation=0)));
 
   inner ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.ICom_TWV iCom(
     p_in=fluidIn.p,

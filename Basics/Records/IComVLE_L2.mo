@@ -1,8 +1,8 @@
-within ClaRa.Basics.Records;
+﻿within ClaRa.Basics.Records;
 record IComVLE_L2 "Basic internal communication record for heat transfer"
   extends ClaRa.Basics.Records.IComBase_L2;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid mediumModel "Used medium model" annotation(Dialog(tab="General"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid mediumModel "Used medium model" annotation (Dialog(tab="General"));
 //____Variables for system description__________________________________________________
   TILMedia.Internals.TILMediaExternalObject fluidPointer_bulk "Pointer to bulk gas object"  annotation(Dialog(tab="Bulk"));
   Units.EnthalpyMassSpecific h_bulk "Inlet enthalpy" annotation (Dialog(tab="Bulk"));

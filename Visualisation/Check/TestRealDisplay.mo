@@ -1,4 +1,4 @@
-within ClaRa.Visualisation.Check;
+﻿within ClaRa.Visualisation.Check;
 model TestRealDisplay
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExample100;
   ClaRa.Visualisation.TinyRealDisplay realDisplay(u_high=0.5) annotation (Placement(transformation(extent={{-20,-14},{0,6}})));

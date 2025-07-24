@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.BaseClasses;
+﻿within ClaRa.Components.Furnace.BaseClasses;
 partial model CombustionChamberBase_additional_HPs
   import ClaRa;
 

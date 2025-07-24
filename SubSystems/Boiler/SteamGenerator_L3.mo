@@ -1,7 +1,7 @@
-within ClaRa.SubSystems.Boiler;
+﻿within ClaRa.SubSystems.Boiler;
 model SteamGenerator_L3 "A steam generation and reaheater model using lumped balance equations for mass and energy and two spray attemperators"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -32,11 +32,11 @@ model SteamGenerator_L3 "A steam generation and reaheater model using lumped bal
   parameter Modelica.Units.SI.MassFlowRate m_flow_nomLS=419 "Nominal life steam flow rate" annotation (Dialog(group="Nominal values"));
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_F_nom=1340e6 "Nominal firing power" annotation (Dialog(group="Nominal values"));
 protected
-  parameter Modelica.Units.SI.Density rho_nom_HP=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter Modelica.Units.SI.Density rho_nom_HP=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_LS_nom,
       h_LS_nom) "Nominal density";
-  parameter Modelica.Units.SI.Density rho_nom_IP=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter Modelica.Units.SI.Density rho_nom_IP=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_RH_nom,
       h_RH_nom) "Nominal density";
@@ -107,10 +107,14 @@ public
       table=CL_Delta_pHP_mLS_,
     u(start=1*ones(size(convert2PressureDrop_HP.columns, 1))))
     annotation (Placement(transformation(extent={{-6,108},{14,128}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph liveSteam(vleFluidType =    medium,       p=p_HP,
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph liveSteam(
+    vleFluidType=medium,
+    p=p_HP,
     h=(h_HP*(-m_flow_heatedHP) + HPInjection.m_flow*h_sprayHP)/(-livesteam.m_flow))
     annotation (Placement(transformation(extent={{-10,144},{10,164}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph reheatedSteam(vleFluidType =    medium,   p=p_IP,
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph reheatedSteam(
+    vleFluidType=medium,
+    p=p_IP,
     h=(h_IP*(-m_flow_heatedIP) + IPInjection.m_flow*h_sprayIP)/(-reheat_out.m_flow))
     annotation (Placement(transformation(extent={{50,144},{70,164}})));
 

@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitFuelGas_L1_flex "A split for fuel dust"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -39,8 +39,8 @@ model SplitFuelGas_L1_flex "A split for fuel dust"
    end Summary;
 
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel = simCenter.fuelModel1   "Fuel type" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
-inner parameter TILMedia.GasTypes.BaseGas gasModel = simCenter.flueGasModel "Medium to be used in tubes"
-                                  annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas gasModel=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Integer N_ports_out(min=1)=1 "Number of outlet  ports" annotation(Evaluate=true, Dialog(tab="General",group="Fundamental Definitions"));//connectorSizing=true,
   parameter Real K_split[N_ports_out-1] = fill(0, N_ports_out-1) "fixed split ratio" annotation(Dialog(tab="General",group="Fundamental Definitions"));

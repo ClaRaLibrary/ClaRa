@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model Denitrification_L2 "Gas || L2 || Denitrification"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -44,12 +44,11 @@ ClaRa.Basics.Units.MassFlowRate NH3_O2_m_flow "Mass flow of ammoinia oxygen mix"
 ClaRa.Basics.Units.MassFraction NH3_O2_in_xi[iCom.mediumModel.nc-1] "Inlet composition of ammonia oxygen mix";
 
 
-    TILMedia.Gas_pT     NH3_O2_in(
+  TILMedia.Gas.Gas_pT NH3_O2_in(
     p=iCom.p_in,
     T=T_NH3_O2_mixture,
     xi=NH3_O2_in_xi,
-    gasType = iCom.mediumModel)
-    annotation (Placement(transformation(extent={{-10,22},{10,42}})));
+    gasType=iCom.mediumModel) annotation (Placement(transformation(extent={{-10,22},{10,42}})));
 
 Real reaction_heat;
 
@@ -65,7 +64,11 @@ equation
   //No auxillary step
   xi_aux=xi;
   m_flow_aux=iCom.m_flow_in;
-  h_aux=TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
+  h_aux=TILMedia.Gas.ObjectFunctions.specificEnthalpy_pTxi(
+    iCom.p_in,
+    iCom.T_in,
+    iCom.xi_in,
+    iCom.fluidPointer_in);
 
 
 

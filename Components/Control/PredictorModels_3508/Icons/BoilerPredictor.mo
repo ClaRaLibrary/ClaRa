@@ -1,7 +1,7 @@
-within ClaRa.Components.Control.PredictorModels_3508.Icons;
+﻿within ClaRa.Components.Control.PredictorModels_3508.Icons;
 model BoilerPredictor "An icon for a boiler model - relative units ('p.u.')"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

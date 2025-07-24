@@ -1,7 +1,7 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model SensorGas_L1_xi_i "Ideal one port gas composition sensor"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -27,8 +27,11 @@ extends ClaRa.Components.Sensors.gasSensorBase;
 
 //parameter Integer compositionDefinedBy "output gives mass or volume fraction"  annotation(choices(choice = 1 "mass", choice = 2 "volume"));
 
-  TILMedia.Gas_pT gas(p = inlet.p, T = noEvent(actualStream(inlet.T_outflow)), xi = noEvent(actualStream(inlet.xi_outflow)), gasType= medium)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  TILMedia.Gas.Gas_pT gas(
+    p=inlet.p,
+    T=noEvent(actualStream(inlet.T_outflow)),
+    xi=noEvent(actualStream(inlet.xi_outflow)),
+    gasType=medium) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   if unitOption == 1 then
     fraction = {gas.xi[i] for i in 1:medium.nc-1};

@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Convection;
 model Convection_regenerativeAirPreheater_L4 "Gas || Convection Air Preheater Channels"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -26,7 +26,7 @@ model Convection_regenerativeAirPreheater_L4 "Gas || Convection Air Preheater Ch
   parameter Real CF_fouling=1 "Scaling factor accounting for the fouling of the wall";
 
   ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha[iCom.N_cv] "Heat transfer coefficient";
-  outer TILMedia.Gas_ph fluid[iCom.N_cv];
+  outer TILMedia.Gas.Gas_ph fluid[iCom.N_cv];
 
   Real w[iCom.N_cv] "Medium velocity";
   Real Re[iCom.N_cv] "Reynolds number";

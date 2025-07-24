@@ -1,7 +1,7 @@
-within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
+﻿within ClaRa.Components.TurboMachines.Pumps.Fundamentals;
 partial model Pump_Base "Base class for pumps"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -15,12 +15,12 @@ partial model Pump_Base "Base class for pumps"
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
   import SI = ClaRa.Basics.Units;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubblePressure_Txi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.bubblePressure_Txi;
   extends ClaRa.Basics.Icons.Pump;
   //extends Modelica.Icons.UnderConstruction;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component"
-                                         annotation(choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
   parameter Boolean showExpertSummary = simCenter.showExpertSummary "True, if expert summary should be applied"
                                                                                             annotation(Dialog(tab="Summary and Visualisation"));
   parameter Boolean showData=true "True, if a data port containing p,T,h,s,m_flow shall be shown, else false"
@@ -43,11 +43,13 @@ public
                                      outlet(Medium=medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidIn(vleFluidType =    medium, p=inlet.p,
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
+    vleFluidType=medium,
+    p=inlet.p,
     h=homotopy(noEvent(actualStream(inlet.h_outflow)), inStream(inlet.h_outflow)))
     annotation (Placement(transformation(extent={{-88,-12},{-68,8}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidOut(
-                                vleFluidType =    medium,
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
+    vleFluidType=medium,
     p=outlet.p,
     h=homotopy(noEvent(actualStream(outlet.h_outflow)), outlet.h_outflow))
     annotation (Placement(transformation(extent={{66,-10},{86,10}})));

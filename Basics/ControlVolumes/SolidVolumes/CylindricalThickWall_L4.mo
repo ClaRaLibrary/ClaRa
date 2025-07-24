@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model CylindricalThickWall_L4 "A thick cylindric wall with radial discretisation"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,8 +18,9 @@ model CylindricalThickWall_L4 "A thick cylindric wall with radial discretisation
   extends ClaRa.Basics.Icons.WallThick;
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L4");
 
-  replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder" annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder" annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
   input Real CF_lambda=1 "Time-dependent correction factor for thermal conductivity" annotation(Dialog(group="Fundamental Definitions"));
 protected
   parameter Integer N_A_heat=N_rad*2 "Number of surfaces used in order to model heat flow";
@@ -72,9 +73,8 @@ public
                                    outerPhase "outer side of the cylinder"
                                  annotation (Placement(transformation(extent={{-10,66},
             {10,86}}),      iconTransformation(extent={{-10,66},{10,86}})));
-   TILMedia.Solid solid[N_rad](T=T, redeclare each model SolidType =
-        Material)
-     annotation (Placement(transformation(extent={{38,-2},{58,18}})));
+  TILMedia.Solid.Solid solid[N_rad](T=T, redeclare each model SolidType = Material)
+    annotation (Placement(transformation(extent={{38,-2},{58,18}})));
 
   ClaRa.Basics.Interfaces.HeatPort_b innerPhase "Inner sider of the cylinder"
     annotation (Placement(transformation(extent={{-8,-48},{12,-28}}),

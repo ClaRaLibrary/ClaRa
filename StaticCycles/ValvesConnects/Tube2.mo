@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model Tube2 " Tube || green | green"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -36,11 +36,10 @@ model Tube2 " Tube || green | green"
   //---------Summary Definition---------
 
   outer parameter Real P_target_ "Target power in p.u.";
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
-    annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation (choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Pressure Delta_p_nom "Nominal pressure loss" annotation (Dialog(group="Fundamental Definitions"));
   parameter Real CharLine_Delta_p_fric_P_target_[:,2]=[0,0;1,1] "Characteristic line of friction loss as function of mass flow rate" annotation(Dialog(group="Part Load Definition"));
 
@@ -57,7 +56,7 @@ model Tube2 " Tube || green | green"
   final parameter ClaRa.Basics.Units.Pressure p_out=p_in - Delta_p_fric - Delta_p_geo "pressure at tube inlet";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "enthalpy at tube inlet";
   constant ClaRa.Basics.Units.MassFraction[:] xi=zeros(medium.nc - 1);
-  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_in,
       h_in,

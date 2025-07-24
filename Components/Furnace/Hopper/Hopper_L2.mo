@@ -1,7 +1,7 @@
-within ClaRa.Components.Furnace.Hopper;
+﻿within ClaRa.Components.Furnace.Hopper;
 model Hopper_L2 "Model for a hopper section of a combustion chamber"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -123,12 +123,11 @@ inner parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy met
         p=outlet.slag.p))) annotation (Placement(transformation(extent={{274,-102},{300,-76}})));
 
 //___________________/ Media Objects \_________
-   TILMedia.Gas_ph bulk(
-     p(start=p_start_flueGas_out) = outlet.flueGas.p,
-     xi=xi_flueGas,
-     gasType=flueGas,
-     h=h_flueGas_out_del)
-       annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
+  TILMedia.Gas.Gas_ph bulk(
+    p(start=p_start_flueGas_out) = outlet.flueGas.p,
+    xi=xi_flueGas,
+    gasType=flueGas,
+    h=h_flueGas_out_del) annotation (Placement(transformation(extent={{-130,26},{-110,46}})));
 
 //___________________/ iCom record \__________________
 protected

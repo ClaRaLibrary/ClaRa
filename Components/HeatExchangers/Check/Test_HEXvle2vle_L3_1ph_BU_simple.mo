@@ -1,8 +1,8 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_1ph_BU_simple
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -27,14 +27,16 @@ model Test_HEXvle2vle_L3_1ph_BU_simple
     diameter_o=0.027,
     Delta_z_par=1.5*hex.diameter_o,
     Delta_z_ort=1.5*hex.diameter_o,
-    redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
+    redeclare model WallMaterial = TILMedia.Solid.Types.TILMedia_Steel,
     mass_struc=5000,
     redeclare model HeatTransfer_Shell = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltShell1ph_L2,
-    redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
+    redeclare model PressureLossShell =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
     h_start_shell=2975e3,
     p_start_shell=21.05e5,
     redeclare model HeatTransferTubes = Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.NusseltPipe1ph_L2,
-    redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
+    redeclare model PressureLossTubes =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
     p_nom_tubes=250e5,
     h_nom_tubes=1130e3,
     h_start_tubes=1130e3,
@@ -46,8 +48,7 @@ model Test_HEXvle2vle_L3_1ph_BU_simple
     initOptionShell=0,
     initOptionTubes=0,
     T_w_start=ones(3)*540,
-    initOptionWall=213)
-                      annotation (Placement(transformation(extent={{0,-76},{20,-56}})));
+    initOptionWall=213) annotation (Placement(transformation(extent={{0,-76},{20,-56}})));
 
   ClaRa.Components.Sensors.SensorVLE_L1_T Temp_Shell_in annotation (Placement(transformation(extent={{16,2},{36,22}})));
   ClaRa.Components.Sensors.SensorVLE_L1_T Temp_Shell_out annotation (Placement(transformation(extent={{-46,-82},{-26,-62}})));
@@ -104,7 +105,8 @@ model Test_HEXvle2vle_L3_1ph_BU_simple
   inner ClaRa.SimCenter simCenter(
     showExpertSummary=true,
     useHomotopy=true,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   ClaRa.Visualisation.Hexdisplay_3 hexdisplay_3_1(
     T_o={hex.shell.summary.inlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T,hex.shell.summary.outlet.T},
     T_i={hex.tubes.summary.inlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T,hex.tubes.summary.outlet.T},

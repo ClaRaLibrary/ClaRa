@@ -1,7 +1,7 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorGas_L1_Ex_flow "Sensor that calculates exergy flow"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,8 +18,8 @@ model TinySensorGas_L1_Ex_flow "Sensor that calculates exergy flow"
   import      Modelica.Units.SI;
   extends ClaRa.Basics.Icons.FlowSensor;
   outer ClaRa.SimCenter simCenter;
-inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used"
-                         annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
     final parameter String unit = "kJ/s";
   Modelica.Blocks.Interfaces.RealOutput Ex_flow "Exergy flow" annotation (Placement(transformation(origin={0,100}, extent={{20,-20},{-20,20}},rotation=270), iconTransformation(extent={{10,-10},{-10,10}},
         rotation=180,
@@ -50,13 +50,15 @@ inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Mediu
         iconTransformation(extent={{50,-70},{70,-50}})));
 
 protected
-  TILMedia.Gas_pT      ambience(p=simCenter.p_amb, T=simCenter.T_amb,
-    gasType=medium)                                                   annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  TILMedia.Gas_pT      gas(
+  TILMedia.Gas.Gas_pT ambience(
+    p=simCenter.p_amb,
+    T=simCenter.T_amb,
+    gasType=medium) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  TILMedia.Gas.Gas_pT gas(
     p=inlet.p,
     xi=noEvent(actualStream(inlet.xi_outflow)),
     T=noEvent(actualStream(inlet.T_outflow)),
-    gasType=medium)          annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    gasType=medium) annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation
   inlet.p = outlet.p;

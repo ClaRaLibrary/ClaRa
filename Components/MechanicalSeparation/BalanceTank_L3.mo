@@ -1,7 +1,7 @@
-within ClaRa.Components.MechanicalSeparation;
+﻿within ClaRa.Components.MechanicalSeparation;
 model BalanceTank_L3 "A balance tank with a vent"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,9 +17,13 @@ model BalanceTank_L3 "A balance tank with a vent"
  extends ClaRa.Basics.Icons.BalanceTank;
   outer ClaRa.SimCenter simCenter;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid liquidMedium=simCenter.fluid1 "Liquid medium in the component" annotation (choicesAllMatching=true,Dialog(group="Fundamental Definitions"));
-  parameter TILMedia.GasTypes.BaseGas gasMedium=simCenter.flueGasModel "Gas medium in the component" annotation (choicesAllMatching=true,Dialog(group="Fundamental Definitions"));
-  replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum constrainedby TILMedia.SolidTypes.BaseSolid "Solid material of the tank"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid liquidMedium=simCenter.fluid1 "Liquid medium in the component"
+    annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas gasMedium=simCenter.flueGasModel "Gas medium in the component"
+    annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                     constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                 "Solid material of the tank"
     annotation (choicesAllMatching=true,Dialog(group="Fundamental Definitions"));
   replaceable model HeatTransfer =
       Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.HeatTransfer_L3 "Heat transfer model"
@@ -45,7 +49,7 @@ model BalanceTank_L3 "A balance tank with a vent"
   parameter ClaRa.Basics.Units.CoefficientOfHeatTransfer alpha_ph=500 "|Expert Settings|Phase Border|HTC of the phase border";
   parameter ClaRa.Basics.Units.Area A_phaseBorder=volume.geo.A_hor*100 "|Expert Settings|Phase Border|Heat transfer area at phase border";
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(liquidMedium, p_start) "|Initialisation|Fluids|Start value ofliquid specific enthalpy";
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     liquidMedium, p_start) "|Initialisation|Fluids|Start value ofliquid specific enthalpy";
   parameter ClaRa.Basics.Units.Temperature T_gas_start=293.15 "|Initialisation|Fluids|Start value of gas zone's temperature";
   parameter ClaRa.Basics.Units.Pressure p_start=1e5 "|Initialisation|Fluids|Start value of sytsem pressure";
   parameter ClaRa.Basics.Units.MassFraction xi_start[gasMedium.nc - 1]=zeros(gasMedium.nc - 1) "|Initialisation|Fluids|Initial gas mass fraction";

@@ -1,7 +1,7 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Grinding.Breakage_Function;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes.Fundamentals.Grinding.Breakage_Function;
 model Breakage_Austin "Default breakage matrix according to Austin et al. (1981)"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                            //
+  // Component of the ClaRa library, version: 1.9.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
   // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //

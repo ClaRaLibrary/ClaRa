@@ -1,7 +1,7 @@
-within ClaRa.Components.Mills.HardCoalMills.Check;
+﻿within ClaRa.Components.Mills.HardCoalMills.Check;
 model combineMillandFurnace
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -51,7 +51,9 @@ model combineMillandFurnace
         rotation=0,
         origin={8,-23})));
 
-  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, redeclare Basics.Media.FuelTypes.Fuel_verbandsformel_v2 fuelModel1) annotation (Placement(transformation(extent={{-100,80},{-60,100}})));
+  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1, redeclare
+      Basics.Media.FuelTypes.Fuel_verbandsformel_v2 fuelModel1)
+    annotation (Placement(transformation(extent={{-100,80},{-60,100}})));
   Furnace.SimpleCombustionChamber combustionChamber(xi_NOx=0) annotation (Placement(transformation(extent={{60,-33},{80,-13}})));
   BoundaryConditions.BoundaryGas_pTxi flueGasPressureSink(                                  p_const=100000, xi_const={0,0,0,0,0.79,0.21,0,0,0})
                                                                                           annotation (Placement(transformation(

@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model ValveGas_cutPressure1 "Valve || green | purple"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -15,8 +15,8 @@ model ValveGas_cutPressure1 "Valve || green | purple"
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
 
-  import TILMedia.GasFunctions.specificEnthalpy_pTxi;
-  import TILMedia.GasFunctions.temperature_phxi;
+  import TILMedia.Gas.Functions.specificEnthalpy_pTxi;
+  import TILMedia.Gas.Functions.temperature_phxi;
 
   //---------Summary Definition---------
    model Summary
@@ -25,22 +25,31 @@ model ValveGas_cutPressure1 "Valve || green | purple"
     ClaRa.Basics.Records.StaCyFlangeGas_a outlet;
    end Summary;
 
-   Summary summary(
-   inlet(mediumModel=gas,
+  Summary summary(inlet(
+      mediumModel=gas,
       m_flow=m_flow,
       T=T_in,
       p=p_in,
       xi=xi_in,
-      rho = TILMedia.GasFunctions.density_pTxi(gas, p_in, T_in, xi_in)),
-   outlet(mediumModel=gas,
+      rho=TILMedia.Gas.Functions.density_pTxi(
+          gas,
+          p_in,
+          T_in,
+          xi_in)), outlet(
+      mediumModel=gas,
       m_flow=m_flow,
       T=T_out,
       p=p_out,
       xi=xi_out,
-      rho=TILMedia.GasFunctions.density_pTxi(gas, p_out, T_out, xi_out)));
+      rho=TILMedia.Gas.Functions.density_pTxi(
+          gas,
+          p_out,
+          T_out,
+          xi_out)));
   //---------Summary Definition---------
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.GasTypes.BaseGas gas = simCenter.flueGasModel "Flue gas model used in component" annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.Pressure p_in(fixed=false) "Inlet pressure";
   final parameter ClaRa.Basics.Units.Pressure p_out(fixed=false) "Outlet pressure";
 

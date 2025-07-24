@@ -1,4 +1,4 @@
-within ;
+﻿within ;
 package ClaRa "Simulation of Clausius-Rankine Cycles"
   extends ClaRa.Basics.Icons.PackageIcons.ClaRab100;
   import SI = ClaRa.Basics.Units;
@@ -26,9 +26,9 @@ package ClaRa "Simulation of Clausius-Rankine Cycles"
 
 
 
-  annotation (preferedView="info",version="1.8.2",
+  annotation (preferedView="info",version="1.9.0",
                            uses(
-    Modelica(version="4.0.0"), TILMedia(version="1.8.2 ClaRa"),SMArtIInt(version="0.2.2")),
+    Modelica(version="4.0.0"), TILMedia(version="1.9.0 ClaRa"),SMArtInt(version="0.5.1")),
                                        Icon(graphics,
                                       coordinateSystem(preserveAspectRatio=
           false, extent={{-100,-100},{100,100}})),
@@ -51,7 +51,8 @@ package ClaRa "Simulation of Clausius-Rankine Cycles"
     from(version="1.6.1",to="1.7.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom161_to_170.mos"),
     from(version="1.7.0",to="1.8.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom170_to_180.mos"),
     from(version="1.8.0",to="1.8.1", script="modelica://ClaRa/Resources/Scripts/ConvertFrom180_to_181.mos"),
-    from(version="1.8.1",to="1.8.2", script="modelica://ClaRa/Resources/Scripts/ConvertFrom181_to_182.mos")),
+    from(version="1.8.1",to="1.8.2", script="modelica://ClaRa/Resources/Scripts/ConvertFrom181_to_182.mos"),
+ from(version="1.8.2",to="1.9.0", script="modelica://ClaRa/Resources/Scripts/ConvertFrom182_to_190.mos")),
   Documentation(info="<html>
 <p><img src=\"modelica://ClaRa/Resources/Images/ClaRaLibraryInfo.png\"/></p>
 <p><h4> Coordinating developers:</h4></p>

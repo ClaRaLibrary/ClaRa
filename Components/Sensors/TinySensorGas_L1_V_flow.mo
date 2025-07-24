@@ -3,7 +3,7 @@ model TinySensorGas_L1_V_flow "Ideal two port volume flow sensor, allowing for n
   //This model douplicates the respective ClaRa sensor changing its icon size //
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,8 +19,8 @@ model TinySensorGas_L1_V_flow "Ideal two port volume flow sensor, allowing for n
 
   extends ClaRa.Basics.Icons.FlowSensor;
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used"
-                         annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Boolean normalise = false "True if value is normalised to DIN norm conditions (0°C | 1013.25 mbar)" annotation(Dialog(group="Fundamental Definitions"));
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"), choices(choice=1 "m3/s", choice=2 "m3/h", choice=3 "l/h", choice=4 "l/s", choice=5 "per Unit"));
   parameter ClaRa.Basics.Units.VolumeFlowRate V_flow_ref[2]={0,1} "Reference flow rate [min,max]" annotation(Dialog(group="Fundamental Definitions", enable = (unitOption==5)));
@@ -40,16 +40,17 @@ public
   ClaRa.Basics.Interfaces.GasPortIn    outlet(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}}),
         iconTransformation(extent={{50,-70},{70,-50}})));
-  TILMedia.Gas_pT gas(
+  TILMedia.Gas.Gas_pT gas(
     gasType=medium,
     p=inlet.p,
     T=noEvent(actualStream(inlet.T_outflow)),
     xi=noEvent(actualStream(inlet.xi_outflow))) annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  TILMedia.Gas_pT gasN(
+  TILMedia.Gas.Gas_pT gasN(
     gasType=medium,
     p(displayUnit="Pa") = 1.01325e5,
     T(displayUnit="K") = 273.15,
-    xi=noEvent(actualStream(inlet.xi_outflow))) "normalised conditions (DIN)" annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
+    xi=noEvent(actualStream(inlet.xi_outflow))) "normalised conditions (DIN)"
+    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 equation
   if normalise == false then
     NC=1/gas.d;

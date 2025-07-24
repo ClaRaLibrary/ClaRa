@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -40,13 +40,11 @@ model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
    //*********************************** / General \ ***********************************//
   //________________________________ Fundamentals _______________________________//
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_a=simCenter.fluid1 "Medium to be used  for flow 1"
-                                    annotation (Dialog(tab="General", group=
-          "Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_a=simCenter.fluid1 "Medium to be used  for flow 1"
+    annotation (Dialog(tab="General", group="Fundamental Definitions"), choicesAllMatching);
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_b=simCenter.fluid1 "Medium to be used for flow 2"
-                                   annotation (Dialog(tab="General",group=
-          "Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_b=simCenter.fluid1 "Medium to be used for flow 2"
+    annotation (Dialog(tab="General", group="Fundamental Definitions"), choicesAllMatching);
 
   replaceable model HeatExchangerType =
       ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.HeatExchangerTypes.CrossFlow_L3
@@ -118,8 +116,9 @@ model PlateHEXvle2vle_L3_2ph_ntu "VLE 2 VLE | L2 | PlateHEX NTU"
 
   //*********************************** / WALL \ ***********************************//
   //________________________________ Wall fundamentals _______________________________//
-  replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder"
     annotation (choicesAllMatching=true, Dialog(tab="Wall", group=
           "Fundamental Definitions"));
   parameter SI.Mass mass_struc=0 "Additional to mass of the plate HX calculated by density*length*width*thicknesswall" annotation (Dialog(tab="Wall", group="Fundamental Definitions"));

@@ -1,7 +1,7 @@
-within ClaRa.Visualisation.Check;
+﻿within ClaRa.Visualisation.Check;
 model TestHEXdisplay "Illustrates the capabilities of the HEXdisplay"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -37,11 +37,11 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   parameter Basics.Units.Length length=4 "Length of tubes";
   parameter Integer N_cv = 400 "Number of Cells";
 
-  Basics.Units.EnthalpyMassSpecific h_i_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
+  Basics.Units.EnthalpyMassSpecific h_i_in=TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_pTxi(
       simCenter.fluid1,
       p_i,
       T_i_in);
-  Basics.Units.EnthalpyMassSpecific h_o_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
+  Basics.Units.EnthalpyMassSpecific h_o_in=TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_pTxi(
       simCenter.fluid1,
       p_o,
       T.y);
@@ -51,7 +51,8 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   inner SimCenter simCenter(
     steamCycleAllowFlowReversal=true,
     useHomotopy=false,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{-100,-120},{-60,-100}})));
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{-100,-120},{-60,-100}})));
 
   Visualisation.Hexdisplay_3 ConterFlowDisplay(
     y_min=373,

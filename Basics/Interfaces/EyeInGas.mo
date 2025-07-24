@@ -1,8 +1,8 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector EyeInGas
 "Signal bus featuring pressure, specific enthalpy, temperature, specific entropy and mass flow rate"
   import SI = ClaRa.Basics.Units;
-   parameter TILMedia.GasTypes.BaseGas medium annotation(HideResult=false);
+  parameter TILMedia.Gas.Types.BaseGas medium annotation (HideResult=false);
    input Real p "Pressure in bar" annotation(HideResult=false);
    input Real h "Specific enthalpy in kJ/kg" annotation(HideResult=false);
    input Real m_flow "Mass flow rate in kg/s" annotation(HideResult=false);

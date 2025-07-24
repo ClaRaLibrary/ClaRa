@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes;
 model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations. Can choose between Modelica and ClaRa Delay implementation."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -88,7 +88,8 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   final parameter Integer N_temp=2*N_wall + 1 "number of tempratures to be computed";
   //____Media Data____________________________________________________________________________________________
   parameter Boolean useConstantMediaData=false "|Media Data|Use of constant media data";
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation(Dialog(enable=useConstantMediaData == false,group="Media Data"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(enable=useConstantMediaData == false, group="Media Data"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_const=4200 "Constant heat capacity in pipe" annotation (Dialog(enable=useConstantMediaData == true, group="Media Data"));
   parameter Modelica.Units.SI.Density rho_const=985 "Constant fluid density in pipe" annotation (Dialog(enable=useConstantMediaData == true, group="Media Data"));
   parameter Modelica.Units.SI.Velocity a_const=1500 "Constant speed of sound in pipe" annotation (Dialog(enable=useConstantMediaData == true, group="Media Data"));
@@ -110,7 +111,7 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   //____Initialisation________________________________________________________________________________________
   inner parameter Boolean useHomotopy=simCenter.useHomotopy "|Initialisation|Model Settings|True, if homotopy method is used during initialisation";
 
-  parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.liquidSpecificEnthalpy_pTxi(
+  parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.VLEFluid.MixtureCompatible.Functions.liquidSpecificEnthalpy_pTxi(
       medium,
       p_start,
       simCenter.T_amb_start) "|Initialisation|Initial Medium Properties|Initial averaged fluid specific enthalpy";
@@ -124,7 +125,7 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   parameter Modelica.Units.SI.Pressure p_start=(p_in_start + p_out_start)/2 "|Initialisation|Initial Medium Properties|Initial averaged fluid pressure";
   parameter Modelica.Units.SI.Pressure p_in_start=simCenter.p_amb_start "|Initialisation|Initial Medium Properties|Initial inlet pressure";
   parameter Modelica.Units.SI.Pressure p_out_start=simCenter.p_amb_start "|Initialisation|Initial Medium Properties|Initial outlet pressure";
-  final parameter Modelica.Units.SI.Density rho_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  final parameter Modelica.Units.SI.Density rho_start=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_start,
       h_start) "Initial fluid density";
@@ -254,20 +255,18 @@ model PipeFlowVLE_L1_TML "Simple tube model based on transmission line equations
   ClaRa.Basics.Interfaces.HeatPort_a heat[N_wall] annotation (Placement(
         transformation(extent={{-10,40},{10,60}}),iconTransformation(extent={{-10,
             30},{10,50}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT fluidOutlet(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_pT fluidOutlet(
     vleFluidType=medium,
     p=outlet.p,
     T=T_L,
     computeTransportProperties=false,
-    computeVLEAdditionalProperties=true) annotation (Placement(transformation(
-          extent={{60,20},{80,40}}, rotation=0)));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidInlet(
+    computeVLEAdditionalProperties=true) annotation (Placement(transformation(extent={{60,20},{80,40}}, rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidInlet(
     vleFluidType=medium,
     p=inlet.p,
     h=inStream(inlet.h_outflow),
     computeTransportProperties=false,
-    computeVLEAdditionalProperties=true) annotation (Placement(transformation(
-          extent={{-80,20},{-60,40}}, rotation=0)));
+    computeVLEAdditionalProperties=true) annotation (Placement(transformation(extent={{-80,20},{-60,40}}, rotation=0)));
 protected
   ClaRa.Basics.Interfaces.EyeIn eye_int[1]
     annotation (Placement(transformation(extent={{71,-31},{73,-29}})));
@@ -289,60 +288,60 @@ protected
   Real I_f[N_temp - 1](each stateSelect=StateSelect.avoid);
   //integral part of Temperatures
 
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_T_wall[N_wall]={
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable() for i in 1:N_wall};
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_T_wall[N_wall]={
+      SMArtInt.Internal.ClaRaDelay.ExternalTable() for i in 1:N_wall};
   Real hist_T_wall[N_wall, 1];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_T[N_temp]={
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable() for i in 1:N_temp};
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_T[N_temp]={
+      SMArtInt.Internal.ClaRaDelay.ExternalTable() for i in 1:N_temp};
   Real hist_T[N_temp, 1](start=ones(N_temp, 1)*simCenter.T_amb_start);
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_d_mean=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_d_mean=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_d_mean[1];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_cp_mean=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_cp_mean=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_cp_mean[1];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_w_mean=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_w_mean=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_w_mean[1];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_alpha_d=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_alpha_d=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_alpha_d[1];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_beta_d=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_beta_d=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_beta_d[1];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_rhocp=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_rhocp=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_rhocp[1];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_q=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_q=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_q[1];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_A=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_A=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_A[2];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_T_0=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_T_0=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_T_0[2];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_dpL=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_dpL=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_dpL[7](start=zeros(7));
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_dqL=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_dqL=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_dqL[6](start=zeros(6));
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_dp0=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_dp0=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_dp0[7](start=zeros(7));
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_dq0=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_dq0=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_dq0[6](start=zeros(6));
 
   parameter  Real A_0(fixed=false);
   parameter Real B_0(fixed=false);
   Real Tau_pass_tot "Total residence time fo fluid in pipe from inlet to outlet";
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_beta=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_beta=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_beta[1];
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_alpha=
-      SMArtIInt.Internal.ClaRaDelay.ExternalTable();
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_alpha=
+      SMArtInt.Internal.ClaRaDelay.ExternalTable();
   Real hist_alpha[1];
 
   Real check=Tau_sound*F/2;

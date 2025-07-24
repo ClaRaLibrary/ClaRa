@@ -1,4 +1,4 @@
-within ClaRa.Components.Control.PredictorModels_3508.Icons;
+﻿within ClaRa.Components.Control.PredictorModels_3508.Icons;
 model TurbineAndReheat
     annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>

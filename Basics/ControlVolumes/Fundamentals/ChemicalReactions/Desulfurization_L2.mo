@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.ChemicalReactions;
 model Desulfurization_L2 "Gas || L2 || Desulfurization"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -68,7 +68,7 @@ model Desulfurization_L2 "Gas || L2 || Desulfurization"
   Units.EnthalpyMassSpecific h_out;
 
 
-  TILMedia.Gas gasAux(gasType=iCom.mediumModel) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
+  TILMedia.Gas.Gas gasAux(gasType=iCom.mediumModel) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
 initial equation
   m_flow_aux = m_flow_out;
   h_aux = h_out;
@@ -89,9 +89,17 @@ equation
   m_flow_reaction[6] = 0;
   m_flow_reaction[7] = 0;
 
-  xi_H2O_sat_out = TILMedia.GasObjectFunctions.saturationMassFraction_phxi(iCom.p_in,h_aux,xi_aux,gasAux.gasPointer);
-  delta_h_evap = TILMedia.GasObjectFunctions.specificEnthalpyOfVaporisation_T(iCom.T_in, iCom.fluidPointer_in);
-  h_in = TILMedia.GasObjectFunctions.specificEnthalpy_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
+  xi_H2O_sat_out =TILMedia.Gas.ObjectFunctions.saturationMassFraction_phxi(
+    iCom.p_in,
+    h_aux,
+    xi_aux,
+    gasAux.gasPointer);
+  delta_h_evap =TILMedia.Gas.ObjectFunctions.specificEnthalpyOfVaporisation_T(iCom.T_in, iCom.fluidPointer_in);
+  h_in =TILMedia.Gas.ObjectFunctions.specificEnthalpy_pTxi(
+    iCom.p_in,
+    iCom.T_in,
+    iCom.xi_in,
+    iCom.fluidPointer_in);
 
   n_flow_SO2_in =iCom.m_flow_in*iCom.xi_in[4]/M_SO2;
   n_flow_O2_in =iCom.m_flow_in*iCom.xi_in[6]/M_O2;
@@ -158,7 +166,11 @@ equation
            (m_flow_aux*(xi_aux - xi) + iCom.m_flow_out*(iCom.xi_out - xi));
       end if;
 
-  V_flow_std = iCom.m_flow_in / TILMedia.GasObjectFunctions.density_pTxi(iCom.p_in,iCom.T_in,iCom.xi_in,iCom.fluidPointer_in);
+  V_flow_std =iCom.m_flow_in/TILMedia.Gas.ObjectFunctions.density_pTxi(
+    iCom.p_in,
+    iCom.T_in,
+    iCom.xi_in,
+    iCom.fluidPointer_in);
   P_el = specificPowerConsumption * V_flow_std;
   annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>

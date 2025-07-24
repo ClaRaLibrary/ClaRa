@@ -1,7 +1,7 @@
 ﻿within ClaRa.Components.Mills.PhysicalMills.Volumes;
 model GrinderRingRoller "Aerosol component | grinder component for Ring-Roller-Mills | for replaceable grinding processes | mass transport on discretised table"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

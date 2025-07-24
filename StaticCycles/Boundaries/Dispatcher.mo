@@ -1,7 +1,7 @@
 ﻿within ClaRa.StaticCycles.Boundaries;
 model Dispatcher "Ideal fuel dispatcher"
 //___________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                            //
+// Component of the ClaRa library, version: 1.9.0                            //
 //                                                                           //
 // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
 // Copyright © 2013-2016, DYNCAP/DYNSTART research team.                     //
@@ -32,7 +32,8 @@ model Dispatcher "Ideal fuel dispatcher"
   parameter ClaRa.Basics.Units.MassFraction xi_c[fuelModel.N_c - 1]=fuelModel.defaultComposition "Fuel composition" annotation (Dialog(group="Fundamental Definitions"));
   parameter Integer N_burner_levels = 1  "Number of burner levels" annotation(Dialog(group="Fundamental Definitions"));
 
-  parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component" annotation(Dialog(group="Combustion Air"));
+  parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (Dialog(group="Combustion Air"));
   parameter ClaRa.Basics.Units.MassFraction xi_pa_in[flueGas.nc - 1]={0,0,0,0,0.77,0.23,0,0,0} "Primary air inlet composition" annotation (Dialog(group="Combustion Air"));
   parameter Real lambda = 1.15 "Excess air" annotation(Dialog(group="Combustion Air"));
 

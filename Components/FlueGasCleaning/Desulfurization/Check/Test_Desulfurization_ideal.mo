@@ -18,8 +18,10 @@ model Test_Desulfurization_ideal
     xi_const={0,0,0.21,0.00099,0.7,0.0393,0,0.0367,0},
     p_const=101800,
     T_const=293.15) annotation (Placement(transformation(extent={{46,-10},{26,10}})));
-  inner SimCenter simCenter(contributeToCycleSummary=true, redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel,
-    showExpertSummary=true)                                                                                          annotation (Placement(transformation(extent={{68,68},{88,88}})));
+  inner SimCenter simCenter(
+    contributeToCycleSummary=true,
+    redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel,
+    showExpertSummary=true) annotation (Placement(transformation(extent={{68,68},{88,88}})));
 equation
 
   connect(gasFlowSource_T.gas_a, deSO_ideal_L1_1.inlet) annotation (Line(

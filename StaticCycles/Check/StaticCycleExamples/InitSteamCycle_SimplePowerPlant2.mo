@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Check.StaticCycleExamples;
+﻿within ClaRa.StaticCycles.Check.StaticCycleExamples;
 model InitSteamCycle_SimplePowerPlant2 "Helps you to find reasonable start values for steam cycles"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -15,14 +15,13 @@ model InitSteamCycle_SimplePowerPlant2 "Helps you to find reasonable start value
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.Init;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.*;
+  import TILMedia.VLEFluid.MixtureCompatible.Functions.*;
   import SI = ClaRa.Basics.Units;
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
-    annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation (choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
 
 //__________________global parameter_______________________
   inner parameter Real P_target_= 1 "Value of load in p.u."    annotation(Dialog(group="Global parameter"));

@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model SimpleCombustionChamber
   annotation (Diagram(graphics), Icon(graphics={Bitmap(
           extent={{-102,-102},{102,100}},

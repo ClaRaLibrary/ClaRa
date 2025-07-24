@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Fundamentals;
+﻿within ClaRa.StaticCycles.Fundamentals;
 connector PowerSignal_B
   output ClaRa.Basics.Units.Power power "Power going out of the component";
   input String s;

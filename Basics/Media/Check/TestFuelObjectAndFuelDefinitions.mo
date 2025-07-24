@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Check;
+﻿within ClaRa.Basics.Media.Check;
 model TestFuelObjectAndFuelDefinitions
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   inner SimCenter simCenter(redeclare FuelTypes.Fuel_verbandsformel_v3 fuelModel1)

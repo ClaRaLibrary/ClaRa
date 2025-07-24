@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Machines;
+﻿within ClaRa.StaticCycles.Machines;
 model Pump1 "Ideal Pump || par.: efficiency || green | blue"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -44,13 +44,12 @@ model Pump1 "Ideal Pump || par.: efficiency || green | blue"
      P_pump=P_pump));
   //---------Summary Definition---------
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
-                              annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation (choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
   parameter Real  efficiency = 1 "Pump efficiency" annotation(Dialog(group="Fundamental Definitions"));
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_in) "Inlet density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in=TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleDensity_pxi(                                     medium, p_in) "Inlet density";
   final parameter ClaRa.Basics.Units.Power P_pump=(p_out - p_in)*m_flow/rho_in/efficiency "Pump power";
 //protected
   final parameter ClaRa.Basics.Units.Pressure p_in(fixed=false) "Inlet pressure";

@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector GasPortOut
  //extends GasMixtureMassSpecific;
  extends GasMassSpecific;

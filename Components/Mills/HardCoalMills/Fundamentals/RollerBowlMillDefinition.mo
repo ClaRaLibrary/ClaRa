@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.HardCoalMills.Fundamentals;
+﻿within ClaRa.Components.Mills.HardCoalMills.Fundamentals;
 record RollerBowlMillDefinition "A record for defining the grey-box model by Niemzcek"
 
 extends ClaRa.Basics.Icons.RecordIcon;

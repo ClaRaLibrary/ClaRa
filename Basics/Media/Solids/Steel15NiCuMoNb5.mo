@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Solids;
+﻿within ClaRa.Basics.Media.Solids;
 model Steel15NiCuMoNb5 "Steel15NiCuMoNb5 - 1.6368"
   //source: https://www.tugraz.at/fileadmin/user_upload/Institute/IEP/Thermophysics_Group/Files/Staehle-Richter.pdf
   extends ClaRa.Basics.Media.Solids.BaseSolid(

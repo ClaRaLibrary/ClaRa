@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.ValvesConnects.Check;
+﻿within ClaRa.StaticCycles.ValvesConnects.Check;
 model TestValve_dp_nom4
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
 

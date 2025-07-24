@@ -1,8 +1,8 @@
-within ClaRa.Components.Mills.PhysicalMills;
+﻿within ClaRa.Components.Mills.PhysicalMills;
 package Check
 
 //__________________________________________________________________________//
-// Package of the ClaRa library, version: 1.8.2                             //
+// Package of the ClaRa library, version: 1.9.0                             //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -14,7 +14,7 @@ package Check
 // Contents published in ClaRa have been contributed by different authors   //
 // and institutions. Please see model documentation for detailed information//
 // on original authorship and copyrights.                                   //
-//__________________________________________________________________________//  
+//__________________________________________________________________________//
 
   extends ClaRa.Basics.Icons.PackageIcons.Componentsb60;
 

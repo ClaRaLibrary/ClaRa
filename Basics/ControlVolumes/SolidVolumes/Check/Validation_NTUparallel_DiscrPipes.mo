@@ -18,7 +18,7 @@ model Validation_NTUparallel_DiscrPipes "Validation: NTU method vs. discretized 
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   import SI = ClaRa.Basics.Units;
-  import fluidObjectFunction_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
+  import fluidObjectFunction_cp = TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.specificIsobaricHeatCapacity_phxi;
   parameter SI.Temperature T_i_in=20 + 273.15 "Temperature of cold side";
   parameter SI.Temperature T_o_in=100 + 273.15 "Temperature of hot side";
   parameter SI.MassFlowRate m_flow_i=1 "Mass flow of cold side";
@@ -38,23 +38,24 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   parameter SI.Length length=5 "Length of tubes";
   parameter Integer N_cv = 400 "Number of Cells";
 
-  parameter SI.EnthalpyMassSpecific h_i_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
+  parameter SI.EnthalpyMassSpecific h_i_in=TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_pTxi(
       simCenter.fluid1,
       p_i,
       T_i_in);
-  parameter SI.EnthalpyMassSpecific h_o_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.specificEnthalpy_pTxi(
+  parameter SI.EnthalpyMassSpecific h_o_in=TILMedia.VLEFluid.MixtureCompatible.Functions.specificEnthalpy_pTxi(
       simCenter.fluid1,
       p_o,
       T_o_in);
 
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_o_in(vleFluidType=simCenter.fluid1);
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_i_in(vleFluidType=simCenter.fluid1);
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid ptr_o_in(vleFluidType=simCenter.fluid1);
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid ptr_i_in(vleFluidType=simCenter.fluid1);
 
 
   inner ClaRa.SimCenter simCenter(
     steamCycleAllowFlowReversal=true,
     useHomotopy=false,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{40,60},{80,80}})));
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{40,60},{80,80}})));
 
   ClaRa.Components.VolumesValvesFittings.Pipes.PipeFlowVLE_L4_Simple pipe_OuterSide(
     frictionAtOutlet=true,
@@ -134,20 +135,17 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   ClaRa.Components.Sensors.SensorVLE_L1_T InnerSide_outletTemp annotation (Placement(transformation(extent={{-64,-90},{-44,-70}})));
 
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 thinWall(
-    redeclare model Material = TILMedia.SolidTypes.TILMedia_St35_8,
+    redeclare model Material = TILMedia.Solid.Types.TILMedia_St35_8,
     length=length,
     N_tubes=N_tubes,
     N_ax=N_cv,
     Delta_x=ones(N_cv)*length/N_cv,
     diameter_o=diameter_o,
     diameter_i=diameter_i,
-    T_start=linspace(
-        T_o_in,
-        T_i_in,
-        N_cv),
+    T_start=linspace(T_o_in, T_i_in, N_cv),
     initOption=213) annotation (Placement(transformation(extent={{-104,-64},{-76,-54}})));
-  NTU_L2                                                     NTU(
-    redeclare model Material = TILMedia.SolidTypes.TILMedia_St35_8,
+  NTU_L2 NTU(
+    redeclare model Material = TILMedia.Solid.Types.TILMedia_St35_8,
     redeclare model HeatExchangerType = Fundamentals.HeatExchangerTypes.ParallelFlow,
     N_t=N_tubes,
     N_p=N_passes,
@@ -163,9 +161,16 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
     alpha_i=alpha_i,
     alpha_o=alpha_o,
     initOption=0,
-    cp_mean_i=fluidObjectFunction_cp(pipe_InnerSide.summary.inlet.p,pipe_InnerSide.summary.inlet.h,noEvent(actualStream(pipe_InnerSide.inlet.xi_outflow[:])),ptr_i_in.vleFluidPointer),
-    cp_mean_a=fluidObjectFunction_cp(pipe_OuterSide.summary.inlet.p,pipe_OuterSide.summary.inlet.h,noEvent(actualStream(pipe_OuterSide.inlet.xi_outflow[:])),ptr_o_in.vleFluidPointer))
-                    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    cp_mean_i=fluidObjectFunction_cp(
+        pipe_InnerSide.summary.inlet.p,
+        pipe_InnerSide.summary.inlet.h,
+        noEvent(actualStream(pipe_InnerSide.inlet.xi_outflow[:])),
+        ptr_i_in.vleFluidPointer),
+    cp_mean_a=fluidObjectFunction_cp(
+        pipe_OuterSide.summary.inlet.p,
+        pipe_OuterSide.summary.inlet.h,
+        noEvent(actualStream(pipe_OuterSide.inlet.xi_outflow[:])),
+        ptr_o_in.vleFluidPointer)) annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation
   connect(pipe_OuterSide.outlet, OuterSide_outletTemp.port)
                                                   annotation (Line(

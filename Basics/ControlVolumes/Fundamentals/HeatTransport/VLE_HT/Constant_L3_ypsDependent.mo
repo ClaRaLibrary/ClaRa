@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT;
 model Constant_L3_ypsDependent "All geo || L3 || HTC || depending on volume fraction || 2ph"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_phxi "A boundary defining pressure, enthalpy and composition"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -21,8 +21,8 @@ extends ClaRa.Basics.Icons.FlowSink;
     powerOut_th=if energyType == 2 then steam_a.m_flow*actualStream(steam_a.h_outflow) else 0,
     powerOut_elMech=0,
     powerAux=0)  if contributeToCycleSummary;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium= simCenter.fluid1 "Medium to be used"
-                                                                                              annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
  parameter Boolean showData=true "|Summary and Visualisation||True, if a data port containing p,T,h,s,m_flow shall be shown, else false";
   parameter Boolean contributeToCycleSummary = simCenter.contributeToCycleSummary "True if component shall contribute to automatic efficiency calculation"
@@ -45,11 +45,11 @@ protected
   Basics.Units.MassFraction xi_in[medium.nc - 1];
 
 protected
-   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     p=steam_a.p,
-    h=noEvent(actualStream(steam_a.h_outflow)), xi = xi_in)
-     annotation (Placement(transformation(extent={{22,-20},{42,0}})));
+    h=noEvent(actualStream(steam_a.h_outflow)),
+    xi=xi_in) annotation (Placement(transformation(extent={{22,-20},{42,0}})));
 
 public
   ClaRa.Basics.Interfaces.FluidPortIn steam_a(Medium=medium)

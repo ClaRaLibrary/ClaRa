@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector ElectricPortIn
   flow Units.Power P "Active power";
   Units.Frequency f "Frequency";

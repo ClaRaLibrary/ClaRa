@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes;
 model Header "A header (distribution pipe) e.g. for superheater."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,10 +18,12 @@ model Header "A header (distribution pipe) e.g. for superheater."
   extends ClaRa.Basics.Icons.Header;
   outer ClaRa.SimCenter simCenter;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  replaceable model WallMaterial = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "Wall WallMaterial" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  replaceable model WallMaterial = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.Solid.Types.BaseSolid "Wall WallMaterial" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Boolean isAdiabat = false "True if adiabat" annotation (choices(checkBox=true), Dialog(group="Fundamental Definitions"));
-  replaceable model InsulationMaterial = Basics.Media.Solids.InsulationOrstechLSP_H_const constrainedby TILMedia.SolidTypes.BaseSolid "Insulation WallMaterial" annotation (choicesAllMatching=true, Dialog(enable = not isAdiabat, group="Fundamental Definitions"));
+  replaceable model InsulationMaterial = Basics.Media.Solids.InsulationOrstechLSP_H_const constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                                      "Insulation WallMaterial" annotation (choicesAllMatching=true, Dialog(enable = not isAdiabat, group="Fundamental Definitions"));
   parameter Boolean frictionAtInlet = false "True if pressure loss between first cell and inlet shall be considered" annotation (choices(checkBox=true), Dialog(group="Fundamental Definitions"));
   parameter Boolean frictionAtOutlet = false "True if pressure loss between last cell and outlet shall be considered" annotation (choices(checkBox=true), Dialog(group="Fundamental Definitions"));
   replaceable model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.PressureLoss_L4  "Pressure Loss Model" annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching=true);
@@ -48,7 +50,8 @@ model Header "A header (distribution pipe) e.g. for superheater."
   parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_start=800e3 "Initial specific enthalpy for single tube" annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.Pressure p_start=1e5 "Initial pressure" annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_start[medium.nc - 1]=zeros(pipeFlow.medium.nc - 1) "Initial composition" annotation (Dialog(tab="Initialisation"));
-  final parameter ClaRa.Basics.Units.Temperature T_fluid_start = TILMedia.VLEFluidFunctions.temperature_phxi(medium, p_start, h_start, xi_start);
+  final parameter ClaRa.Basics.Units.Temperature T_fluid_start = TILMedia.VLEFluid.Functions.temperature_phxi(
+                                                                                                             medium, p_start, h_start, xi_start);
 
   parameter Boolean isOutletHeader = false "True if component is outlet header" annotation(Dialog(tab="Summary and Visualisation"));
 

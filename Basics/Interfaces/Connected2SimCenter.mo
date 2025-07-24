@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 model Connected2SimCenter
   input ClaRa.Basics.Units.Power powerIn=1e-3;
   input ClaRa.Basics.Units.Power powerOut_elMech=0;

@@ -1,8 +1,8 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_HEXvle2vle_L3_1ph_kA
 
 //__________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                           //
+  // Component of the ClaRa library, version: 1.9.0                           //
   //                                                                          //
   // Licensed by the ClaRa development team under the 3-clause BSD License.   //
   // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,12 +18,14 @@ model Test_HEXvle2vle_L3_1ph_kA
  extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
 
   HEXvle2vle_L3_1ph_kA hEXvle2vle_L3_1ph_BU_ntu(
-    redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum,
+    redeclare model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum,
     mass_struc=25000,
-    redeclare model PressureLossShell = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
+    redeclare model PressureLossShell =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
     h_start_shell=2975e3,
     p_start_shell=21.05e5,
-    redeclare model PressureLossTubes = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
+    redeclare model PressureLossTubes =
+        ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L2,
     p_nom_tubes=250e5,
     h_nom_tubes=1130e3,
     h_start_tubes=1130e3,
@@ -90,7 +92,8 @@ model Test_HEXvle2vle_L3_1ph_kA
     startTime=10000,
     height=-200e3)
     annotation (Placement(transformation(extent={{140,-72},{120,-52}})));
-  inner SimCenter simCenter(useHomotopy=true, redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  inner SimCenter simCenter(useHomotopy=true, redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Visualisation.Hexdisplay_3 hexdisplay_3_1(
     T_o={hEXvle2vle_L3_1ph_BU_ntu.shell.summary.inlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.shell.summary.outlet.T},
     T_i={hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.inlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T,hEXvle2vle_L3_1ph_BU_ntu.tubes.summary.outlet.T},

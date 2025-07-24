@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss;
 partial model ShellTypeVLE_L3 "Partial heat transfer model for shell-type models - level of detail L3"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

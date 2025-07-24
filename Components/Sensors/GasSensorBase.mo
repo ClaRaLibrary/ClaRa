@@ -1,7 +1,7 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model gasSensorBase "Base class for gas sensors"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -24,8 +24,8 @@ model gasSensorBase "Base class for gas sensors"
   extends ClaRa.Basics.Icons.Sensor1;
   outer ClaRa.SimCenter simCenter;
 
-inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used"
-                         annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 equation
   inlet.p = outlet.p;

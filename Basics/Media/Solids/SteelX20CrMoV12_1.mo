@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Solids;
+﻿within ClaRa.Basics.Media.Solids;
 model SteelX20CrMoV12_1 "SteelX20CrMoV12_1 - 1.4922"
    //Source: https://woite-edelstahl.info/14922de.html"
    //nu, G and beta not changed, taken from SteelX8CrNiTi18_10

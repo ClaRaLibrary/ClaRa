@@ -1,7 +1,7 @@
-within ClaRa.Components.Mills.PhysicalMills.Volumes;
+﻿within ClaRa.Components.Mills.PhysicalMills.Volumes;
 model Dryer "Aerosol component | dryer | for replaceable coal drying processes | respects thermal losses"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,7 +19,8 @@ model Dryer "Aerosol component | dryer | for replaceable coal drying processes |
 
   //-------------------------------------------------------------------------------
   //fundamental definitions
-  parameter TILMedia.GasTypes.BaseGas gas= simCenter.flueGasModel "Medium model" annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Medium model"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Coal elemental composition used for combustion" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Fundamentals.Records.FuelClassification_base classification=Fundamentals.Records.FuelClassification_example_21classes() annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching=true);
@@ -39,14 +40,15 @@ model Dryer "Aerosol component | dryer | for replaceable coal drying processes |
   ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer_L2
                heattransfer annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
- ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThickWall_L4 cylindricalThickWall_L4_1(
-    redeclare model Material = TILMedia.SolidTypes.TILMedia_Steel,
+  ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThickWall_L4 cylindricalThickWall_L4_1(
+    redeclare model Material = TILMedia.Solid.Types.TILMedia_Steel,
     diameter_o=3.1,
     diameter_i=3,
     length=1.5*15,
     T_start={T_start},
-    mass_struc=mass_mill - cylindricalThickWall_L4_1.solid[cylindricalThickWall_L4_1.N_rad].d*Modelica.Constants.pi/4*(cylindricalThickWall_L4_1.diameter_o^2-cylindricalThickWall_L4_1.diameter_i^2)*cylindricalThickWall_L4_1.length*cylindricalThickWall_L4_1.N_tubes)
-                   annotation (Placement(transformation(
+    mass_struc=mass_mill - cylindricalThickWall_L4_1.solid[cylindricalThickWall_L4_1.N_rad].d*Modelica.Constants.pi/4*(
+        cylindricalThickWall_L4_1.diameter_o^2 - cylindricalThickWall_L4_1.diameter_i^2)*cylindricalThickWall_L4_1.length
+        *cylindricalThickWall_L4_1.N_tubes) annotation (Placement(transformation(
         extent={{-11,8},{11.0001,-8}},
         rotation=90,
         origin={28,70.9999})));
@@ -133,21 +135,19 @@ public
   ClaRa.Basics.Interfaces.GasPortOut gasOutlet(Medium=gas) annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
 
   //Gas: ------------------------------------------------------------------------------------------------------------------------
-  TILMedia.Gas_pT     gasIn(
-     gasType=gas,
-     p=gasInlet.p,
-     T=noEvent(actualStream(gasInlet.T_outflow)),
-     xi=noEvent(actualStream(gasInlet.xi_outflow)))
-     annotation (Placement(transformation(extent={{-80,-52},{-60,-32}})));
+  TILMedia.Gas.Gas_pT gasIn(
+    gasType=gas,
+    p=gasInlet.p,
+    T=noEvent(actualStream(gasInlet.T_outflow)),
+    xi=noEvent(actualStream(gasInlet.xi_outflow))) annotation (Placement(transformation(extent={{-80,-52},{-60,-32}})));
 
-  TILMedia.Gas_pT     gasOut(
-     T=noEvent(actualStream(gasOutlet.T_outflow)),
-     gasType=gas,
-     p=gasOutlet.p,
-     xi=noEvent(actualStream(gasOutlet.xi_outflow)))
-     annotation (Placement(transformation(extent={{60,-52},{80,-32}})));
+  TILMedia.Gas.Gas_pT gasOut(
+    T=noEvent(actualStream(gasOutlet.T_outflow)),
+    gasType=gas,
+    p=gasOutlet.p,
+    xi=noEvent(actualStream(gasOutlet.xi_outflow))) annotation (Placement(transformation(extent={{60,-52},{80,-32}})));
 
-  TILMedia.Gas_pT gasBulk(
+  TILMedia.Gas.Gas_pT gasBulk(
     T=T,
     gasType=gas,
     p=p,

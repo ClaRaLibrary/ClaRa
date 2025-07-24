@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes.Fundamentals.Averaging_Cp;
 model InputOnly "Use the 1st input instead of an average"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,8 +16,8 @@ model InputOnly "Use the 1st input instead of an average"
 //__________________________________________________________________________//
 
   extends GeneralMean;
-  import vle_cp = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi;
-  import gas_cp = TILMedia.GasObjectFunctions.specificIsobaricHeatCapacity_phxi;
+  import vle_cp = TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.specificIsobaricHeatCapacity_phxi;
+  import gas_cp = TILMedia.Gas.ObjectFunctions.specificIsobaricHeatCapacity_phxi;
 
   SI.HeatCapacityMassSpecific cp_i_in[3];
   SI.HeatCapacityMassSpecific cp_o_in[3];

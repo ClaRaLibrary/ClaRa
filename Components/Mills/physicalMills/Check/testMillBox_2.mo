@@ -1,7 +1,7 @@
-within ClaRa.Components.Mills.PhysicalMills.Check;
+﻿within ClaRa.Components.Mills.PhysicalMills.Check;
 model TestMillBox_2
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -284,10 +284,7 @@ revisions=
 </html>"),
     Icon(graphics,coordinateSystem(preserveAspectRatio=true, initialScale=0.1)),
                                                                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-740,-420},{180,260}})),
-    experiment(
-      StopTime=25000,
-      __Dymola_NumberOfIntervals=25000,
-      __Dymola_Algorithm="Sdirk34hw"),
+    experiment(StopTime=25000, __Dymola_Algorithm="Sdirk34hw"),
     __Dymola_experimentSetupOutput,
     __Dymola_experimentFlags(
       Advanced(GenerateVariableDependencies=false, OutputModelicaCode=false),

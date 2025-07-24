@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model SprayAttemperator2 "Mixer || blue | yellow | blue"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -42,12 +42,13 @@ model SprayAttemperator2 "Mixer || blue | yellow | blue"
      p=p));
   //---------Summary Definition---------
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component";
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h1(fixed=false) "Specific enthalpy of flow 1";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h2(fixed=false) "Specific enthalpy of flow 2";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_1(fixed=false) "Mass flow rate of flow 1";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_2 = (h3*m_flow_3 - h1*m_flow_1)/h2 "Mass flow rate of flow 2";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h3 = TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(medium, p, T, zeros(medium.nc - 1)) "Mixer outlet enthalpy";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h3 = TILMedia.VLEFluid.Functions.specificEnthalpy_pTxi(
+                                                                                                                medium, p, T, zeros(medium.nc - 1)) "Mixer outlet enthalpy";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_3=m_flow_1 + m_flow_2 "Mixer outlet mass flow rate";
   final parameter ClaRa.Basics.Units.Pressure p(fixed=false) "Mixer pressure";
   final parameter ClaRa.Basics.Units.Pressure p2(fixed=false) "Coolant pressure";

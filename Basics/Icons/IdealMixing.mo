@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model IdealMixing
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

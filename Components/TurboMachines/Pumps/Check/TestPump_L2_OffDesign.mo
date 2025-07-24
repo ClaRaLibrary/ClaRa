@@ -1,7 +1,7 @@
-within ClaRa.Components.TurboMachines.Pumps.Check;
+﻿within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L2_OffDesign "Running the  L2 pump in off design, including reverse flow and zero mass flow through valve"
   //__________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                           //
+  // Component of the ClaRa library, version: 1.9.0                           //
   //                                                                          //
   // Licensed by the ClaRa development team under the 3-clause BSD License.   //
   // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,8 +16,8 @@ model TestPump_L2_OffDesign "Running the  L2 pump in off design, including rever
   //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableRegressiong100;
 
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, showExpertSummary=true)
-                                                                                          annotation (Placement(transformation(extent={{-160,-160},{-120,-140}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1, showExpertSummary=true)
+    annotation (Placement(transformation(extent={{-160,-160},{-120,-140}})));
   Modelica.Blocks.Sources.TimeTable
                                ramp1(
     startTime=0,

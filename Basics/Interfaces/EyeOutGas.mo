@@ -1,7 +1,7 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector EyeOutGas
   import SI = ClaRa.Basics.Units;
-   parameter TILMedia.GasTypes.BaseGas medium annotation(HideResult=false);
+  parameter TILMedia.Gas.Types.BaseGas medium annotation (HideResult=false);
    output Real p "Pressure in bar" annotation(HideResult=false);
    output Real h "Specific enthalpy in kJ/kg" annotation(HideResult=false);
    output Real m_flow "Mass flow rate in kg/s" annotation(HideResult=false);

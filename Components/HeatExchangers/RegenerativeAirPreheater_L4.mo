@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model RegenerativeAirPreheater_L4 "Model for a regenerative air preheater"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -147,7 +147,7 @@ protected
 
   //_____________defintion of medium used in cells__________________________________________________________
 public
-  inner parameter TILMedia.GasTypes.BaseGas medium=simCenter.flueGasModel "Medium to be used in tube"
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tube"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   //## V A R I A B L E   P A R T##################################################################################
@@ -192,12 +192,12 @@ public
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas_L4 "|Physical Effects|Heat Transfer|Heat transfer model"
    annotation(choicesAllMatching);
 
-  replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Regenerator storage material"
+  replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Regenerator storage material"
     annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
 
-  TILMedia.Solid solid(redeclare replaceable model SolidType = Material, T=
-        293.15)
+  TILMedia.Solid.Solid solid(redeclare replaceable model SolidType = Material, T=293.15)
     annotation (Placement(transformation(extent={{-10,-58},{10,-38}})));
 
   Basics.ControlVolumes.GasVolumes.VolumeGas_L4 flueGasCell(

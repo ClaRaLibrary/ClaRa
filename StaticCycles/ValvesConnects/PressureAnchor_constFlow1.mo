@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model PressureAnchor_constFlow1 "Pressure fix point || blue | green"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,7 +18,8 @@ model PressureAnchor_constFlow1 "Pressure fix point || blue | green"
   // Green output: Values of p, m_flow and h are known in component and provided FOR neighbor component.
 
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid vleMedium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Pressure p_nom "Pressure" annotation (Dialog(group="Fundamental Definitions"));
   //---------Summary Definition---------
   model Summary
@@ -27,17 +28,23 @@ model PressureAnchor_constFlow1 "Pressure fix point || blue | green"
     ClaRa.Basics.Records.StaCyFlangeVLE_a outlet;
   end Summary;
 
-  Summary summary(
-  inlet(
-     m_flow=m_flow,
-     h=h_in,
-     p=p,
-     rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p, h_in, vleMedium.xi_default)),
-  outlet(
-     m_flow=m_flow,
-     h=h_out,
-     p=p,
-     rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p, h_out, vleMedium.xi_default)));
+  Summary summary(inlet(
+      m_flow=m_flow,
+      h=h_in,
+      p=p,
+      rho=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
+          vleMedium,
+          p,
+          h_in,
+          vleMedium.xi_default)), outlet(
+      m_flow=m_flow,
+      h=h_out,
+      p=p,
+      rho=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
+          vleMedium,
+          p,
+          h_out,
+          vleMedium.xi_default)));
   //---------Summary Definition---------
   parameter Real CharLine_p_P_target_[:,:]=[0,1;1,1] "Characteristic line of pressure drop as function of mass flow rate" annotation(Dialog(group="Part Load Definition"));
 

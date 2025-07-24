@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Valves.Check;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves.Check;
 model Test_GasValves
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -21,8 +21,8 @@ model Test_GasValves
   GenericValveGas_L1 valve1(openingInputIsActive=true, redeclare model PressureLoss =
         ClaRa.Components.VolumesValvesFittings.Valves.Fundamentals.LinearNominalPoint (                                                                              Delta_p_nom=2e5, m_flow_nom=10)) annotation (Placement(transformation(extent={{-80,124},{-60,136}})));
 
-  inner SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel, showExpertSummary=true)
-                                                                                      annotation (Placement(transformation(extent={{162,232},{182,252}})));
+  inner SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel, showExpertSummary=true)
+    annotation (Placement(transformation(extent={{162,232},{182,252}})));
 
   BoundaryConditions.BoundaryGas_Txim_flow gasFlowSource_T(
     m_flow_const=10,

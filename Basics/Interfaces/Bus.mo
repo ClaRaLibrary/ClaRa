@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 expandable connector Bus "An expandable connector for the usage in ClaRa control definitions"
 
   annotation (Documentation(info="<html>

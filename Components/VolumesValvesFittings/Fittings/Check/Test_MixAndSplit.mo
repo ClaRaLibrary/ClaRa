@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_MixAndSplit
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -29,7 +29,8 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
     initOption=208,
     p_start=3000000) annotation (Placement(transformation(extent={{-60,20},{-80,40}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi massFlowSource_XRG(h_const=800e3, p_const=3000000) annotation (Placement(transformation(extent={{20,20},{0,40}})));
-  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{80,158},{100,178}})));
+  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{80,158},{100,178}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow massFlowSource_XRG2(
     m_flow_const=43.551,
     variable_m_flow=true,

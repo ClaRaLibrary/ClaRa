@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_RegenerativeAirPreheater
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,8 +16,7 @@ model Test_RegenerativeAirPreheater
 //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   import ClaRa;
-  inner ClaRa.SimCenter simCenter(          redeclare TILMedia.GasTypes.FlueGasTILMedia
-                                        flueGasModel)
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel)
     annotation (Placement(transformation(extent={{78,22},{98,42}})));
   ClaRa.Components.BoundaryConditions.BoundaryGas_Txim_flow fluelGasFlowSource1(
     variable_T=true,
@@ -43,7 +42,7 @@ model Test_RegenerativeAirPreheater
   ClaRa.Components.BoundaryConditions.BoundaryGas_pTxi flueGasPressureSink2(p_const=100000) annotation (Placement(transformation(extent={{-42,-30},{-22,-10}})));
   ClaRa.Components.HeatExchangers.RegenerativeAirPreheater_L4 regenerativeAirPreheater(
     s_sp=0.6e-3,
-    redeclare model Material = TILMedia.SolidTypes.TILMedia_St35_8,
+    redeclare model Material = TILMedia.Solid.Types.TILMedia_St35_8,
     A_flueGas=0.45*(regenerativeAirPreheater.A_cross - regenerativeAirPreheater.A_hub),
     A_air=0.45*(regenerativeAirPreheater.A_cross - regenerativeAirPreheater.A_hub),
     diameter_reg=10,
@@ -74,8 +73,7 @@ model Test_RegenerativeAirPreheater
     p_start_freshAir=linspace(
         110000,
         104700,
-        regenerativeAirPreheater.N_cv))
-                                      annotation (Placement(transformation(extent={{8,-16},{28,4}})));
+        regenerativeAirPreheater.N_cv)) annotation (Placement(transformation(extent={{8,-16},{28,4}})));
 
   Modelica.Blocks.Sources.Step step1(
     offset=40 + 273.15,

@@ -1,13 +1,16 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_PlateHEXvle2vle_L4 "Test_PlateHEXvle2vle_L4"
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
 
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_GERGCO2 fluid1)                                                                               annotation (Placement(transformation(extent={{-120,-106},{-100,-86}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_GERGCO2 fluid1)
+    annotation (Placement(transformation(extent={{-120,-106},{-100,-86}})));
 
   ClaRa.Components.HeatExchangers.PlateHEXvle2vle_L4 plateHEX(
     medium_b=simCenter.fluid2,
-    redeclare model HeatTransferInner_a = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4 (alpha_nom=2000),
-    redeclare model HeatTransferInner_b = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4 (alpha_nom=300),
+    redeclare model HeatTransferInner_a = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4
+        (alpha_nom=2000),
+    redeclare model HeatTransferInner_b = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L4
+        (alpha_nom=300),
     width=0.1,
     thickness_wall=0.75e-3,
     N_plates=50,
@@ -19,7 +22,7 @@ model Test_PlateHEXvle2vle_L4 "Test_PlateHEXvle2vle_L4"
     m_nom_a=0.044,
     Delta_p_nom_a=0.25e5,
     frictionAtOutlet_b=true,
-    redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_Steel,
+    redeclare model WallMaterial = TILMedia.Solid.Types.TILMedia_Steel,
     h_start_a=linspace(
         350e3,
         450e3,

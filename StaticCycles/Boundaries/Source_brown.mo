@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Boundaries;
+﻿within ClaRa.StaticCycles.Boundaries;
 model Source_brown
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,7 +17,7 @@ model Source_brown
   // Brown output:  Value of p, T and m_flow are known in component and provided FOR neighbor component, value of xi is unknown and provided BY neighbor component.
 
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component";
+  parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model used in component";
 
   final parameter ClaRa.Basics.Units.Temperature T_fg_nom(fixed=false) "Temperature at the source";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_fg_nom(fixed=false) "Mass flow from the source";

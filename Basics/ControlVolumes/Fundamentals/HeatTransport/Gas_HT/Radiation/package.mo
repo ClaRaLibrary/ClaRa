@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT;
 package Radiation
 //__________________________________________________________________________//
-// Package of the ClaRa library, version: 1.8.2                             //
+// Package of the ClaRa library, version: 1.9.0                             //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

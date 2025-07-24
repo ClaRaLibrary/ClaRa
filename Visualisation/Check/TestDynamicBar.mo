@@ -1,4 +1,4 @@
-within ClaRa.Visualisation.Check;
+﻿within ClaRa.Visualisation.Check;
 model TestDynamicBar
 extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
   Modelica.Blocks.Sources.Sine sine(

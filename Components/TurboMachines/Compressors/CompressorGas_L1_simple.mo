@@ -1,7 +1,7 @@
-within ClaRa.Components.TurboMachines.Compressors;
+﻿within ClaRa.Components.TurboMachines.Compressors;
 model CompressorGas_L1_simple "Simple compressor or fan for gas"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -51,14 +51,20 @@ final parameter Boolean allow_reverseFlow = false;
           allow_reverseFlow then Modelica.Constants.inf else -1e-5)) "outlet flow"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-inner parameter TILMedia.GasTypes.BaseGas    medium = simCenter.flueGasModel;
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel;
  //parameter ClaRa.Basics.Units.MassFraction[medium.nc] mixingRatioInitial = medium.defaultMixingRatio
  //   "Initial value for mixing ratio" annotation(Dialog(group="Initial Values"));
-  TILMedia.Gas_pT flueGas_inlet( p = inlet.p, T = inStream(inlet.T_outflow), xi = inStream(inlet.xi_outflow), gasType = medium)
-    annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
+  TILMedia.Gas.Gas_pT flueGas_inlet(
+    p=inlet.p,
+    T=inStream(inlet.T_outflow),
+    xi=inStream(inlet.xi_outflow),
+    gasType=medium) annotation (Placement(transformation(extent={{-90,-12},{-70,8}})));
 
-  TILMedia.Gas_ph flueGas_outlet( gasType = medium, h = hOut, p = outlet.p,  xi = flueGas_inlet.xi)
-    annotation (Placement(transformation(extent={{70,-12},{90,8}})));
+  TILMedia.Gas.Gas_ph flueGas_outlet(
+    gasType=medium,
+    h=hOut,
+    p=outlet.p,
+    xi=flueGas_inlet.xi) annotation (Placement(transformation(extent={{70,-12},{90,8}})));
 
 Real kappa;
 Real deltah;

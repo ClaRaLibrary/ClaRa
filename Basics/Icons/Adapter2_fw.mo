@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model Adapter2_fw
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model MixerGas1 "orange | purple | orange"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,8 +18,8 @@ model MixerGas1 "orange | purple | orange"
   // Orange output:   Value of T and xi are unknown in component and provided BY neighbor component, values of p and m_flow are known and provided FOR neighbor component.
   // Purple Gas input: Values of m_flow, T and xi are unknown and provided BY neighbor, values of p are known and provided BY component
 
-  import TILMedia.GasFunctions.specificEnthalpy_pTxi;
-  import TILMedia.GasFunctions.temperature_phxi;
+  import TILMedia.Gas.Functions.specificEnthalpy_pTxi;
+  import TILMedia.Gas.Functions.temperature_phxi;
   outer ClaRa.SimCenter simCenter;
 
      //---------Summary Definition---------
@@ -48,7 +48,8 @@ model MixerGas1 "orange | purple | orange"
      xi=xi_out));
   //---------Summary Definition---------
 
-  parameter TILMedia.GasTypes.BaseGas gas = simCenter.flueGasModel "Flue gas model used in component" annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (Dialog(group="Fundamental Definitions"));
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_in2(fixed=false) "Mass flow through inlet 2";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_out(fixed = false) "Mass flow at outlet 1";

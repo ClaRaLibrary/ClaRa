@@ -1,4 +1,4 @@
-within ClaRa;
+﻿within ClaRa;
 package StaticCycles "Prepare initialisation even more easy!"
   extends ClaRa.Basics.Icons.PackageIcons.CycleInit100;
 
@@ -21,5 +21,5 @@ package StaticCycles "Prepare initialisation even more easy!"
 
 
 
-annotation ();
+annotation();
 end StaticCycles;

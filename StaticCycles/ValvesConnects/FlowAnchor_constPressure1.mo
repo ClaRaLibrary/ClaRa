@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model FlowAnchor_constPressure1 "Flow Anchour || par.: m_flow_nom || red | blue"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -24,20 +24,27 @@ model FlowAnchor_constPressure1 "Flow Anchour || par.: m_flow_nom || red | blue"
     ClaRa.Basics.Records.StaCyFlangeVLE_a outlet;
   end Summary;
 
-  Summary summary(
-  inlet(
-     m_flow=m_flow,
-     h=h_in,
-     p=p_in,
-     rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p_in, h_in, vleMedium.xi_default)),
-  outlet(
-     m_flow=m_flow,
-     h=h_out,
-     p=p_out,
-     rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p_out, h_out, vleMedium.xi_default)));
+  Summary summary(inlet(
+      m_flow=m_flow,
+      h=h_in,
+      p=p_in,
+      rho=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
+          vleMedium,
+          p_in,
+          h_in,
+          vleMedium.xi_default)), outlet(
+      m_flow=m_flow,
+      h=h_out,
+      p=p_out,
+      rho=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
+          vleMedium,
+          p_out,
+          h_out,
+          vleMedium.xi_default)));
   //---------Summary Definition---------
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid vleMedium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom=10 "Nominal mass flow" annotation (Dialog(group="Fundamental Definitions"));
   parameter Real CharLine_m_flow_P_target_[:,2] = [0,0;1,1] "Pressure drop depending on rel. power in p.u."
                                                                                               annotation(Dialog(group="Fundamental Definitions"));

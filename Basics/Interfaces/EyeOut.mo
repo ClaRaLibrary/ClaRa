@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector EyeOut "Signal bus featuring pressure, specific enthalpy,temperature, specific entropy andmass flow rate"
   import SI = ClaRa.Basics.Units;
   output Real p "Pressure in bar";

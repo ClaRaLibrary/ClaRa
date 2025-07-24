@@ -1,7 +1,7 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector GasMassSpecific "A connector featuring T,p,X,m_dot"
 
-  TILMedia.GasTypes.BaseGas                 Medium "Medium model";
+  TILMedia.Gas.Types.BaseGas Medium "Medium model";
 
   flow ClaRa.Basics.Units.MassFlowRate m_flow "Mass flow rate from the connection point into the component";
   ClaRa.Basics.Units.AbsolutePressure p "Thermodynamic pressure in the connection point";

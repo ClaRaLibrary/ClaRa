@@ -1,7 +1,7 @@
-within ClaRa.Components.Mills.PhysicalMills;
+﻿within ClaRa.Components.Mills.PhysicalMills;
 model Mill_L4_advancedInit "Aerosol component | box module to capsule mill components | with initialisation support"
   //___________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                            //
+  // Component of the ClaRa library, version: 1.9.0                            //
   //                                                                           //
   // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
   // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //

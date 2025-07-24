@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.FluidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L4 "A 1D tube-shaped control volume considering one-phase and two-phase heat transfer in a straight pipe with static momentum balance and simple energy balance."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -63,7 +63,8 @@ model VolumeVLE_L4 "A 1D tube-shaped control volume considering one-phase and tw
   end Summary;
 
   //____Media Data_____________________________________________________________________________________
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid  medium=simCenter.fluid1 "Medium in the component" annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"));
 
   //____Physical Effects_____________________________________________________________________________________
 
@@ -93,7 +94,7 @@ public
   parameter Units.EnthalpyMassSpecific h_nom[geo.N_cv]=ones(geo.N_cv)*1e5 "Nominal specific enthalpy for single tube" annotation (Dialog(group="Nominal Values"));
   inner parameter Units.MassFlowRate m_flow_nom=100 "Nominal mass flow w.r.t. all parallel tubes" annotation (Dialog(group="Nominal Values"));
   inner parameter Units.PressureDifference Delta_p_nom=1e4 "Nominal pressure loss w.r.t. all parallel tubes" annotation (Dialog(group="Nominal Values"));
-  final parameter Units.DensityMassSpecific rho_nom[geo.N_cv]=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  final parameter Units.DensityMassSpecific rho_nom[geo.N_cv]=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -235,32 +236,32 @@ public
   MechanicalEquilibrium mechanicalEquilibrium(final h_start=h_start) "Mechanical equilibrium model" annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
 protected
-  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluid[geo.N_cv](
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluid[geo.N_cv](
     each computeSurfaceTension=false,
     p=p,
     h=h,
     each vleFluidType=medium,
     each computeTransportProperties=true,
-    xi=xi)                                annotation (Placement(transformation(extent={{-10,-40},{10,-20}}, rotation=0)));
+    xi=xi) annotation (Placement(transformation(extent={{-10,-40},{10,-20}}, rotation=0)));
 
-public
-  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidInlet(
+
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidInlet(
     computeSurfaceTension=false,
     p=inlet.p,
     vleFluidType=medium,
     h=noEvent(actualStream(inlet.h_outflow)),
     computeTransportProperties=true,
-    xi=xi_inlet)                     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}}, rotation=0)));
+    xi=xi_inlet) annotation (Placement(transformation(extent={{-90,-30},{-70,-10}}, rotation=0)));
 
-  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOutlet(
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOutlet(
     computeSurfaceTension=false,
     p=outlet.p,
     vleFluidType=medium,
     h=noEvent(actualStream(outlet.h_outflow)),
     computeTransportProperties=true,
-    xi=xi_outlet)                    annotation (Placement(transformation(extent={{70,-30},{90,-10}}, rotation=0)));
+    xi=xi_outlet) annotation (Placement(transformation(extent={{70,-30},{90,-10}}, rotation=0)));
 
-protected
+
   inner Basics.Records.IComVLE_L3_OnePort iCom(
     mediumModel=medium,
     N_cv=geo.N_cv,

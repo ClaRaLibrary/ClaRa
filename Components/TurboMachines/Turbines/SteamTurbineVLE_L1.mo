@@ -1,7 +1,7 @@
-within ClaRa.Components.TurboMachines.Turbines;
+﻿within ClaRa.Components.TurboMachines.Turbines;
 model SteamTurbineVLE_L1 "A steam turbine model based on STODOLA's law"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -144,17 +144,16 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,0})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     p=outlet.p,
-    h=outlet.h_outflow)
-    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
+    h=outlet.h_outflow) annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     h=inStream(inlet.h_outflow),
-    p=inlet.p, d(start=rho_nom))
-    annotation (Placement(transformation(extent={{-44,48},{-24,68}})));
+    p=inlet.p,
+    d(start=rho_nom)) annotation (Placement(transformation(extent={{-44,48},{-24,68}})));
 
 public
 Summary summary(outline(showExpertSummary = showExpertSummary,p_nom= p_nom,m_flow_nom=m_flow_nom,rho_nom=rho_nom,Pi=Pi,Delta_p=p_out-p_in,P_mech=-P_t,eta_isen=eta_is,eta_mech=eta_mech,h_isen=h_is,rpm=rpm),
@@ -173,7 +172,7 @@ protected
   ClaRa.Basics.Interfaces.EyeIn eye_int[1] annotation (Placement(transformation(extent={{25,-61},{27,-59}})));
 
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_iso(vleFluidType=medium);
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid ptr_iso(vleFluidType=medium);
 
 initial equation
 

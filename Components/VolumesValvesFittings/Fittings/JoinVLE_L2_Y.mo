@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L2_Y "A join for two inputs"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -37,8 +37,8 @@ model Summary
   ClaRa.Basics.Records.FluidVLE_L2           fluid;
 end Summary;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component"
-                               annotation(choicesAllMatching,Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 replaceable model PressureLossIn1 =
     Fundamentals.NoFriction constrainedby Fundamentals.BaseDp "Pressure loss model at inlet 1" annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
   replaceable model PressureLossIn2 =
@@ -63,7 +63,7 @@ replaceable model PressureLossIn1 =
   parameter Boolean showData=true "|Summary and Visualisation||True, if a data port containing p,T,h,s,m_flow shall be shown, else false";
   parameter Boolean preciseTwoPhase = true "|Expert Stettings||True, if two-phase transients should be capured precisely";
 protected
-  parameter Basics.Units.DensityMassSpecific rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -96,8 +96,10 @@ public
   ClaRa.Basics.Interfaces.FluidPortOut outlet(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(vleFluidType = medium, p = outlet.p, h=h) annotation (Placement(transformation(extent={{-10,-12},
-            {10,8}},                                                                                                    rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph bulk(
+    vleFluidType=medium,
+    p=outlet.p,
+    h=h) annotation (Placement(transformation(extent={{-10,-12},{10,8}}, rotation=0)));
 
 public
   ClaRa.Basics.Interfaces.EyeOut eye if showData      annotation(Placement(transformation(extent={{90,-90},
@@ -110,21 +112,18 @@ public
     annotation (Placement(transformation(extent={{-10,70},{10,90}}),
         iconTransformation(extent={{-10,90},{10,110}})));
 public
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn1(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn1(
     vleFluidType=medium,
     h=noEvent(actualStream(inlet1.h_outflow)),
-    p=inlet1.p)                                                          annotation (Placement(transformation(extent={{-90,-12},
-            {-70,8}},                                                                                                   rotation=0)));
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn2(
+    p=inlet1.p) annotation (Placement(transformation(extent={{-90,-12},{-70,8}}, rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn2(
     vleFluidType=medium,
     h=noEvent(actualStream(inlet2.h_outflow)),
-    p=inlet2.p)                                                          annotation (Placement(transformation(extent={{-10,50},
-            {10,70}},                                                                                                   rotation=0)));
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
+    p=inlet2.p) annotation (Placement(transformation(extent={{-10,50},{10,70}}, rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     h=noEvent(actualStream(outlet.h_outflow)),
-    p=outlet.p)                                                          annotation (Placement(transformation(extent={{70,-12},
-            {90,8}},                                                                                                    rotation=0)));
+    p=outlet.p) annotation (Placement(transformation(extent={{70,-12},{90,8}}, rotation=0)));
 equation
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Asserts ~~~~~~~~~~~~~~~~~~~

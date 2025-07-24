@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.FluidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n inlet and outlet ports"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -57,10 +57,10 @@ model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n in
    end ICom;
   //_____________________________________________________
   //_______________replaceable models____________________
-  inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
-  inner parameter TILMedia.GasTypes.BaseGas gasType = simCenter.flueGasModel "Gas medium"
-                  annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas gasType=simCenter.flueGasModel "Gas medium"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   replaceable model HeatTransfer =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.VLE_HT.Constant_L3_ypsDependent
     constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseVLE_L3 "1st: choose heat transfer model | 2nd: edit corresponding record"
@@ -90,13 +90,13 @@ model VolumeVLEGas_L3 "A volume element balancing liquid and gas phase with n in
 
   inner parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
 
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_liq_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_liq_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleDensity_pxi(                                     medium, p_nom) "Nominal density";
   final parameter ClaRa.Basics.Units.DensityMassSpecific rho_gas_nom=1.2 "Nominal density";
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.Temperature T_gas_start=293.15 "Start value of sgas zone's temperature" annotation (Dialog(tab="Initialisation"));
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_gas_start=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_gas_start=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
       gasType,
       p_start,
       T_gas_start,
@@ -170,16 +170,14 @@ public
         rotation=90,
         origin={0,98})));
 
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn[geo.N_inlet](
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn[geo.N_inlet](
     each vleFluidType=medium,
     final p=inlet.p,
-    final h=h_in) annotation (Placement(transformation(extent={{-90,-10},{-70,
-            10}}, rotation=0)));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut[geo.N_outlet](
+    final h=h_in) annotation (Placement(transformation(extent={{-90,-10},{-70,10}}, rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut[geo.N_outlet](
     each vleFluidType=medium,
     final p=outlet.p,
-    final h=h_out) annotation (Placement(transformation(extent={{70,-10},{90,10}},
-          rotation=0)));
+    final h=h_out) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
 
   HeatTransfer heattransfer(final heatSurfaceAlloc=heatSurfaceAlloc)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -247,19 +245,18 @@ public
       Q_flow=heattransfer.heat.Q_flow)) annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
 
 protected
-  inner TILMedia.Gas_ph      gas(gasType=gasType,
+  inner TILMedia.Gas.Gas_ph gas(
+    gasType=gasType,
     p=p,
     h=h_gas,
     computeTransportProperties=true,
-    xi=xi_gas)                          annotation (Placement(transformation(
-          extent={{-10,8},{10,28}}, rotation=0)));
-  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph liq(
+    xi=xi_gas) annotation (Placement(transformation(extent={{-10,8},{10,28}}, rotation=0)));
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph liq(
     vleFluidType=medium,
     h=h_liq,
     computeTransportProperties=true,
     computeVLETransportProperties=true,
-    p=p) annotation (Placement(transformation(extent={{-10,-20},{10,0}},
-          rotation=0)));
+    p=p) annotation (Placement(transformation(extent={{-10,-20},{10,0}}, rotation=0)));
   inner ICom     iCom(
     p_in=inlet.p,
     p_out=outlet.p,
@@ -280,15 +277,13 @@ public
   ClaRa.Basics.Interfaces.GasPortIn vent(Medium=gasType)
     annotation (Placement(transformation(extent={{-110,28},{-90,48}})));
 public
-  TILMedia.Gas_pT ventIn(
+  TILMedia.Gas.Gas_pT ventIn(
     gasType=gasType,
     p=p,
     computeTransportProperties=true,
     T=noEvent(actualStream(vent.T_outflow)),
     xi=noEvent(actualStream(vent.xi_outflow)))
-                                        annotation (Placement(transformation(
-          extent={{-90,26},{-70,46}},
-                                    rotation=0)));
+    annotation (Placement(transformation(extent={{-90,26},{-70,46}}, rotation=0)));
 equation
 
   //_____________________________________________________
@@ -321,7 +316,6 @@ equation
 // der(xi_gas) = zeros(gasType.nc-1);//
   for i in 1:medium.nc-1 loop
     der(xi_liq[i]) = noEvent( if mass_liq >1e-6 then (sum(inlet.m_flow.*xi_in[:,i]) + sum(outlet.m_flow.*xi_out[:,i])
-        + volume_liq*der(p) + p*der(volume_liq)
         - xi_liq[i]*volume_liq*drho_liqdt
         - liq.d*xi_liq[i]*der(volume_liq))/mass_liq else 0);
   end for;

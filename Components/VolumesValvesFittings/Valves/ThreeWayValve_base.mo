@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 partial model ThreeWayValve_base
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -14,8 +14,8 @@ partial model ThreeWayValve_base
 // and institutions. Please see model documentation for detailed information//
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component"
-                               annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"));
 
   outer ClaRa.SimCenter simCenter;
 
@@ -25,22 +25,19 @@ partial model ThreeWayValve_base
   parameter Real splitRatio_fixed = 0.5 annotation(Dialog(enable=not splitRatio_input));
   Real splitRatio;
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
     each vleFluidType=medium,
     h=noEvent(actualStream(inlet.h_outflow)),
-    p=inlet.p)                                                           annotation (Placement(transformation(extent={{-90,-12},
-            {-70,8}},                                                                                                   rotation=0)));
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut2(
+    p=inlet.p) annotation (Placement(transformation(extent={{-90,-12},{-70,8}}, rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut2(
     each vleFluidType=medium,
     h=noEvent(actualStream(outlet2.h_outflow)),
-    p=outlet2.p)                                                         annotation (Placement(transformation(extent={{-10,-70},
-            {10,-50}},                                                                                                  rotation=0)));
+    p=outlet2.p) annotation (Placement(transformation(extent={{-10,-70},{10,-50}}, rotation=0)));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut1(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut1(
     each vleFluidType=medium,
     h=noEvent(actualStream(outlet1.h_outflow)),
-    p=outlet1.p)                                                         annotation (Placement(transformation(extent={{70,-10},
-            {90,10}},                                                                                                   rotation=0)));
+    p=outlet1.p) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
 public
   Modelica.Blocks.Interfaces.RealInput splitRatio_external(min=0,max=1)=splitRatio if splitRatio_input "Controls mass fraction m2/m1"
     annotation (Placement(transformation(

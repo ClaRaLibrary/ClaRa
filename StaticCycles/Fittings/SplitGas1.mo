@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model SplitGas1 "brown | brown | green"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -45,7 +45,8 @@ model SplitGas1 "brown | brown | green"
      xi=xi));
   //---------Summary Definition---------
 
-  parameter TILMedia.GasTypes.BaseGas gas = simCenter.flueGasModel "Flue gas model used in component" annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_out2_nom= 1 "Nominal mass flow through outlet 2";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_out1(fixed = false) "Mass flow at outlet 1";

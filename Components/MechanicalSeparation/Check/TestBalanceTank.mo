@@ -1,8 +1,8 @@
-within ClaRa.Components.MechanicalSeparation.Check;
+﻿within ClaRa.Components.MechanicalSeparation.Check;
 model TestBalanceTank
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -69,9 +69,10 @@ model TestBalanceTank
     startTime=18000)
     annotation (Placement(transformation(extent={{94,-8},{74,12}})));
   inner SimCenter simCenter(
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
-    redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel,
-    redeclare TILMedia.GasTypes.MoistAirMixture airModel) annotation (Placement(transformation(extent={{78,-68},{98,-48}})));
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1,
+    redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel,
+    redeclare TILMedia.Gas.Types.MoistAirMixture airModel)
+    annotation (Placement(transformation(extent={{78,-68},{98,-48}})));
   BoundaryConditions.BoundaryVLE_hxim_flow massFlowSource_h2(variable_m_flow=false, m_flow_const=2.5) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,

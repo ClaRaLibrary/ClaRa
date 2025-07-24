@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes;
 model TubeBundle_L4H1 "Discretised tube bundle with scalar heat port"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,8 +17,9 @@ model TubeBundle_L4H1 "Discretised tube bundle with scalar heat port"
   extends ClaRa.Basics.Icons.TubeWithWall_L4;
   outer ClaRa.SimCenter simCenter;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  replaceable model Material = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "FTW material" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  replaceable model Material = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.Solid.Types.BaseSolid "FTW material" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Boolean frictionAtInlet = false "True if pressure loss between first cell and inlet shall be considered" annotation (choices(checkBox=true), Dialog(group="Fundamental Definitions"));
   parameter Boolean frictionAtOutlet = false "True if pressure loss between last cell and outlet shall be considered" annotation (choices(checkBox=true), Dialog(group="Fundamental Definitions"));
   replaceable model PressureLoss = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseVLE_L4  "Pressure Loss Model" annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching=true);
@@ -90,13 +91,13 @@ model TubeBundle_L4H1 "Discretised tube bundle with scalar heat port"
     diameter_i=diameter_i,
     length=length,
     N_tubes=N_tubes,
-    T_start={TILMedia.VLEFluidFunctions.temperature_phxi(
+    T_start={TILMedia.VLEFluid.Functions.temperature_phxi(
         medium,
         p_start[i],
         h_start[i],
         xi_start) for i in 1:N_cv},
     stateLocation=if isAdiabat then 1 else 2)
-                     annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-14,5},{14,-5}},
         rotation=0,
         origin={0,0})));

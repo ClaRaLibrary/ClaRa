@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Valves;
+﻿within ClaRa.Components.VolumesValvesFittings.Valves;
 model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceable flow models"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -55,7 +55,7 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
     Outlet outlet;
   end Summary;
 
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Flue gas model used in component"
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Flue gas model used in component"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1  "Fuel type"  annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
@@ -109,16 +109,42 @@ model ValveFuelFlueGas_L1 "Valve for mixed fuel and flue gas flow with replaceab
 protected
   ClaRa.Basics.Units.MassFraction xi_in[fuelModel.N_c - 1]=noEvent(actualStream(inlet.fuel.xi_outflow)) "Actual composition at inlet";
   ClaRa.Basics.Units.MassFraction xi_out[fuelModel.N_c - 1]=noEvent(actualStream(outlet.fuel.xi_outflow)) "Actual composition at outlet";
-  TILMedia.Gas_pT gasOut(gasType=medium,
+  TILMedia.Gas.Gas_pT gasOut(
+    gasType=medium,
     p=outlet.flueGas.p,
-    T=if checkValve == true then outlet.flueGas.T_outflow else ClaRa.Basics.Functions.Stepsmoother(1,-1,pressureLoss.Delta_p)*outlet.flueGas.T_outflow + ClaRa.Basics.Functions.Stepsmoother(-1,1,pressureLoss.Delta_p)*inStream(outlet.flueGas.T_outflow),
-    xi=if checkValve == true then outlet.flueGas.xi_outflow else ClaRa.Basics.Functions.Stepsmoother(1,-1,pressureLoss.Delta_p)*outlet.flueGas.xi_outflow + ClaRa.Basics.Functions.Stepsmoother(-1,1,pressureLoss.Delta_p)*inStream(outlet.flueGas.xi_outflow))
+    T=if checkValve == true then outlet.flueGas.T_outflow else ClaRa.Basics.Functions.Stepsmoother(
+        1,
+        -1,
+        pressureLoss.Delta_p)*outlet.flueGas.T_outflow + ClaRa.Basics.Functions.Stepsmoother(
+        -1,
+        1,
+        pressureLoss.Delta_p)*inStream(outlet.flueGas.T_outflow),
+    xi=if checkValve == true then outlet.flueGas.xi_outflow else ClaRa.Basics.Functions.Stepsmoother(
+        1,
+        -1,
+        pressureLoss.Delta_p)*outlet.flueGas.xi_outflow + ClaRa.Basics.Functions.Stepsmoother(
+        -1,
+        1,
+        pressureLoss.Delta_p)*inStream(outlet.flueGas.xi_outflow))
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
-  TILMedia.Gas_pT      gasIn(gasType=medium,
+  TILMedia.Gas.Gas_pT gasIn(
+    gasType=medium,
     p=inlet.flueGas.p,
-    T=if checkValve == true then inStream(inlet.flueGas.T_outflow) else ClaRa.Basics.Functions.Stepsmoother(1,-1,pressureLoss.Delta_p)*inStream(inlet.flueGas.T_outflow) + ClaRa.Basics.Functions.Stepsmoother(-1,1,pressureLoss.Delta_p)*inlet.flueGas.T_outflow,
-    xi=if checkValve == true then inStream(inlet.flueGas.xi_outflow) else ClaRa.Basics.Functions.Stepsmoother(1,-1,pressureLoss.Delta_p)*inStream(inlet.flueGas.xi_outflow) + ClaRa.Basics.Functions.Stepsmoother(-1,1,pressureLoss.Delta_p)*inlet.flueGas.xi_outflow)
+    T=if checkValve == true then inStream(inlet.flueGas.T_outflow) else ClaRa.Basics.Functions.Stepsmoother(
+        1,
+        -1,
+        pressureLoss.Delta_p)*inStream(inlet.flueGas.T_outflow) + ClaRa.Basics.Functions.Stepsmoother(
+        -1,
+        1,
+        pressureLoss.Delta_p)*inlet.flueGas.T_outflow,
+    xi=if checkValve == true then inStream(inlet.flueGas.xi_outflow) else ClaRa.Basics.Functions.Stepsmoother(
+        1,
+        -1,
+        pressureLoss.Delta_p)*inStream(inlet.flueGas.xi_outflow) + ClaRa.Basics.Functions.Stepsmoother(
+        -1,
+        1,
+        pressureLoss.Delta_p)*inlet.flueGas.xi_outflow)
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
 public

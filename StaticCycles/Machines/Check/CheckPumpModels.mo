@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Machines.Check;
+﻿within ClaRa.StaticCycles.Machines.Check;
 model CheckPumpModels
   inner parameter Real P_target_= 0.5 "Value of load in p.u."    annotation(Dialog(group="Global parameter"));
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExample100;

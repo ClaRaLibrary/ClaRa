@@ -1,7 +1,7 @@
 ﻿within ClaRa.Visualisation;
 model QuadrupleGas " Cross-shaped dynamic display of variables by users choice"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -17,7 +17,7 @@ model QuadrupleGas " Cross-shaped dynamic display of variables by users choice"
 
 //  parameter String unit="C" "Variable unit";
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel;
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel;
   parameter Integer identifier= 0 "Identifier of the quadruple";
   DecimalSpaces decimalSpaces "Accuracy to be displayed" annotation(Dialog);
   parameter Boolean largeFonts= simCenter.largeFonts "True if visualisers shall be displayed as large as possible";

@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Fundamentals;
+﻿within ClaRa.StaticCycles.Fundamentals;
 connector FlueGasSignal_orange_a "Signal-based flue gas connector"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,7 +16,7 @@ connector FlueGasSignal_orange_a "Signal-based flue gas connector"
 //__________________________________________________________________________//
 //  extends ClaRa_Dev.StaticCycles.Fundamentals.FlueGasSignal_basic;
 
-  TILMedia.GasTypes.BaseGas                 flueGas "Medium model";
+  TILMedia.Gas.Types.BaseGas flueGas "Medium model";
 
   output ClaRa.Basics.Units.Pressure p;
   output ClaRa.Basics.Units.MassFlowRate m_flow;

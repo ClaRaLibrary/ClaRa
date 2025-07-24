@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geometry | effective kA"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -41,7 +41,7 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
 
   //*********************************** / SHELL SIDE \ ***********************************//
   //________________________________ Shell fundamentals _______________________________//
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_shell=simCenter.fluid1 "Medium to be used  for flow 1"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_shell=simCenter.fluid1 "Medium to be used  for flow 1"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
 
   replaceable model PressureLossShell =
@@ -75,7 +75,7 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
   //*********************************** / TUBE SIDE \ ***********************************//
   //________________________________ Tubes fundamentals _______________________________//
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_tubes=simCenter.fluid1 "Medium to be used for flow 2"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_tubes=simCenter.fluid1 "Medium to be used for flow 2"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
 
   replaceable model PressureLossTubes =
@@ -107,8 +107,9 @@ model HEXvle2vle_L3_1ph_kA " VLE 2 VLE | L3 | 1 phase on each side | generic geo
 
   //*********************************** / WALL \ ***********************************//
   //________________________________ Wall fundamentals _______________________________//
-  replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder"
     annotation (choicesAllMatching=true, Dialog(tab="Tube Wall", group=
           "Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Mass mass_struc=0 "Mass of inner components (tubes + structural elements)" annotation (Dialog(tab="Tube Wall", group="Fundamental Definitions"));

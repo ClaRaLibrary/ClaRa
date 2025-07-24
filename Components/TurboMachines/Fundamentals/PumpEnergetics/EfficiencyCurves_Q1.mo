@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics;
+﻿within ClaRa.Components.TurboMachines.Fundamentals.PumpEnergetics;
 model EfficiencyCurves_Q1 "Losses by efficiency | normal operation | "
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -22,7 +22,7 @@ model EfficiencyCurves_Q1 "Losses by efficiency | normal operation | "
   import SM = ClaRa.Basics.Functions.Stepsmoother;
   import pow = Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower;
   import Modelica.Constants.pi;
-  import density = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi;
+  import density = TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi;
 
   parameter Real eta_hyd_nom=0.8 "Max. hydraulic efficiency at nominal speed" annotation(Dialog(group = "Characteristic Field - refer to documentation for details", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/EfficiencyCurvesParameterDialogue.png"));
   parameter Real V_flow_opt_(min=0.0, max=1) = 0.6 "Relative position of best point at V_flow axis in p.u." annotation(Dialog(group="Characteristic Field - refer to documentation for details"));

@@ -1,8 +1,8 @@
-within ClaRa.SubSystems.Furnace;
+﻿within ClaRa.SubSystems.Furnace;
 model BurnerSlice_L4 "Furnace slice of buner with cooled walls"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -23,7 +23,8 @@ model BurnerSlice_L4 "Furnace slice of buner with cooled walls"
   /// Furnace ///
 
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Fuel definition" annotation (choicesAllMatching, Dialog(group="Media Definitions"));
-  parameter TILMedia.GasTypes.BaseGas flueGas=simCenter.flueGasModel "Flue gas model" annotation (choicesAllMatching, Dialog(group="Media Definitions", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/BurnerSketch.png"));
+  parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model" annotation (choicesAllMatching,
+      Dialog(group="Media Definitions", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/BurnerSketch.png"));
   parameter ClaRa.Basics.Media.Slag.PartialSlag slagType=simCenter.slagModel "Slag properties" annotation (choices(choice=simCenter.slagModel "Slag model 1 as defined in simCenter"),Dialog(group="Media Definitions"));
 
   replaceable model GasHeatTransfer_Wall = ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Gas_HT.Radiation.Radiation_gas2Wall_L2 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseGas "HT from Gas to FTW" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
@@ -60,8 +61,12 @@ model BurnerSlice_L4 "Furnace slice of buner with cooled walls"
   parameter ClaRa.Basics.Units.Temperature T_slag=900 "Constant slag outlet temperature" annotation (Dialog(tab="Combustion Settings", group="Slag Definitions"));
 
 // Finned Tube Walls (FTW)///
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_FTW = simCenter.fluid1 "FTW medium model" annotation (choicesAllMatching, Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FinnedWallSketchEmpty.png"));
-  replaceable model Material_FTW = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "FTW material" annotation (choicesAllMatching, Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_FTW=simCenter.fluid1 "FTW medium model" annotation (
+      choicesAllMatching, Dialog(
+      tab="Finned Tube Walls (FTW)",
+      group="Fundamental Definitions",
+      groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FinnedWallSketchEmpty.png"));
+  replaceable model Material_FTW = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.Solid.Types.BaseSolid "FTW material" annotation (choicesAllMatching, Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
   parameter Boolean frictionAtInlet_FTW = false "True if pressure loss at inlet" annotation (choices(checkBox=true), Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
   parameter Boolean frictionAtOutlet_FTW = false "True if pressure loss at outlet" annotation (choices(checkBox=true), Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
   replaceable model PressureLoss_FTW = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseVLE_L4 "Pressure loss model" annotation (Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"), choicesAllMatching=true);
@@ -103,11 +108,11 @@ model BurnerSlice_L4 "Furnace slice of buner with cooled walls"
     diameter_i=diameter_i_FTW,
     length=length_FTW*N_passes_FTW,
     N_tubes=N_tubes_FTW,
-    T_start={TILMedia.VLEFluidFunctions.temperature_phxi(
+    T_start={TILMedia.VLEFluid.Functions.temperature_phxi(
         pipeFlow_FTW.medium,
         p_start_FTW[i],
         h_start_FTW[i]) + 5 for i in 1:wall_FTW.N_ax})
-                     annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-14,5},{14,-5}},
         rotation=270,
         origin={240,0})));

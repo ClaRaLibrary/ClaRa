@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings.Check;
 model Test_SprayInjector
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -34,7 +34,8 @@ extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
     redeclare model PressureLoss = Valves.Fundamentals.LinearNominalPoint (Delta_p_nom=1.8e5, m_flow_nom=10),
     initOption=1) annotation (Placement(transformation(extent={{-28,-62},{-8,-42}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_phxi massFlowSource_XRG(h_const=800e3, p_const=30.0e5) annotation (Placement(transformation(extent={{60,-94},{40,-74}})));
-  inner SimCenter simCenter(useHomotopy=true, redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  inner SimCenter simCenter(useHomotopy=true, redeclare replaceable TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   ClaRa.Components.BoundaryConditions.BoundaryVLE_hxim_flow massFlowSource_XRG2(
     m_flow_const=43.551,
     variable_m_flow=true,

@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Furnace;
+﻿within ClaRa.StaticCycles.Furnace;
 model FlameRoomNaturalCirculation " Natural circulation heating surfaces with drum || blue | green"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -27,11 +27,13 @@ model FlameRoomNaturalCirculation " Natural circulation heating surfaces with dr
   outer ClaRa.SimCenter simCenter;
   outer parameter Real P_target_ "Target power in p.u.";
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid vleMedium = simCenter.fluid1 "vleMedium in the component" annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(group="Fundamental Definitions"));
-  parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component" annotation(choicesAllMatching,Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid vleMedium=simCenter.fluid1 "vleMedium in the component" annotation (
+      choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Length z_drum_down=0.0 "Geodetic height at drum downcomer inlet" annotation (Dialog(group="Geometry"));
   parameter ClaRa.Basics.Units.Length z_drum_rise=0.0 "Geodetic height at drum riser outlet" annotation (Dialog(group="Geometry"));
   parameter ClaRa.Basics.Units.Length z_evap_in=0.0 "Geodetic height at evaporator inlet" annotation (Dialog(group="Geometry"));
@@ -48,11 +50,11 @@ model FlameRoomNaturalCirculation " Natural circulation heating surfaces with dr
 // _________GENERAL VALUES ___________
   final parameter ClaRa.Basics.Units.HeatFlowRate Q_flow_bundle=m_flow_vle_bundle*(h_vle_bundle_out - h_vle_bundle_in) "Actual heat flow rate of natural circulation";
   final parameter ClaRa.Basics.Units.HeatFlowRate Q_flow_wall=Q_flow_bundle/Pi_Q_flow "Actual heat flow rate to evaporator";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub_bundle=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_vle_bundle_out) "Rprt: Bubble enthalpy at vle outlet";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew_bundle=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(vleMedium, p_vle_bundle_out) "Rprt: Dew enthalpy at vle outlet";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub_bundle=TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     vleMedium, p_vle_bundle_out) "Rprt: Bubble enthalpy at vle outlet";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew_bundle=TILMedia.VLEFluid.MixtureCompatible.Functions.dewSpecificEnthalpy_pxi(                                     vleMedium, p_vle_bundle_out) "Rprt: Dew enthalpy at vle outlet";
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub_wall=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out);
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew_wall=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(vleMedium, p_vle_wall_out);
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub_wall=TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     vleMedium, p_vle_wall_out);
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew_wall=TILMedia.VLEFluid.MixtureCompatible.Functions.dewSpecificEnthalpy_pxi(                                     vleMedium, p_vle_wall_out);
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_vle_bundle(fixed=false) "Mass flow rate at tube bundle";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_vle_wall(fixed=false) "Mass flow rate at wall HEX";
@@ -104,7 +106,7 @@ model FlameRoomNaturalCirculation " Natural circulation heating surfaces with dr
 
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vle_bundle_in(fixed=false) "Spec.enthalpy at tube bundle inlet";
   final parameter ClaRa.Basics.Units.Pressure p_vle_bundle_in=p_drum_nom*P_target_ "Pressure at tube bundle inlet";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_bundle_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_bundle_in=TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(
       vleMedium,
       p_vle_bundle_in,
       h_vle_bundle_in) "Rprt: tube bundle inlet temperature";
@@ -115,20 +117,20 @@ model FlameRoomNaturalCirculation " Natural circulation heating surfaces with dr
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_evap_out=steamQuality_out*(h_dew_bundle - h_bub_bundle) + h_bub_bundle "Outlet enthalpy evaporator";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_evap=N_circ*m_flow_vle_bundle "Mass flow rate evaporator";
-  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo_down=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo_down=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       vleMedium,
       p_vle_bundle_in,
       h_evap_in,
       xi)*Modelica.Constants.g_n*(z_drum_down - z_evap_in) "Geostatic pressure difference downcomer";
-  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo_rise=(TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.Pressure Delta_p_geo_rise=(TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       vleMedium,
       p_vle_bundle_in,
       h_evap_in,
-      xi) + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+      xi) + TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       vleMedium,
       p_vle_bundle_in,
       h_evap_out,
-      xi))/2*Modelica.Constants.g_n*(z_evap_out - z_evap_in) + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+      xi))/2*Modelica.Constants.g_n*(z_evap_out - z_evap_in) + TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       vleMedium,
       p_vle_bundle_in,
       h_evap_out,
@@ -136,11 +138,11 @@ model FlameRoomNaturalCirculation " Natural circulation heating surfaces with dr
   final parameter ClaRa.Basics.Units.Pressure Delta_p_fric=Delta_p_geo_down - Delta_p_geo_rise "Friction losses in evaporator";
 
   final parameter ClaRa.Basics.Units.Pressure p_evap_in=p_vle_bundle_in + Delta_p_geo_down - Delta_p_fric/3 "Inlet pressure evaporator";
-  final parameter ClaRa.Basics.Units.Pressure p_evap_out=p_vle_bundle_in + Delta_p_geo_down - (TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  final parameter ClaRa.Basics.Units.Pressure p_evap_out=p_vle_bundle_in + Delta_p_geo_down - (TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       vleMedium,
       p_vle_bundle_in,
       h_evap_in,
-      xi) + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+      xi) + TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       vleMedium,
       p_vle_bundle_in,
       h_evap_out,
@@ -149,14 +151,14 @@ model FlameRoomNaturalCirculation " Natural circulation heating surfaces with dr
 // _________VLE Tube Bundle Outlet ________________
   final parameter ClaRa.Basics.Units.Pressure p_vle_bundle_out=p_vle_bundle_in "Pressure at bundle outlet";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vle_bundle_out=h_dew_bundle " Spec. enthalpy saturated steam at drum outlet";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_bundle_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_bundle_out=TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(
       vleMedium,
       p_vle_bundle_out,
       h_vle_bundle_out) "Rprt: tube bundle outlet temperature";
 
     // _________VLE Wall Inlet _________________
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vle_wall_in(fixed=false) "Wall inlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_in=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_in=TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(
       vleMedium,
       p_vle_bundle_in,
       h_vle_bundle_in) "Rprt: wall inlet temperature";
@@ -165,7 +167,7 @@ model FlameRoomNaturalCirculation " Natural circulation heating surfaces with dr
 
 // _________VLE Wall Outlet ________________
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vle_wall_out=Q_flow_wall/m_flow_vle_wall + h_vle_wall_in "Wall outlet specific enthalpy";
-  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_vle_wall_out=TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(
       vleMedium,
       p_vle_bundle_out,
       h_vle_bundle_out) "Wall outlet temperature";
@@ -174,7 +176,7 @@ model FlameRoomNaturalCirculation " Natural circulation heating surfaces with dr
 
 // _________GAS Inlet _________________
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_fg_in=(m_flow_fg*h_fg_out - m_flow_vle_bundle*h_vle_bundle_in + m_flow_vle_bundle*h_vle_bundle_out - m_flow_vle_wall*h_vle_wall_in + m_flow_vle_wall*h_vle_wall_out)/m_flow_fg "FG medium's inlet specific enthalpy flue gas";
-  final parameter ClaRa.Basics.Units.Temperature T_fg_in=TILMedia.GasFunctions.temperature_phxi(
+  final parameter ClaRa.Basics.Units.Temperature T_fg_in=TILMedia.Gas.Functions.temperature_phxi(
       flueGas,
       p_fg_in,
       h_fg_in,
@@ -184,7 +186,7 @@ model FlameRoomNaturalCirculation " Natural circulation heating surfaces with dr
 
 // _________GAS Outlet ________________
   final parameter ClaRa.Basics.Units.Temperature T_fg_out(fixed=false) "Outlet specific enthalpy flue gas";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_fg_out=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_fg_out=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
       flueGas,
       p_fg_out,
       T_fg_out,

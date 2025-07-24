@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Pumps.Check;
+﻿within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L1_OffDesign "Running the  L1 pump in off design, including reverse flow and switch off"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,7 +19,8 @@ model TestPump_L1_OffDesign "Running the  L1 pump in off design, including rever
 
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
 
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, showExpertSummary=true) annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1, showExpertSummary=true)
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity pump(
     steadyStateTorque=false,
     Delta_p_max=100e5,

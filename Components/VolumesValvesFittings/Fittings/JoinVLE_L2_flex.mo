@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model JoinVLE_L2_flex "A join for an arbitrary number of inputs"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -33,8 +33,8 @@ model Summary
   ClaRa.Basics.Records.FluidVLE_L2           fluid;
 end Summary;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium = simCenter.fluid1 "Medium in the component"
-                               annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"));
   parameter Integer N_ports_in(min=1)=1 "Number of inlet  ports"
     annotation(Evaluate=true, Dialog(tab="General",group="Fundamental Definitions"));//connectorSizing=true,
   parameter Boolean useHomotopy=simCenter.useHomotopy "True, if homotopy method is used during initialisation"
@@ -55,7 +55,7 @@ end Summary;
   parameter Boolean preciseTwoPhase = true "|Expert Stettings||True, if two-phase transients should be capured precisely";
 
 protected
-  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -85,8 +85,10 @@ public
   ClaRa.Basics.Interfaces.FluidPortOut outlet(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(vleFluidType =    medium, p = p,h=h) annotation (Placement(transformation(extent={{-8,-12},
-            {12,8}},                                                                                                    rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph bulk(
+    vleFluidType=medium,
+    p=p,
+    h=h) annotation (Placement(transformation(extent={{-8,-12},{12,8}}, rotation=0)));
 
 public
   ClaRa.Basics.Interfaces.EyeOut eye if showData      annotation(Placement(transformation(extent={{90,-90},
@@ -95,17 +97,15 @@ protected
   ClaRa.Basics.Interfaces.EyeIn eye_int[1]
     annotation (Placement(transformation(extent={{45,-81},{47,-79}})));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn[N_ports_in](
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn[N_ports_in](
     each vleFluidType=medium,
     h=noEvent(actualStream(inlet.h_outflow)),
-    p=inlet.p)                                                           annotation (Placement(transformation(extent={{-86,-10},
-            {-66,10}},                                                                                                  rotation=0)));
+    p=inlet.p) annotation (Placement(transformation(extent={{-86,-10},{-66,10}}, rotation=0)));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     h=noEvent(actualStream(outlet.h_outflow)),
-    p=outlet.p)                                                          annotation (Placement(transformation(extent={{70,-10},
-            {90,10}},                                                                                                   rotation=0)));
+    p=outlet.p) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
 equation
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Asserts ~~~~~~~~~~~~~~~~~~~

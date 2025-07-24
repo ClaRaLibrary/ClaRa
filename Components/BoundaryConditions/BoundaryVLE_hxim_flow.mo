@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_hxim_flow "A boundary defining mass flow composition and enthalpy"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -23,7 +23,8 @@ model BoundaryVLE_hxim_flow "A boundary defining mass flow composition and entha
     powerOut_elMech=0,
     powerAux=0)  if contributeToCycleSummary;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium to be used"                         annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Boolean variable_m_flow=false "True, if mass flow defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
   parameter Boolean variable_h=false "True, if spc. enthalpy defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
@@ -62,11 +63,11 @@ public
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 protected
-   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
     vleFluidType=medium,
     p=steam_a.p,
-    h=actualStream(steam_a.h_outflow), xi = xi_in)
-     annotation (Placement(transformation(extent={{22,-20},{42,0}})));
+    h=actualStream(steam_a.h_outflow),
+    xi=xi_in) annotation (Placement(transformation(extent={{22,-20},{42,0}})));
 
 public
   Basics.Interfaces.EyeOut       eye if showData

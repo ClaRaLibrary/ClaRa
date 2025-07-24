@@ -1,8 +1,8 @@
-within ClaRa.SubSystems.Boiler;
+﻿within ClaRa.SubSystems.Boiler;
 partial model CoalSupplyBoiler_base "The coal mills and the boiler"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,8 +18,8 @@ partial model CoalSupplyBoiler_base "The coal mills and the boiler"
 
 
   extends ClaRa.Basics.Icons.Boiler;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component"
-                                         annotation(choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
 
   outer SimCenter simCenter;
   ClaRa.Basics.Interfaces.FluidPortOut livesteam(Medium=medium)

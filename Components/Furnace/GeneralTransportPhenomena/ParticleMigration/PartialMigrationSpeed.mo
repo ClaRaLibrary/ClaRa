@@ -1,4 +1,4 @@
-within ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration;
+﻿within ClaRa.Components.Furnace.GeneralTransportPhenomena.ParticleMigration;
 partial model PartialMigrationSpeed "Base class for the particle migration speed"
 
   outer ClaRa.Basics.Units.VolumeFlowRate V_flow_flueGas_in;

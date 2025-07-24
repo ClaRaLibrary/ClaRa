@@ -1,7 +1,7 @@
-within ClaRa.UsersGuide;
+﻿within ClaRa.UsersGuide;
 package Licence
 //__________________________________________________________________________//
-// Package of the ClaRa library, version: 1.8.2                             //
+// Package of the ClaRa library, version: 1.9.0                             //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -22,7 +22,7 @@ extends ClaRa.Basics.Icons.PackageIcons.Info100;
   annotation (Documentation(info="<html>
 <pre>
 //--------------------------------------------------------------------------//
-// ClaRa library, version: 1.8.2                                            //
+// ClaRa library, version: 1.9.0                                            //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.FluidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L3_TwoZonesNPort "A volume element balancing liquid and vapour phase with n inlet and outlet ports"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -53,7 +53,7 @@ model VolumeVLE_L3_TwoZonesNPort "A volume element balancing liquid and vapour p
 
   //_____________________________________________________
   //_______________replaceable models____________________
-  inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
   replaceable model HeatTransfer =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.Constant_L3
@@ -93,11 +93,11 @@ model VolumeVLE_L3_TwoZonesNPort "A volume element balancing liquid and vapour p
 
   inner parameter ClaRa.Basics.Units.Pressure p_nom=1e5 "Nominal pressure" annotation (Dialog(group="Nominal Values"));
 
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_liq_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_nom) "Nominal density";
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_vap_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewDensity_pxi(medium, p_nom) "Nominal density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_liq_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleDensity_pxi(                                     medium, p_nom) "Nominal density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_vap_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.dewDensity_pxi(                                     medium, p_nom) "Nominal density";
 
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
-  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_liq_start=-10 + TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
+  parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_vap_start=+10 + TILMedia.VLEFluid.MixtureCompatible.Functions.dewSpecificEnthalpy_pxi(                                     medium, p_start) "Start value of sytsem specific enthalpy" annotation (Dialog(tab="Initialisation"));
 
   parameter ClaRa.Basics.Units.MassFraction xi_liq_start[medium.nc - 1]=medium.xi_default "Initial composition of liquid phase" annotation (Dialog(tab="Initialisation"));
   parameter ClaRa.Basics.Units.MassFraction xi_vap_start[medium.nc - 1]=medium.xi_default "Initial composition of vapour phase" annotation (Dialog(tab="Initialisation"));
@@ -164,24 +164,23 @@ public
         rotation=90,
         origin={0,100})));
 
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn[geo.N_inlet](
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn[geo.N_inlet](
     each vleFluidType=medium,
     final p=inlet.p,
-    final h={if useHomotopy then homotopy(noEvent(actualStream(inlet[i].h_outflow)), inStream(inlet[i].h_outflow)) else noEvent(actualStream(inlet[i].h_outflow)) for i in 1:geo.N_inlet},
-    xi={if useHomotopy then homotopy(noEvent(actualStream(inlet[i].xi_outflow)),
-        inStream(inlet[i].xi_outflow)) else noEvent(actualStream(inlet[i].xi_outflow))
-        for i in 1:geo.N_inlet})                                                                                                     annotation (Placement(transformation(extent={{-90,-10},{-70,
-            10}}, rotation=0)));
+    final h={if useHomotopy then homotopy(noEvent(actualStream(inlet[i].h_outflow)), inStream(inlet[i].h_outflow))
+         else noEvent(actualStream(inlet[i].h_outflow)) for i in 1:geo.N_inlet},
+    xi={if useHomotopy then homotopy(noEvent(actualStream(inlet[i].xi_outflow)), inStream(inlet[i].xi_outflow)) else
+        noEvent(actualStream(inlet[i].xi_outflow)) for i in 1:geo.N_inlet})
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}}, rotation=0)));
 
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut[geo.N_outlet](
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut[geo.N_outlet](
     each vleFluidType=medium,
     final p=outlet.p,
-    final h={if useHomotopy then homotopy(noEvent(actualStream(outlet[i].h_outflow)),
-        outlet[i].h_outflow) else noEvent(actualStream(outlet[i].h_outflow)) for i in 1:
-        geo.N_outlet},
-    xi={if useHomotopy then homotopy(noEvent(actualStream(outlet[i].xi_outflow)), outlet[
-        i].xi_outflow) else noEvent(actualStream(outlet[i].xi_outflow)) for i in 1:geo.N_outlet})                annotation (Placement(transformation(extent={{70,-10},{90,10}},
-          rotation=0)));
+    final h={if useHomotopy then homotopy(noEvent(actualStream(outlet[i].h_outflow)), outlet[i].h_outflow) else noEvent(
+        actualStream(outlet[i].h_outflow)) for i in 1:geo.N_outlet},
+    xi={if useHomotopy then homotopy(noEvent(actualStream(outlet[i].xi_outflow)), outlet[i].xi_outflow) else noEvent(
+        actualStream(outlet[i].xi_outflow)) for i in 1:geo.N_outlet})
+    annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
 
   HeatTransfer heattransfer(
   final heatSurfaceAlloc=heatSurfaceAlloc)
@@ -246,23 +245,20 @@ public
       Q_flow=heattransfer.heat.Q_flow)) annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
 
 protected
-  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph vap(
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph vap(
     vleFluidType=medium,
     p=p_vap,
     h=h_vap,
     computeTransportProperties=true,
     computeVLETransportProperties=true,
-    xi=xi_vap)                          annotation (Placement(transformation(
-          extent={{-10,8},{10,28}}, rotation=0)));
-  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph liq(
+    xi=xi_vap) annotation (Placement(transformation(extent={{-10,8},{10,28}}, rotation=0)));
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph liq(
     vleFluidType=medium,
     h=h_liq,
     computeTransportProperties=true,
     computeVLETransportProperties=true,
     p=p_liq,
-    xi=xi_liq)
-         annotation (Placement(transformation(extent={{-10,-20},{10,0}},
-          rotation=0)));
+    xi=xi_liq) annotation (Placement(transformation(extent={{-10,-20},{10,0}}, rotation=0)));
   inner ClaRa.Basics.Records.IComVLE_L3_NPort
                                        iCom(
     p_in=inlet.p,

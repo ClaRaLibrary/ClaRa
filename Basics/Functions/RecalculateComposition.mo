@@ -1,4 +1,4 @@
-within ClaRa.Basics.Functions;
+﻿within ClaRa.Basics.Functions;
 function RecalculateComposition "Recalculate the composition when one species has changed mass fraction"
   extends ClaRa.Basics.Icons.Function;
   input Real xi_in[:] "Input composition";

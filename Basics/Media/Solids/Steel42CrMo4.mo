@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Solids;
+﻿within ClaRa.Basics.Media.Solids;
 model Steel42CrMo4 "Steel42CrMo4 - 1.7225"
    // Source: http://www.thyssenkrupp-stahlkontor.de/tl_files/ThyssenKrupp/pdf/42CrMo4-42CrMoS4.pdf"
 

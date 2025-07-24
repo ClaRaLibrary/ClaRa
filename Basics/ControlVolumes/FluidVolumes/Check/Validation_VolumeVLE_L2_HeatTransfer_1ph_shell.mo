@@ -1,8 +1,8 @@
-within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
+﻿within ClaRa.Basics.ControlVolumes.FluidVolumes.Check;
 model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation scenario from VDI Wrmeatlas 9. Auflage 2002 Chapter Gg3"
 
 //__________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                           //
+  // Component of the ClaRa library, version: 1.9.0                           //
   //                                                                          //
   // Licensed by the ClaRa development team under the 3-clause BSD License.   //
   // Copyright  2013-2024, ClaRa development team.                            //
@@ -20,10 +20,8 @@ model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation 
     annotation (Placement(transformation(extent={{100,60},{80,80}})));
   Modelica.Blocks.Sources.Constant FluidTemperature(k=20 + 273.15)
     annotation (Placement(transformation(extent={{100,20},{80,40}})));
-  Modelica.Blocks.Sources.Constant FluidPressure(k=
-        TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.dewPressure_Txi(
-        simCenter.fluid1, 373.15))
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+  Modelica.Blocks.Sources.Constant FluidPressure(k=TILMedia.VLEFluid.MixtureCompatible.Functions.dewPressure_Txi(
+        simCenter.fluid1, 373.15)) annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   VolumeVLE_L2 Volume(
     p_nom(displayUnit="Pa") = 1e5,
     p_start(displayUnit="Pa") = 1e5,
@@ -61,9 +59,10 @@ model Validation_VolumeVLE_L2_HeatTransfer_1ph_shell "Evaluation and validation 
         rotation=180,
         origin={-30,50})));
   inner SimCenter simCenter(
-    redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    redeclare replaceable TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1,
     useHomotopy=true,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid2) annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid2)
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature

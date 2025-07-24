@@ -1,4 +1,4 @@
-within ClaRa.Basics.Records;
+﻿within ClaRa.Basics.Records;
 connector FlangeVLE "A summary of flange flow properties"
   extends Icons.RecordIcon;
 
@@ -7,10 +7,10 @@ connector FlangeVLE "A summary of flange flow properties"
   input Units.Temperature T "Temperature" annotation (Dialog);
   input Units.Pressure p "Pressure" annotation (Dialog);
   input Units.EnthalpyMassSpecific h "Specific enthalpy" annotation (Dialog);
-  input Units.EntropyMassSpecific s  if showExpertSummary "Specific entropy" annotation (Dialog);
+  input Units.EntropyMassSpecific s "Specific entropy" annotation (Dialog);
   input Units.MassFraction steamQuality if showExpertSummary "Steam quality" annotation (Dialog);
   input Units.Power H_flow if showExpertSummary "Enthalpy flow rate" annotation (Dialog);
-  input Units.DensityMassSpecific rho if showExpertSummary "Density" annotation (Dialog);
+  input Units.DensityMassSpecific rho "Density" annotation (Dialog);
 annotation (Documentation(info="<html>
 <p><b>For detailed model documentation please consult the html-documentation shipped with ClaRa.</b> </p>
 <p>&nbsp;</p>

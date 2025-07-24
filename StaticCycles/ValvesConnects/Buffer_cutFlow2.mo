@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.ValvesConnects;
+﻿within ClaRa.StaticCycles.ValvesConnects;
 model Buffer_cutFlow2 "Buffer || blue | yellow"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -23,20 +23,27 @@ model Buffer_cutFlow2 "Buffer || blue | yellow"
     ClaRa.Basics.Records.StaCyFlangeVLE_a outlet;
   end Summary;
 
-  Summary summary(
-  inlet(
-     m_flow=m_flow_in,
-     h=h_in,
-     p=p,
-     rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p, h_in, vleMedium.xi_default)),
-  outlet(
-     m_flow=m_flow_out,
-     h=h_out,
-     p=p,
-     rho=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(vleMedium, p, h_out, vleMedium.xi_default)));
+  Summary summary(inlet(
+      m_flow=m_flow_in,
+      h=h_in,
+      p=p,
+      rho=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
+          vleMedium,
+          p,
+          h_in,
+          vleMedium.xi_default)), outlet(
+      m_flow=m_flow_out,
+      h=h_out,
+      p=p,
+      rho=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
+          vleMedium,
+          p,
+          h_out,
+          vleMedium.xi_default)));
   //---------Summary Definition---------
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   vleMedium = simCenter.fluid1 "Medium to be used" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid vleMedium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.Pressure p "System pressure";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_in(fixed=false) "Inlet mass flow rate";

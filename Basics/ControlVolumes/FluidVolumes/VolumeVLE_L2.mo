@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.FluidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.FluidVolumes;
 model VolumeVLE_L2 "A lumped control volume for vapour/liquid equilibrium"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -42,8 +42,8 @@ model Summary
 end Summary;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // replaceable models~~~~~~~~~~~~~~~~~~~~~~~~
-  inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component"
-                               annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
   replaceable model HeatTransfer =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.IdealHeatTransfer_L2
           constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.HeatTransferBaseVLE "1st: choose heat transfer model | 2nd: edit corresponding record"
@@ -84,7 +84,7 @@ end Summary;
                                                                                    choice=2 "Inner heat transfer surface"));
 
 protected
-  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -126,26 +126,32 @@ public
       Q_flow_tot=heat.Q_flow))
     annotation (Placement(transformation(extent={{-60,-102},{-40,-82}})));
 public
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidIn(vleFluidType =    medium, final p=inlet.p, final  h=h_in,
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
+    vleFluidType=medium,
+    final p=inlet.p,
+    final h=h_in,
     computeTransportProperties=true,
     computeVLETransportProperties=true,
     computeVLEAdditionalProperties=true,
-    xi=xi_in)                                                                                   annotation (Placement(transformation(extent={{-90,-10},
-            {-70,10}},                                                                                                    rotation=0)));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  fluidOut(vleFluidType =    medium, p=outlet.p, h=h_out,
+    xi=xi_in) annotation (Placement(transformation(extent={{-90,-10},{-70,10}}, rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
+    vleFluidType=medium,
+    p=outlet.p,
+    h=h_out,
     computeTransportProperties=true,
     computeVLETransportProperties=true,
     computeVLEAdditionalProperties=true,
-    xi=xi_out)                                                                   annotation(Placement(transformation(extent={{70,-10},
-            {90,10}},                                                                                                    rotation=0)));
+    xi=xi_out) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
 
 protected
-  inner TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph  bulk(vleFluidType =    medium, p=p, h=h,
+  inner TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph bulk(
+    vleFluidType=medium,
+    p=p,
+    h=h,
     computeVLEAdditionalProperties=true,
     computeVLETransportProperties=true,
     computeTransportProperties=true,
-    xi=xi)                                                                           annotation (Placement(transformation(extent={{-10,-10},
-            {10,10}},                                                                                                    rotation=0)));
+    xi=xi) annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
 
 public
  HeatTransfer heattransfer(

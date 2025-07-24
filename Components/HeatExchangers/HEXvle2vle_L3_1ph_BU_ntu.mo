@@ -1,7 +1,7 @@
-within ClaRa.Components.HeatExchangers;
+﻿within ClaRa.Components.HeatExchangers;
 model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block shape | U-type | NTU Ansatz"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -51,9 +51,8 @@ model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block sh
 
   //*********************************** / SHELL SIDE \ ***********************************//
   //________________________________ Shell fundamentals _______________________________//
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_shell=simCenter.fluid1 "Medium to be used  for flow 1"
-                                    annotation (Dialog(tab="Shell Side", group=
-          "Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_shell=simCenter.fluid1 "Medium to be used  for flow 1"
+    annotation (Dialog(tab="Shell Side", group="Fundamental Definitions"), choicesAllMatching);
 
   replaceable model HeatTransfer_Shell =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
@@ -95,9 +94,8 @@ model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block sh
 
   //*********************************** / TUBE SIDE \ ***********************************//
   //________________________________ Tubes fundamentals _______________________________//
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_tubes=simCenter.fluid1 "Medium to be used for flow 2"
-                                   annotation (Dialog(tab="Tubes",group=
-          "Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_tubes=simCenter.fluid1 "Medium to be used for flow 2"
+    annotation (Dialog(tab="Tubes", group="Fundamental Definitions"), choicesAllMatching);
 
   replaceable model HeatTransferTubes =
       ClaRa.Basics.ControlVolumes.Fundamentals.HeatTransport.Generic_HT.CharLine_L2
@@ -146,8 +144,9 @@ model HEXvle2vle_L3_1ph_BU_ntu "VLE 2 VLE | L3 | 1 phase on each side | Block sh
 
   //*********************************** / WALL \ ***********************************//
   //________________________________ Wall fundamentals _______________________________//
-  replaceable model WallMaterial = TILMedia.SolidTypes.TILMedia_Aluminum
-    constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  replaceable model WallMaterial = TILMedia.Solid.Types.TILMedia_Aluminum
+    constrainedby TILMedia.Solid.Types.BaseSolid
+                                                "Material of the cylinder"
     annotation (choicesAllMatching=true, Dialog(tab="Tube Wall", group=
           "Fundamental Definitions"));
   parameter Basics.Units.Mass mass_struc=25000 "Mass of inner structure elements, additional to the tubes itself" annotation (Dialog(tab="Tube Wall", group="Fundamental Definitions"));

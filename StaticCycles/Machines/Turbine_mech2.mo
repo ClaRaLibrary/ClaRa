@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Machines;
+﻿within ClaRa.StaticCycles.Machines;
 model Turbine_mech2 "Turbine mith machanical flanges || par.: efficiency || yellow | blue"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -46,14 +46,14 @@ model Turbine_mech2 "Turbine mith machanical flanges || par.: efficiency || yell
   outline(Delta_p=Delta_p,
      P_turbine=P_turbine));
   //---------Summary Definition---------
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
-    annotation(choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                       choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                       choice=simCenter.fluid3 "Third fluid defined in global simCenter"),
-                                                          Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation (choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"), Dialog(group="Fundamental Definitions"));
 
   parameter Real efficiency= 1 "Hydraulic efficiency" annotation(Dialog(group="Fundamental Definitions"));
-  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in =  TILMedia.VLEFluidFunctions.density_phxi(medium, p_in,h_in) "Inlet density";
+  final parameter ClaRa.Basics.Units.DensityMassSpecific rho_in =  TILMedia.VLEFluid.Functions.density_phxi(
+                                                                                                           medium, p_in,h_in) "Inlet density";
   final parameter ClaRa.Basics.Units.Power P_turbine=(-P_in+P_out) "Turbine power required";
   final parameter ClaRa.Basics.Units.MassFlowRate  m_flow = P_turbine/(-h_out + h_in) "Mass flow rate";
 //protected
@@ -62,10 +62,10 @@ model Turbine_mech2 "Turbine mith machanical flanges || par.: efficiency || yell
 
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_in(fixed=false) "Inlet specific enthalpy";
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific       h_out=h_in +
-      efficiency*(TILMedia.VLEFluidFunctions.specificEnthalpy_psxi(
+      efficiency*(TILMedia.VLEFluid.Functions.specificEnthalpy_psxi(
       medium,
       p_out,
-      TILMedia.VLEFluidFunctions.specificEntropy_phxi(
+      TILMedia.VLEFluid.Functions.specificEntropy_phxi(
         medium,
         p_in,
         h_in)) - h_in) "Outlet enthalpy";

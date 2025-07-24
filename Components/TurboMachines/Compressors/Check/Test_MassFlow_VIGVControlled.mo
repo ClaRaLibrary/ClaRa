@@ -1,7 +1,7 @@
-within ClaRa.Components.TurboMachines.Compressors.Check;
+﻿within ClaRa.Components.TurboMachines.Compressors.Check;
 model Test_MassFlow_VIGVControlled
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -15,7 +15,8 @@ model Test_MassFlow_VIGVControlled
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
-  inner SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel, T_amb=293.15) annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  inner SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel, T_amb=293.15)
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CompressorGas_L1_stageStacked GasFanAdvanced(
     J=0.1,
     rpm_fixed=3000,

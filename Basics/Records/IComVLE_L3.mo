@@ -1,8 +1,9 @@
-within ClaRa.Basics.Records;
+﻿within ClaRa.Basics.Records;
 record IComVLE_L3
   extends IComBase_L3;
 
-  replaceable parameter TILMedia.VLEFluidTypes.BaseVLEFluid mediumModel "Used medium model" annotation(Dialog(tab="General"));
+  replaceable parameter TILMedia.VLEFluid.Types.BaseVLEFluid mediumModel "Used medium model"
+    annotation (Dialog(tab="General"));
   TILMedia.Internals.TILMediaExternalObject fluidPointer_in[N_inlet] "|Inlet||Fluid pointer of inlet ports" annotation(Dialog(tab="General"));
   TILMedia.Internals.TILMediaExternalObject fluidPointer_out[N_outlet] "|Outlet||Fluid pointer of outlet ports" annotation(Dialog(tab="General"));
   ClaRa.Basics.Units.EnthalpyMassSpecific h[N_cv] "|System||Specific enthalpy of liquid and vapour zone" annotation (Dialog(tab="General"));

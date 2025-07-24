@@ -1,4 +1,4 @@
-within ClaRa.Basics.Records;
+﻿within ClaRa.Basics.Records;
 record IComGas_L2 "Basic internal communication record for heat transfer"
   extends ClaRa.Basics.Records.IComBase_L2;
 
@@ -9,7 +9,7 @@ record IComGas_L2 "Basic internal communication record for heat transfer"
   Units.Mass mass "Mass of system"
                                   annotation (Dialog(tab="Bulk"));
 
-  replaceable parameter TILMedia.GasTypes.BaseGas mediumModel "Used medium model" annotation(Dialog(tab="System"));
+  replaceable parameter TILMedia.Gas.Types.BaseGas mediumModel "Used medium model" annotation (Dialog(tab="System"));
 
 //____Inlet_____________________________________________________________________________
   TILMedia.Internals.TILMediaExternalObject fluidPointer_in "Pointer to inlet gas object"     annotation(Dialog(tab="Inlet"));

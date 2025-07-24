@@ -1,12 +1,12 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model SimpleAnalyticalSlip_L4 "Simple slip correlation according to Zivi"
     extends ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution.MechanicalEquilibrium_L4;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.steamMassFraction_phxi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.vapourDensity_phxi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.liquidDensity_phxi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_pxi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewSpecificEnthalpy_pxi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.steamMassFraction_phxi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.vapourDensity_phxi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.liquidDensity_phxi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.bubbleSpecificEnthalpy_pxi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.dewSpecificEnthalpy_pxi;
 
   Units.DensityMassSpecific rho[geo.N_cv] "Mixed cup density";
   Units.DensityMassSpecific rho_mix[geo.N_cv] "In-situ density";
@@ -30,7 +30,8 @@ model SimpleAnalyticalSlip_L4 "Simple slip correlation according to Zivi"
   Units.Velocity w_gu[iCom.N_cv] "Mean drift velocity";
 
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_slip[iCom.N_cv](each vleFluidType=iCom.mediumModel) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid ptr_slip[iCom.N_cv](each vleFluidType=iCom.mediumModel)
+    annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
 equation
     /////// Calculate Media Required Data  ///////////////////
   for i in 1:iCom.N_cv loop

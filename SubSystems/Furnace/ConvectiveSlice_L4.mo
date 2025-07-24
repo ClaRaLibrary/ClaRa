@@ -1,8 +1,8 @@
-within ClaRa.SubSystems.Furnace;
+﻿within ClaRa.SubSystems.Furnace;
 model ConvectiveSlice_L4 "Convective furnaces slice"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -22,7 +22,9 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
 
   //Furnace
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Fuel definition" annotation (choicesAllMatching, Dialog(group="Media Definitions"));
-  parameter TILMedia.GasTypes.BaseGas flueGas=simCenter.flueGasModel "Flue gas model" annotation (choicesAllMatching, Dialog(group="Media Definitions", groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FurnaceSketch.png"));
+  parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model" annotation (choicesAllMatching,
+      Dialog(group="Media Definitions", groupImage=
+          "modelica://ClaRa/Resources/Images/ParameterDialog/FurnaceSketch.png"));
   parameter ClaRa.Basics.Media.Slag.PartialSlag slagType=simCenter.slagModel "Slag properties" annotation (choices(choice=simCenter.slagModel "Slag model 1 as defined in simCenter"),Dialog(group="Media Definitions"));
 
   replaceable model GasHeatTransfer_TubeBundle =
@@ -67,8 +69,13 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
 
 // Finned Tube Walls (FTW)///
   parameter Boolean FTWisCooled = true "True if finned walls are cooled (else omitted)" annotation (choices(checkBox=true), Dialog(tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_FTW = simCenter.fluid1 "FTW medium model" annotation (choicesAllMatching, Dialog(enable = FTWisCooled, tab="Finned Tube Walls (FTW)", group="Fundamental Definitions",groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FinnedWallSketch.png"));
-  replaceable model Material_FTW = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "FTW material" annotation (choicesAllMatching, Dialog(enable = FTWisCooled, tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_FTW=simCenter.fluid1 "FTW medium model" annotation (
+      choicesAllMatching, Dialog(
+      enable=FTWisCooled,
+      tab="Finned Tube Walls (FTW)",
+      group="Fundamental Definitions",
+      groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/FinnedWallSketch.png"));
+  replaceable model Material_FTW = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.Solid.Types.BaseSolid "FTW material" annotation (choicesAllMatching, Dialog(enable = FTWisCooled, tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
   parameter Boolean frictionAtInlet_FTW = false "True if pressure loss at inlet" annotation (choices(checkBox=true), Dialog(enable = FTWisCooled, tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
   parameter Boolean frictionAtOutlet_FTW = false "True if pressure loss at outlet" annotation (choices(checkBox=true), Dialog(enable = FTWisCooled, tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"));
   replaceable model PressureLoss_FTW = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseVLE_L4 "Pressure loss model" annotation (Dialog(enable = FTWisCooled, tab="Finned Tube Walls (FTW)", group="Fundamental Definitions"), choicesAllMatching=true);
@@ -100,8 +107,12 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
   parameter ClaRa.Basics.Units.PressureDifference Delta_p_nom_FTW=1e4 "Nominal pressure loss w.r.t. all parallel tubes" annotation (Dialog(tab="Finned Tube Walls (FTW)", group="Nominal Values"));
 
 /// TUbeBundle///
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_TB=simCenter.fluid1 "TB medium model" annotation (choicesAllMatching, Dialog(tab="Tube Bundle (TB)", group="Fundamental Definitions",groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/TubeBundleSketch.png"));
-  replaceable model Material_TB = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "TB material" annotation (choicesAllMatching, Dialog(tab="Tube Bundle (TB)", group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_TB=simCenter.fluid1 "TB medium model" annotation (
+      choicesAllMatching, Dialog(
+      tab="Tube Bundle (TB)",
+      group="Fundamental Definitions",
+      groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/TubeBundleSketch.png"));
+  replaceable model Material_TB = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.Solid.Types.BaseSolid "TB material" annotation (choicesAllMatching, Dialog(tab="Tube Bundle (TB)", group="Fundamental Definitions"));
   parameter Boolean frictionAtInlet_TB=false "True if pressure loss at intlet" annotation (choices(checkBox=true), Dialog(tab="Tube Bundle (TB)", group="Fundamental Definitions"));
   parameter Boolean frictionAtOutlet_TB=false "True if pressure loss at outlet" annotation (choices(checkBox=true), Dialog(tab="Tube Bundle (TB)", group="Fundamental Definitions"));
   replaceable model PressureLoss_TB = ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4 constrainedby ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.PressureLossBaseVLE_L4 "Pressure loss model" annotation (Dialog(tab="Tube Bundle (TB)", group="Fundamental Definitions"), choicesAllMatching=true);
@@ -140,10 +151,13 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
 /// CarrierTubes///
 
   parameter Boolean CTisCooled = true "True if carrier tubes are cooled (else omitted)" annotation (choices(checkBox=true), Dialog(tab="Carrier Tubes (CT)", group="Fundamental Definitions"));
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium_CT=simCenter.fluid1             "CT medium model" annotation (choicesAllMatching, Dialog(enable=CTisCooled,
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_CT=simCenter.fluid1 "CT medium model" annotation (
+      choicesAllMatching, Dialog(
+      enable=CTisCooled,
       tab="Carrier Tubes (CT)",
-      group="Fundamental Definitions",groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/CarrierTubesSketch.png"));
-  replaceable model Material_CT = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.SolidTypes.BaseSolid  "CT material" annotation (choicesAllMatching, Dialog(tab="Carrier Tubes (CT)", group="Fundamental Definitions", enable=CTisCooled));
+      group="Fundamental Definitions",
+      groupImage="modelica://ClaRa/Resources/Images/ParameterDialog/CarrierTubesSketch.png"));
+  replaceable model Material_CT = Basics.Media.Solids.Steel16Mo3 constrainedby TILMedia.Solid.Types.BaseSolid "CT material" annotation (choicesAllMatching, Dialog(tab="Carrier Tubes (CT)", group="Fundamental Definitions", enable=CTisCooled));
 
   parameter Boolean frictionAtInlet_CT=false "True if pressure loss at inlet" annotation (choices(checkBox=true), Dialog(enable=CTisCooled,tab="Carrier Tubes (CT)", group="Fundamental Definitions"));
   parameter Boolean frictionAtOutlet_CT=false "True if pressure loss at outlet" annotation (choices(checkBox=true), Dialog(enable=CTisCooled,tab="Carrier Tubes (CT)", group="Fundamental Definitions"));
@@ -207,13 +221,12 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
     diameter_i=diameter_i_FTW,
     length=length_FTW*N_passes_FTW,
     N_tubes=N_tubes_FTW,
-    T_start={TILMedia.VLEFluidFunctions.temperature_phxi(
+    T_start={TILMedia.VLEFluid.Functions.temperature_phxi(
         pipeFlow_TB.medium,
         p_start_FTW[i],
         h_start_FTW[i]) + 5 for i in 1:N_cv_FTW},
-    suppressChattering="False")
-                         if FTWisCooled
-                     annotation (Placement(transformation(
+    suppressChattering="False") if FTWisCooled
+    annotation (Placement(transformation(
         extent={{-14,5},{14,-5}},
         rotation=270,
         origin={240,0})));
@@ -303,11 +316,11 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
     diameter_i=diameter_i_TB,
     length=length_TB*N_passes_TB,
     N_tubes=N_tubes_TB,
-    T_start={TILMedia.VLEFluidFunctions.temperature_phxi(
+    T_start={TILMedia.VLEFluid.Functions.temperature_phxi(
         pipeFlow_TB.medium,
         p_start_TB[i],
         h_start_TB[i]) + 5 for i in 1:wall_TB.N_ax},
-    suppressChattering="False")                  annotation (Placement(transformation(
+    suppressChattering="False") annotation (Placement(transformation(
         extent={{-14,-5},{14,5}},
         rotation=270,
         origin={-228,-20})));
@@ -375,16 +388,18 @@ model ConvectiveSlice_L4 "Convective furnaces slice"
         rotation=270,
         origin={40,39})));
   ClaRa.Basics.ControlVolumes.SolidVolumes.CylindricalThinWall_L4 wall_CT(
-    redeclare model Material = Material_CT,                               N_ax=1,
+    redeclare model Material = Material_CT,
+    N_ax=1,
     diameter_o=diameter_o_CT,
     diameter_i=diameter_i_CT,
     length=length_CT*N_passes_CT,
     N_tubes=N_tubes_CT,
-    T_start={TILMedia.VLEFluidFunctions.temperature_phxi(
+    T_start={TILMedia.VLEFluid.Functions.temperature_phxi(
         pipeFlow_TB.medium,
         p_start_CT,
         h_start_CT) + 5},
-    suppressChattering="False") if CTisCooled                                     annotation (Placement(transformation(
+    suppressChattering="False") if CTisCooled
+    annotation (Placement(transformation(
         extent={{-14,5},{14,-5}},
         rotation=270,
         origin={16,39})));

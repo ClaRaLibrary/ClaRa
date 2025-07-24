@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons.PackageIcons;
+﻿within ClaRa.Basics.Icons.PackageIcons;
 model ExecutableRegressiong100
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(

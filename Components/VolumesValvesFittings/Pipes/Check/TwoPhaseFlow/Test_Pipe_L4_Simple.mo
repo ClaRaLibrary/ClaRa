@@ -1,7 +1,7 @@
 ﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.TwoPhaseFlow;
 model Test_Pipe_L4_Simple
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -29,7 +29,7 @@ model Test_Pipe_L4_Simple
     variable_h=true,
     p_nom=100000) annotation (Placement(transformation(extent={{60,-17},{40,3}})));
   inner SimCenter simCenter(
-    redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    redeclare replaceable TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1,
     useHomotopy=false,
     showExpertSummary=true) annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -78,7 +78,7 @@ model Test_Pipe_L4_Simple
     diameter_i=tube.diameter_i,
     diameter_o=tube.diameter_i + 0.01,
     T_start=573*ones(tube.N_cv),
-    redeclare model Material = TILMedia.SolidTypes.TILMedia_Steel,
+    redeclare model Material = TILMedia.Solid.Types.TILMedia_Steel,
     stateLocation=2,
     N_tubes=tube.N_tubes,
     initOption=213) annotation (Placement(transformation(extent={{2,9},{14,23}})));

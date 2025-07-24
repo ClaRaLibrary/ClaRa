@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Pumps.Check;
+﻿within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPumpModels
   import ClaRa;
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -20,7 +20,8 @@ model TestPumpModels
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_simple pump_1(showExpertSummary=true) annotation (Placement(transformation(extent={{-16,-82},{4,-62}})));
   BoundaryConditions.BoundaryVLE_pTxi pressureSink_XRG(p_const=1300000, T_const=463.15,
     variable_T=true)                                                                    annotation (Placement(transformation(extent={{-76,-82},{-56,-62}})));
-  inner SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
+  inner SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Modelica.Blocks.Sources.TimeTable
                                ramp1(
     startTime=0,

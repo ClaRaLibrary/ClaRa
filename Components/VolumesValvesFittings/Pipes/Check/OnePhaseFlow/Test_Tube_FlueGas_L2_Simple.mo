@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
 model Test_Tube_FlueGas_L2_Simple
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,10 +16,11 @@ model Test_Tube_FlueGas_L2_Simple
 //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb60;
   inner SimCenter simCenter(
-    redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1,
+    redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1,
     redeclare ClaRa.Basics.Media.Fuel.Coal_Reference fuelModel1,
     redeclare ClaRa.Basics.Media.Slag.Slag_v2 slagModel,
-    redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel) annotation (Placement(transformation(extent={{70,76},{90,96}})));
+    redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel)
+    annotation (Placement(transformation(extent={{70,76},{90,96}})));
 
   PipeFlowGas_L4_Simple tube(
     length=10,

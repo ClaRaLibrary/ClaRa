@@ -1,8 +1,9 @@
-within ClaRa.Components.HeatExchangers.Check;
+﻿within ClaRa.Components.HeatExchangers.Check;
 model Test_FlatTubeFinnedHEXvle2gas_L4 "Test_FlatTubeFinnedHEXvle2gas_L4"
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
 
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_GERGCO2 fluid1)                                                                               annotation (Placement(transformation(extent={{-120,-106},{-100,-86}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_GERGCO2 fluid1)
+    annotation (Placement(transformation(extent={{-120,-106},{-100,-86}})));
 
   ClaRa.Components.HeatExchangers.FlatTubeFinnedHEXvle2gas_L4 flatTubeFinnedHX(
     HeatExchangerType=2,

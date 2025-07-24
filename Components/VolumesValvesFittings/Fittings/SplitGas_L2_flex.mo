@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitGas_L2_flex "Adiabatic junction volume"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -48,8 +48,8 @@ inner parameter Integer initOption=0 "Type of initialisation" annotation (Dialog
       choice=210 "Steady density"));
 
 // ***************************** defintion of medium used in cell *************************************************
-inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used in tubes"
-                                  annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   ClaRa.Basics.Interfaces.GasPortIn inlet(Medium=medium, m_flow)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -61,21 +61,25 @@ inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Mediu
   parameter ClaRa.Basics.Units.Volume volume=1 annotation (Dialog(tab="General", group="Geometry"));
 
 protected
-  TILMedia.Gas_pT     gasInlet(gasType = medium, p=inlet.p, T=noEvent(actualStream(inlet.T_outflow)), xi=noEvent(actualStream(inlet.xi_outflow)))
-    annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
-protected
-  TILMedia.Gas_pT gasOutlet[N_ports_out](each
+  TILMedia.Gas.Gas_pT gasInlet(
     gasType=medium,
+    p=inlet.p,
+    T=noEvent(actualStream(inlet.T_outflow)),
+    xi=noEvent(actualStream(inlet.xi_outflow))) annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
+protected
+  TILMedia.Gas.Gas_pT gasOutlet[N_ports_out](
+    each gasType=medium,
     p=outlet.p,
     T=noEvent(actualStream(outlet.T_outflow)),
-    xi=noEvent(actualStream(outlet.xi_outflow)))
-    annotation (Placement(transformation(extent={{60,-14},{80,6}})));
+    xi=noEvent(actualStream(outlet.xi_outflow))) annotation (Placement(transformation(extent={{60,-14},{80,6}})));
 protected
-  inner TILMedia.Gas_ph     bulk(
+  inner TILMedia.Gas.Gas_ph bulk(
     computeTransportProperties=false,
-    gasType = medium,p=p,h=h,xi=xi,
-    stateSelectPreferForInputs=true)
-    annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
+    gasType=medium,
+    p=p,
+    h=h,
+    xi=xi,
+    stateSelectPreferForInputs=true) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
   /****************** Nominal values *******************/
 public
   parameter Modelica.Units.SI.MassFlowRate m_flow_out_nom[N_ports_out]=fill(10, N_ports_out) "Nominal mass flow rates at outlet" annotation (Dialog(tab="General", group="Nominal Values"));
@@ -83,7 +87,7 @@ public
   parameter Modelica.Units.SI.Temperature T_nom=293.15 "Nominal specific enthalpy" annotation (Dialog(group="Nominal Values"));
   parameter ClaRa.Basics.Units.MassFraction xi_nom[medium.nc - 1]=medium.xi_default annotation (Dialog(group="Nominal Values"));
 
-  final parameter Modelica.Units.SI.Density rho_nom=TILMedia.GasFunctions.density_pTxi(
+  final parameter Modelica.Units.SI.Density rho_nom=TILMedia.Gas.Functions.density_pTxi(
       medium,
       p_nom,
       T_nom,
@@ -98,7 +102,7 @@ public
 
   parameter ClaRa.Basics.Units.MassFraction[medium.nc - 1] xi_start=medium.xi_default "Initial value for mixing ratio" annotation(Dialog(tab="Initialisation"));
 
-  final parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+  final parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
       medium,
       p_start,
       T_start,

@@ -1,7 +1,7 @@
-within ClaRa.Components.Furnace.Check;
+﻿within ClaRa.Components.Furnace.Check;
 model Test_CombustionChamber_control
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -20,7 +20,7 @@ model Test_CombustionChamber_control
   SimpleCombustionChamber combustionChamber(
     xi_slag=0,
     xi_NOx=0) annotation (Placement(transformation(extent={{16,-26},{36,-6}})));
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel)
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel)
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   ClaRa.Components.BoundaryConditions.BoundaryFuel_Txim_flow coalFlowSource(
     m_flow_const=1,

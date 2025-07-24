@@ -1,8 +1,8 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.OnePhaseFlow;
 model Test_Pipe_L4_Advanced
 
 //__________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                           //
+  // Component of the ClaRa library, version: 1.9.0                           //
   //                                                                          //
   // Licensed by the ClaRa development team under the 3-clause BSD License.   //
   // Copyright  2013-2024, ClaRa development team.                            //
@@ -29,7 +29,8 @@ model Test_Pipe_L4_Advanced
     m_flow_nom=0,
     variable_h=true,
     p_nom=100000) annotation (Placement(transformation(extent={{60,-69},{40,-49}})));
-  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, useHomotopy=true) annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
+  inner SimCenter simCenter(redeclare replaceable TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1, useHomotopy=true)
+    annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
   PipeFlowVLE_L4_Advanced tube(
     z_in=0,
     z_out=0,

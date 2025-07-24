@@ -1,7 +1,7 @@
-within ClaRa.Components.Mills.HardCoalMills.Check;
+﻿within ClaRa.Components.Mills.HardCoalMills.Check;
 model ValidateRollerBowlMill_3 "A test scenario derived from the paper Niemczyk: 'Derivation and validation of a coal mill model for control'"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

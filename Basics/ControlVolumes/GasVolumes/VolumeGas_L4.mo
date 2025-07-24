@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.GasVolumes;
+﻿within ClaRa.Basics.ControlVolumes.GasVolumes;
 model VolumeGas_L4 "An array of flue gas cells."
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -50,7 +50,8 @@ model VolumeGas_L4 "An array of flue gas cells."
   //## P A R A M E T E R S #######################################################################################
   //____Media Data_____________________________________________________________________________________
 public
-  inner parameter TILMedia.GasTypes.BaseGas medium=simCenter.flueGasModel "Medium to be used" annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used"
+    annotation (choicesAllMatching=true, Dialog(group="Fundamental Definitions"));
 
   //____Physical Effects_____________________________________________________________________________________
   inner parameter Boolean frictionAtInlet=false "True if pressure loss between first cell and inlet shall be considered"
@@ -80,7 +81,7 @@ public
 
   inner parameter Units.Pressure Delta_p_nom=1e4 "Nominal pressure loss w.r.t. all parallel tubes" annotation (Dialog(group="Nominal Values"));
 
-  final parameter Units.DensityMassSpecific rho_nom[geo.N_cv]=TILMedia.GasFunctions.density_pTxi(
+  final parameter Units.DensityMassSpecific rho_nom[geo.N_cv]=TILMedia.Gas.Functions.density_pTxi(
       medium,
       p_nom,
       T_nom,
@@ -102,12 +103,12 @@ public
   parameter Units.MassFraction xi_start[medium.nc - 1]=medium.xi_default "Initial gas composition" annotation (Dialog(tab="Initialisation"));
 
 protected
-  parameter Units.EnthalpyMassSpecific h_start[geo.N_cv]=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+  parameter Units.EnthalpyMassSpecific h_start[geo.N_cv]=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
       medium,
       p_start,
       T_start,
       xi_start) "Initial specific enthalpy";
-  parameter Units.DensityMassSpecific d_start[geo.N_cv]=TILMedia.GasFunctions.density_pTxi(
+  parameter Units.DensityMassSpecific d_start[geo.N_cv]=TILMedia.Gas.Functions.density_pTxi(
       medium,
       p_start,
       T_start,
@@ -166,31 +167,32 @@ public
   //___Instantiation of Replaceable Models___________________________________________________________________________
 
 protected
-  inner TILMedia.Gas_ph fluid[geo.N_cv](
+  inner TILMedia.Gas.Gas_ph fluid[geo.N_cv](
     p=p,
     h=h,
     xi=xi,
     each gasType=medium,
-    each computeTransportProperties=true) annotation (Placement(transformation(extent={{-10,-42},{10,-22}}, rotation=0)));
+    each computeTransportProperties=true)
+    annotation (Placement(transformation(extent={{-10,-42},{10,-22}}, rotation=0)));
 public
   PressureLoss pressureLoss "Pressure loss model" annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   HeatTransfer heatTransfer(A_heat=geo.A_heat_CF[:, 1])   "heat transfer model" annotation (Placement(transformation(extent={{-64,0},{-44,20}})));
 public
-  inner TILMedia.Gas_pT fluidInlet(
+  inner TILMedia.Gas.Gas_pT fluidInlet(
     p=inlet.p,
     T=T_inlet,
     xi=xi_inlet,
     gasType=medium,
-    computeTransportProperties=true)
-                    "Gas object at inlet port" annotation (Placement(transformation(extent={{-130,-30},{-110,-10}}, rotation=0)));
+    computeTransportProperties=true) "Gas object at inlet port"
+    annotation (Placement(transformation(extent={{-130,-30},{-110,-10}}, rotation=0)));
 
-  inner TILMedia.Gas_pT fluidOutlet(
+  inner TILMedia.Gas.Gas_pT fluidOutlet(
     gasType=medium,
     T=T_outlet,
     p=outlet.p,
     xi=xi_outlet,
-    computeTransportProperties=true)
-                  "Gas object at outlet port" annotation (Placement(transformation(extent={{110,-30},{130,-10}}, rotation=0)));
+    computeTransportProperties=true) "Gas object at outlet port"
+    annotation (Placement(transformation(extent={{110,-30},{130,-10}}, rotation=0)));
 
   inner Summary summary(
     outline(N_cv=geo.N_cv,
@@ -237,7 +239,7 @@ protected
     p_nom=p_nom[1],
     Delta_p_nom=Delta_p_nom,
     m_flow_nom=m_flow_nom,
-    h_nom=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+    h_nom=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
         medium,
         p_nom[1],
         T_nom[1],

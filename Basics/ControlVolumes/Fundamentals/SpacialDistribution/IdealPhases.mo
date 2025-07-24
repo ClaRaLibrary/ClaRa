@@ -1,4 +1,4 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 partial model IdealPhases "The phases are in ideal thermodynamic equilibrium"
 
   outer ClaRa.Basics.Records.IComVLE_L2 iCom;

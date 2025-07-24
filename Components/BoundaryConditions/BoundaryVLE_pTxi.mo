@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundaryVLE_pTxi "A boundary defining pressure, temperature and composition"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -23,8 +23,8 @@ extends ClaRa.Basics.Icons.FlowSink;
     powerOut_elMech=0,
     powerAux=0)  if contributeToCycleSummary;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium= simCenter.fluid1 "Medium to be used"
-                                                                                              annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Boolean variable_p=false "True, if pressure defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
   parameter Boolean variable_T=false "True, if temperature defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
@@ -63,7 +63,7 @@ protected
     annotation (Placement(transformation(extent={{55,-81},{57,-79}}),
         iconTransformation(extent={{55,-55},{57,-53}})));
 
-   TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT fluidOut(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_pT fluidOut(
     vleFluidType=medium,
     p=p_in,
     T=T_in,

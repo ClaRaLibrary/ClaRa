@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Compressors.BaseClasses;
+﻿within ClaRa.Components.TurboMachines.Compressors.BaseClasses;
 partial model partialFan
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -22,9 +22,8 @@ partial model partialFan
 protected
   outer ClaRa.SimCenter simCenter;
 public
-inner parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used"
-                          annotation(choices(choice=simCenter.flueGasModel "Gas model as defined in simCenter"),
-                                                    Dialog(group="Media Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used" annotation (choices(
+        choice=simCenter.flueGasModel "Gas model as defined in simCenter"), Dialog(group="Media Definitions"));
 
 /******************** Connectors *****************************/
 
@@ -37,10 +36,11 @@ public
         iconTransformation(extent={{-10,90},{10,110}})));
 /****************** Gas object *************************/
 protected
-  TILMedia.Gas_pT   gas(p=(gasPortIn.p + gasPortOut.p)/2,
+  TILMedia.Gas.Gas_pT gas(
+    p=(gasPortIn.p + gasPortOut.p)/2,
     T=noEvent(actualStream(gasPortIn.T_outflow)),
     xi=noEvent(actualStream(gasPortIn.xi_outflow)),
-    final gasType = medium,
+    final gasType=medium,
     computeTransportProperties=false) "Gas in fan"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
 /****************** Start Values ********************/

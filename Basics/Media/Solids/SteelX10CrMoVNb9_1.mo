@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Solids;
+﻿within ClaRa.Basics.Media.Solids;
 model SteelX10CrMoVNb9_1 "SteelX10CrMoVNb9_1 - 1.4903"
    //Source: https://woite-edelstahl.info/14903de.html"
    //nua and G not changed, taken from SteelX8CrNiTi18_10

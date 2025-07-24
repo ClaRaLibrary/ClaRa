@@ -1,7 +1,7 @@
-within ClaRa.Basics.Functions;
+﻿within ClaRa.Basics.Functions;
 function InitialiseCombustionGas "A simple function to find feasible start values for combustion product gases"
  //___________________________________________________________________________//
- // Component of the ClaRa library, version: 1.8.2                            //
+ // Component of the ClaRa library, version: 1.9.0                            //
  //                                                                           //
  // Licensed by the DYNCAP/DYNSTART research team under the 3-clause BSD License.   //
  // Copyright  2013-2021, DYNCAP/DYNSTART research team.                      //

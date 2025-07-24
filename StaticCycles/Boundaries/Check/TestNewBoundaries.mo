@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Boundaries.Check;
+﻿within ClaRa.StaticCycles.Boundaries.Check;
 model TestNewBoundaries
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
 

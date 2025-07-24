@@ -1,7 +1,7 @@
-within ClaRa.Components.Control;
+﻿within ClaRa.Components.Control;
 package PredictorModels_3508 "PredictorModels according to VDI/VDE guideline 3508"
 //__________________________________________________________________________//
-// Package of the ClaRa library, version: 1.8.2                             //
+// Package of the ClaRa library, version: 1.9.0                             //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //

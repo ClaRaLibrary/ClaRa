@@ -1,7 +1,7 @@
-within ClaRa.Basics.Functions;
+﻿within ClaRa.Basics.Functions;
 package ClaRaDelay
 //__________________________________________________________________________//
-// Package of the ClaRa library, version: 1.8.2                             //
+// Package of the ClaRa library, version: 1.9.0                             //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,5 +18,5 @@ package ClaRaDelay
 
   extends ClaRa.Basics.Icons.PackageIcons.Basics60;
 
-  extends SMArtIInt.Internal.ClaRaDelay;
+  extends SMArtInt.Internal.ClaRaDelay;
 end ClaRaDelay;

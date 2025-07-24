@@ -1,7 +1,7 @@
-within ClaRa.Components.Mills.HardCoalMills;
+﻿within ClaRa.Components.Mills.HardCoalMills;
 model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and roller-bowl mills"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -29,7 +29,8 @@ model VerticalMill_L3 "Vertical roller mill such as ball-and-race mill and rolle
 //________Materials and Media_______
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel = simCenter.fuelModel1  "Fuel type"   annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.MassFraction xi_coal_h2o_res=0 "Residual moisture of coal" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  parameter TILMedia.GasTypes.BaseGas  gas= simCenter.flueGasModel "Medium to be used in tubes" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 //________Mill definition___________
   parameter ClaRa.Components.Mills.HardCoalMills.Fundamentals.RollerBowlMillDefinition  millKoeff=
@@ -116,7 +117,7 @@ protected
 
   //______Auxilliary Variables_
 
-  SMArtIInt.Internal.ClaRaDelay.ExternalTable pointer_W_c= SMArtIInt.Internal.ClaRaDelay.ExternalTable() "Pointer for delay memory allocation";
+  SMArtInt.Internal.ClaRaDelay.ExternalTable pointer_W_c= SMArtInt.Internal.ClaRaDelay.ExternalTable() "Pointer for delay memory allocation";
 
   Real grindingStatus_;
 
@@ -128,12 +129,11 @@ public
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,108})));
-  TILMedia.Gas_pT     gasIn(
+  TILMedia.Gas.Gas_pT gasIn(
     p=inlet.flueGas.p,
     T=inStream(inlet.flueGas.T_outflow),
     xi=inStream(inlet.flueGas.xi_outflow),
-    gasType=gas)
-    annotation (Placement(transformation(extent={{-88,-70},{-68,-50}})));
+    gasType=gas) annotation (Placement(transformation(extent={{-88,-70},{-68,-50}})));
 
   ClaRa.Components.Mills.HardCoalMills.Fundamentals.SummaryMill summary(
     T_coal_in=T_coal_in,
@@ -159,12 +159,11 @@ public
   Basics.Interfaces.FuelFlueGas_inlet inlet(flueGas(Medium=gas), fuelModel=fuelModel) "Combined gas-and-coal(raw, wet) inlet" annotation (Placement(transformation(extent={{-110,-8},{-90,12}}), iconTransformation(extent={{-110,-10},{-90,10}})));
   Basics.Interfaces.FuelFlueGas_outlet outlet(flueGas(Medium=gas), fuelModel=fuelModel) "Combined gas-and-coal(pulverised, dry) outlet" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  TILMedia.Gas_pT     gasOut(
+  TILMedia.Gas.Gas_pT gasOut(
     p=outlet.flueGas.p,
     T=T_out,
     gasType=gas,
-    xi=xi_air_out)
-    annotation (Placement(transformation(extent={{70,-68},{90,-48}})));
+    xi=xi_air_out) annotation (Placement(transformation(extent={{70,-68},{90,-48}})));
   Modelica.Blocks.Interfaces.RealOutput P_mills(unit="W") "Mill power of all parallel mills"
                                                     annotation(Placement(transformation(extent={{100,22},
             {140,62}})));
@@ -184,7 +183,8 @@ public
     xi_c=outlet.fuel.xi_outflow,
     fuelModel=fuelModel) annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid H2O_props(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater vleFluidType);
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid H2O_props(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater
+      vleFluidType);
 initial equation
   xi_wc_out = xi_wc_start;
 
@@ -208,7 +208,13 @@ initial equation
 equation
 ////////////////////////////////////////////
 /// Additional Media Data                ///
-  Delta_h_evap = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.dewSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props.vleFluidPointer) - TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi(T_coal_in, {1}, H2O_props.vleFluidPointer);
+  Delta_h_evap =TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.dewSpecificEnthalpy_Txi(
+    T_coal_in,
+    {1},
+    H2O_props.vleFluidPointer) - TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.bubbleSpecificEnthalpy_Txi(
+    T_coal_in,
+    {1},
+    H2O_props.vleFluidPointer);
 
 ////////////////////////////////////////////
 /// Grinding Process                     ///

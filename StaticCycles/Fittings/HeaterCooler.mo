@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Fittings;
+﻿within ClaRa.StaticCycles.Fittings;
 model HeaterCooler "orange | orange"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,8 +16,8 @@ model HeaterCooler "orange | orange"
 //__________________________________________________________________________//
   // Orange input:   Value of T and xi are known in component and provided FOR neighbor component, values of p and m_flow are unknown and provided BY neighbor component.
   // Orange output:   Value of T and xi are unknown in component and provided BY neighbor component, values of p and m_flow are known and provided FOR neighbor component.
-  import TILMedia.GasFunctions.specificEnthalpy_pTxi;
-  import TILMedia.GasFunctions.temperature_phxi;
+  import TILMedia.Gas.Functions.specificEnthalpy_pTxi;
+  import TILMedia.Gas.Functions.temperature_phxi;
   outer ClaRa.SimCenter simCenter;
 
   //---------Summary Definition---------
@@ -40,7 +40,8 @@ model HeaterCooler "orange | orange"
      xi=xi_out));
   //---------Summary Definition---------
 
-  parameter TILMedia.GasTypes.BaseGas gas = simCenter.flueGasModel "Flue gas model used in component" annotation(Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas gas=simCenter.flueGasModel "Flue gas model used in component"
+    annotation (Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.HeatFlowRate Q_flow  "Heat flow rate";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_out(fixed = false) "Mass flow at outlet 1";

@@ -1,8 +1,8 @@
-within ClaRa.Components.Sensors.Check;
+﻿within ClaRa.Components.Sensors.Check;
 model TestSensorVLE_L3_T
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -41,12 +41,12 @@ Real alpha;
     p_start=100e5,
     h_start=3500e3,
     thickness_sensor=4e-3,
-    redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_StainlessSteel,
-    T_sensor_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
+    redeclare model WallMaterial = TILMedia.Solid.Types.TILMedia_StainlessSteel,
+    T_sensor_start=TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(
         temperatureSensorVLE_L3.FluidMedium,
         temperatureSensorVLE_L3.p_start,
         temperatureSensorVLE_L3.h_start,
-        temperatureSensorVLE_L3.xi_start) + 10)                          annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+        temperatureSensorVLE_L3.xi_start) + 10) annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Modelica.Blocks.Sources.TimeTable timeTable2(table=[0.0,100e5; 300,100e5; 1000,1e5; 10000,1e5]) annotation (Placement(transformation(extent={{98,-6},{78,14}})));
   VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_1 annotation (Placement(transformation(extent={{16,-26},{36,-14}})));
   VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_2 annotation (Placement(transformation(extent={{14,14},{34,26}})));
@@ -57,13 +57,14 @@ Real alpha;
     p_start=100e5,
     h_start=3500e3,
     thickness_sensor=4e-3,
-    redeclare model WallMaterial = TILMedia.SolidTypes.TILMedia_StainlessSteel,
+    redeclare model WallMaterial = TILMedia.Solid.Types.TILMedia_StainlessSteel,
     considerHeatConduction=true,
-    T_sensor_start=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.temperature_phxi(
+    T_sensor_start=TILMedia.VLEFluid.MixtureCompatible.Functions.temperature_phxi(
         temperatureSensorVLE_L3_considerHeatConduction.FluidMedium,
         temperatureSensorVLE_L3_considerHeatConduction.p_start,
         temperatureSensorVLE_L3_considerHeatConduction.h_start,
-        temperatureSensorVLE_L3_considerHeatConduction.xi_start) + 10) annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+        temperatureSensorVLE_L3_considerHeatConduction.xi_start) + 10)
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   VolumesValvesFittings.Valves.GenericValveVLE_L1 valveVLE_L1_3 annotation (Placement(transformation(extent={{16,-66},{36,-54}})));
 equation
   Re=temperatureSensorVLE_L3.thickness_sensor*Modelica.Constants.pi*temperatureSensorVLE_L3.fluidVolume.summary.inlet.m_flow/temperatureSensorVLE_L3.fluidVolume.fluidIn.transp.eta/temperatureSensorVLE_L3.fluidVolume.geo.A_front;

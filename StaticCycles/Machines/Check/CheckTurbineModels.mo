@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Machines.Check;
+﻿within ClaRa.StaticCycles.Machines.Check;
 model CheckTurbineModels
 
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExample100;

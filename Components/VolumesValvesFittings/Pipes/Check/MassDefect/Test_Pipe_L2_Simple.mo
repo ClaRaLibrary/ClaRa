@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Pipes.Check.MassDefect;
+﻿within ClaRa.Components.VolumesValvesFittings.Pipes.Check.MassDefect;
 model Test_Pipe_L2_Simple
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
   Modelica.Blocks.Sources.Trapezoid MassFlow(
@@ -15,7 +15,9 @@ model Test_Pipe_L2_Simple
     h_const=3252e3,
     m_flow_const=+0.202/3.6,
     variable_m_flow=true) annotation (Placement(transformation(extent={{-24,-10},{-4,10}})));
-  inner SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid2) annotation (Placement(transformation(extent={{-80,-72},{-60,-52}})));
+  inner SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1, redeclare
+      TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid2)
+    annotation (Placement(transformation(extent={{-80,-72},{-60,-52}})));
   PipeFlowVLE_L2_Simple tubeBundle_L2_Simple(
     redeclare model PressureLoss =
         ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Generic_PL.LinearPressureLoss_L4,

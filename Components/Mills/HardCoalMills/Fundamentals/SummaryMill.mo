@@ -1,4 +1,4 @@
-within ClaRa.Components.Mills.HardCoalMills.Fundamentals;
+﻿within ClaRa.Components.Mills.HardCoalMills.Fundamentals;
 model SummaryMill "A summary record for a roller bowl mill"
 
 extends ClaRa.Basics.Icons.RecordIcon;

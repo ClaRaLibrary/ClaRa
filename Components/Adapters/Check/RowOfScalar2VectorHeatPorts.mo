@@ -1,7 +1,7 @@
-within ClaRa.Components.Adapters.Check;
+﻿within ClaRa.Components.Adapters.Check;
 model RowOfScalar2VectorHeatPorts
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -56,7 +56,7 @@ model RowOfScalar2VectorHeatPorts
     diameter_i=pipe1.diameter_i,
     length=pipe1.length,
     N_tubes=pipe1.N_tubes,
-    redeclare model Material = TILMedia.SolidTypes.TILMedia_Steel,
+    redeclare model Material = TILMedia.Solid.Types.TILMedia_Steel,
     Delta_x=pipe1.Delta_x,
     stateLocation=2,
     T_start=ones(thinWall_1.N_ax)*(528 + 273.15),
@@ -67,7 +67,7 @@ model RowOfScalar2VectorHeatPorts
     diameter_i=pipe2.diameter_i,
     length=pipe2.length,
     N_tubes=pipe2.N_tubes,
-    redeclare model Material = TILMedia.SolidTypes.TILMedia_Steel,
+    redeclare model Material = TILMedia.Solid.Types.TILMedia_Steel,
     Delta_x=pipe2.Delta_x,
     stateLocation=2,
     T_start=ones(thinWall_2.N_ax)*(528 + 273.15),

@@ -1,4 +1,4 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings.Fundamentals;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings.Fundamentals;
 model Linear
   extends Fundamentals.BaseDp(final hasPressureLoss=true);
   Basics.Units.Pressure dp;

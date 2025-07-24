@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Adapters;
+﻿within ClaRa.StaticCycles.Adapters;
 model GainVLE1 "blue | blue"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -36,7 +36,7 @@ model GainVLE1 "blue | blue"
      p=p));
   //---------Summary Definition---------
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component";
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component";
   parameter Real gain = 1 "outlet.m_flow = gain* inlet.m_flow";
 
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h(fixed=false) "Specific enthalpy";

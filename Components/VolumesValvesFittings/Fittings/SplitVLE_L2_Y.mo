@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitVLE_L2_Y "A voluminous split for 2 outputs"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -35,8 +35,8 @@ model Summary
   ClaRa.Basics.Records.FluidVLE_L2           fluid;
 end Summary;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium=simCenter.fluid1 "Medium in the component"
-                               annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 replaceable model PressureLossIn =
     Fundamentals.NoFriction constrainedby Fundamentals.BaseDp "Pressure loss model at inlet" annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
@@ -62,7 +62,7 @@ replaceable model PressureLossIn =
   parameter Boolean preciseTwoPhase = true "|Expert Stettings||True, if two-phase transients should be capured precisely";
 
 protected
-  parameter Basics.Units.DensityMassSpecific rho_nom=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi(
+  parameter Basics.Units.DensityMassSpecific rho_nom=TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi(
       medium,
       p_nom,
       h_nom) "Nominal density";
@@ -93,30 +93,29 @@ public
   ClaRa.Basics.Interfaces.FluidPortOut outlet1(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph bulk(vleFluidType = medium, p = p,h=h) annotation (Placement(transformation(extent={{-10,-12},
-            {10,8}},                                                                                                    rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph bulk(
+    vleFluidType=medium,
+    p=p,
+    h=h) annotation (Placement(transformation(extent={{-10,-12},{10,8}}, rotation=0)));
 
 public
   ClaRa.Basics.Interfaces.FluidPortOut outlet2(Medium=medium) "Outlet port"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}}),
         iconTransformation(extent={{-10,-110},{10,-90}})));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut1(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut1(
     vleFluidType=medium,
     h=noEvent(actualStream(outlet1.h_outflow)),
-    p=outlet1.p)                                                         annotation (Placement(transformation(extent={{70,-10},
-            {90,10}},                                                                                                   rotation=0)));
+    p=outlet1.p) annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=0)));
 protected
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     h=noEvent(actualStream(inlet.h_outflow)),
-    p=inlet.p)                                                           annotation (Placement(transformation(extent={{-90,-12},
-            {-70,8}},                                                                                                   rotation=0)));
-TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut2(
+    p=inlet.p) annotation (Placement(transformation(extent={{-90,-12},{-70,8}}, rotation=0)));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut2(
     vleFluidType=medium,
     h=noEvent(actualStream(outlet2.h_outflow)),
-    p=outlet2.p)                                                         annotation (Placement(transformation(extent={{-10,-70},
-            {10,-50}},                                                                                                  rotation=0)));
+    p=outlet2.p) annotation (Placement(transformation(extent={{-10,-70},{10,-50}}, rotation=0)));
 
 PressureLossIn pressureLossIn;
 PressureLossOut1 pressureLossOut1;

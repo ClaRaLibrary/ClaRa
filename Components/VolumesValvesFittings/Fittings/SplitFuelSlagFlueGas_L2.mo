@@ -1,7 +1,7 @@
-within ClaRa.Components.VolumesValvesFittings.Fittings;
+﻿within ClaRa.Components.VolumesValvesFittings.Fittings;
 model SplitFuelSlagFlueGas_L2 "A split for fuel flue gas and slag with gas volume"
   //__________________________________________________________________________//
-  // Component of the ClaRa library, version: 1.8.2                           //
+  // Component of the ClaRa library, version: 1.9.0                           //
   //                                                                          //
   // Licensed by the ClaRa development team under the 3-clause BSD License.   //
   // Copyright  2013-2024, ClaRa development team.                            //
@@ -53,7 +53,8 @@ model SplitFuelSlagFlueGas_L2 "A split for fuel flue gas and slag with gas volum
   parameter ClaRa.Basics.Media.FuelTypes.BaseFuel fuelModel=simCenter.fuelModel1 "Fuel type" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   inner parameter ClaRa.Basics.Media.Slag.PartialSlag slagType=simCenter.slagModel "Slag properties" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
-  inner parameter TILMedia.GasTypes.BaseGas flueGas=simCenter.flueGasModel "Medium to be used in tubes" annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  inner parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   ClaRa.Basics.Interfaces.FuelSlagFlueGas_inlet inlet(
     flueGas(Medium=flueGas),
@@ -80,19 +81,21 @@ model SplitFuelSlagFlueGas_L2 "A split for fuel flue gas and slag with gas volum
   parameter ClaRa.Basics.Units.Volume volume=1 annotation (Dialog(tab="General", group="Geometry"));
 
 protected
-  TILMedia.Gas_pT gasInlet(
+  TILMedia.Gas.Gas_pT gasInlet(
     gasType=flueGas,
     p=inlet.flueGas.p,
     T=noEvent(actualStream(inlet.flueGas.T_outflow)),
-    xi=noEvent(actualStream(inlet.flueGas.xi_outflow))) annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
+    xi=noEvent(actualStream(inlet.flueGas.xi_outflow)))
+    annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
 protected
-  TILMedia.Gas_pT gasOutlet[N_ports_out](
+  TILMedia.Gas.Gas_pT gasOutlet[N_ports_out](
     each gasType=flueGas,
     p=outlet.flueGas.p,
     T=noEvent(actualStream(outlet.flueGas.T_outflow)),
-    xi=noEvent(actualStream(outlet.flueGas.xi_outflow))) annotation (Placement(transformation(extent={{60,-14},{80,6}})));
+    xi=noEvent(actualStream(outlet.flueGas.xi_outflow)))
+    annotation (Placement(transformation(extent={{60,-14},{80,6}})));
 protected
-  inner TILMedia.Gas_ph bulk(
+  inner TILMedia.Gas.Gas_ph bulk(
     computeTransportProperties=false,
     gasType=flueGas,
     p=p,
@@ -107,7 +110,7 @@ public
   parameter Modelica.Units.SI.Temperature T_nom=293.15 "Nominal specific enthalpy" annotation (Dialog(group="Nominal Values"));
   parameter ClaRa.Basics.Units.MassFraction xi_nom[flueGas.nc - 1]=flueGas.xi_default annotation (Dialog(group="Nominal Values"));
 
-  final parameter Modelica.Units.SI.Density rho_nom=TILMedia.GasFunctions.density_pTxi(
+  final parameter Modelica.Units.SI.Density rho_nom=TILMedia.Gas.Functions.density_pTxi(
       flueGas,
       p_nom,
       T_nom,
@@ -121,7 +124,7 @@ public
 
   parameter ClaRa.Basics.Units.MassFraction[flueGas.nc - 1] xi_start=flueGas.xi_default "Initial value for mixing ratio" annotation (Dialog(tab="Initialisation"));
 
-  final parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.GasFunctions.specificEnthalpy_pTxi(
+  final parameter Modelica.Units.SI.SpecificEnthalpy h_start=TILMedia.Gas.Functions.specificEnthalpy_pTxi(
       flueGas,
       p_start,
       T_start,

@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.PressureLoss.Gas_PL;
 model QuadraticNominalPoint_L4 "Gas || Quadratic PL based on nominal values"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -16,9 +16,9 @@ model QuadraticNominalPoint_L4 "Gas || Quadratic PL based on nominal values"
 //__________________________________________________________________________//
 
   import SI = ClaRa.Basics.Units;
-  import TILMedia.GasObjectFunctions.density_phxi;
+  import TILMedia.Gas.ObjectFunctions.density_phxi;
   import Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower;
-  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.GasFunctions.density_phxi(
+  parameter ClaRa.Basics.Units.DensityMassSpecific rho_nom=TILMedia.Gas.Functions.density_phxi(
       iCom.mediumModel,
       iCom.p_nom,
       iCom.h_nom,

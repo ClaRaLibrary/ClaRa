@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Fundamentals;
+﻿within ClaRa.StaticCycles.Fundamentals;
 connector SteamSignal_base "Signal-based steam connector || basic||"
 
-  TILMedia.VLEFluidTypes.BaseVLEFluid  Medium "Medium model";
+  TILMedia.VLEFluid.Types.BaseVLEFluid Medium "Medium model";
   ClaRa.Basics.Units.Pressure p;
   ClaRa.Basics.Units.EnthalpyMassSpecific h;
   ClaRa.Basics.Units.MassFlowRate m_flow;

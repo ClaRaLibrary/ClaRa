@@ -1,4 +1,4 @@
-within ClaRa.Basics.Interfaces;
+﻿within ClaRa.Basics.Interfaces;
 connector Fuel_outlet
   extends ClaRa.Basics.Interfaces.Fuel_inlet;
     annotation (Documentation(info="<html>

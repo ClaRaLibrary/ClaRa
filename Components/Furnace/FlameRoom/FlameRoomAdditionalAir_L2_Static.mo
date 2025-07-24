@@ -1,7 +1,7 @@
-within ClaRa.Components.Furnace.FlameRoom;
+﻿within ClaRa.Components.Furnace.FlameRoom;
 model FlameRoomAdditionalAir_L2_Static "Model for a flame room section with additional secondary air inlet inside a combustion chamber"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -101,16 +101,22 @@ public
 
 //_____________________/ Media Objects \_________________________________
 protected
-  inner TILMedia.Gas_ph        flueGasOutlet(p(start = p_start_flueGas_out)=outlet.flueGas.p,xi=xi_flueGas,
-      gasType=flueGas, h=h_flueGas_out_del)
-      annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
-  TILMedia.Gas_pT    primaryAir_inlet(p=fuelFlueGas_inlet.flueGas.p, T=inStream(fuelFlueGas_inlet.flueGas.T_outflow), xi=inStream(
-        fuelFlueGas_inlet.flueGas.xi_outflow),
-    gasType=flueGas)
-    annotation (Placement(transformation(extent={{-290,-10},{-270,10}})));
+  inner TILMedia.Gas.Gas_ph flueGasOutlet(
+    p(start=p_start_flueGas_out) = outlet.flueGas.p,
+    xi=xi_flueGas,
+    gasType=flueGas,
+    h=h_flueGas_out_del) annotation (Placement(transformation(extent={{-130,74},{-110,94}})));
+  TILMedia.Gas.Gas_pT primaryAir_inlet(
+    p=fuelFlueGas_inlet.flueGas.p,
+    T=inStream(fuelFlueGas_inlet.flueGas.T_outflow),
+    xi=inStream(fuelFlueGas_inlet.flueGas.xi_outflow),
+    gasType=flueGas) annotation (Placement(transformation(extent={{-290,-10},{-270,10}})));
 
-   TILMedia.Gas_ph inlet_GasMix(p=inlet.flueGas.p,xi=xi_flueGasMix,gasType=flueGas,h(start = 1.0E4)=h_flueGasMix)
-     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+  TILMedia.Gas.Gas_ph inlet_GasMix(
+    p=inlet.flueGas.p,
+    xi=xi_flueGasMix,
+    gasType=flueGas,
+    h(start=1.0E4) = h_flueGasMix) annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 protected
   Basics.Media.FuelObject fuelSideInlet(
   fuelModel=fuelModel,

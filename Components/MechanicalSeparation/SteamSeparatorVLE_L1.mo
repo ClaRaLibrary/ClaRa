@@ -1,7 +1,7 @@
-within ClaRa.Components.MechanicalSeparation;
+﻿within ClaRa.Components.MechanicalSeparation;
 model SteamSeparatorVLE_L1
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,7 +19,7 @@ model SteamSeparatorVLE_L1
   extends ClaRa.Basics.Icons.ComplexityLevel(complexity="L1");
   import SZT = ClaRa.Basics.Functions.SmoothZeroTransition;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
     annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
 
   parameter Real eta_vap(min=0.5, max=0.999) = 0.96 "Efficiency of separating liquid from vapour (at steam outlet)"  annotation (Dialog(group="Fundamental Definitions"));
@@ -42,19 +42,19 @@ model SteamSeparatorVLE_L1
                                                                              annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   ClaRa.Basics.Interfaces.FluidPortIn inlet(Medium=medium) "Inlet port" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   ClaRa.Basics.Interfaces.FluidPortOut outlet2(Medium=medium) "Steam outlet"  annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     h=inStream(inlet.h_outflow),
     p=inlet.p,
     xi=inStream(inlet.xi_outflow)) annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut1(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut1(
     vleFluidType=medium,
     h=actualStream(outlet1.h_outflow),
     p=outlet1.p,
     xi=actualStream(outlet1.xi_outflow)) annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut2(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut2(
     vleFluidType=medium,
     h=actualStream(outlet2.h_outflow),
     p=outlet2.p,

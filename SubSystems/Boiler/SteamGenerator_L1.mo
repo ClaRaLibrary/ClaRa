@@ -1,7 +1,7 @@
-within ClaRa.SubSystems.Boiler;
+﻿within ClaRa.SubSystems.Boiler;
 model SteamGenerator_L1 "A steam generation and reaheater model using characteristic lines and transfer functions"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -101,10 +101,14 @@ public
   Modelica.Blocks.Math.Gain to_pRH(k=p_RH_nom)
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
   Modelica.Blocks.Tables.CombiTable1Dv convert2IntermediatePressure(columns={2}, table=CL_Ip_Hp_) annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT       liveSteam(vleFluidType =    medium,   T=T_LS, p=p_LS)
-    annotation (Placement(transformation(extent={{10,154},{30,174}})));
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_pT       reheatedSteam(vleFluidType =    medium,   T=convert2reheatTemperature.y[1]*T_RH_nom, p=to_pRH.y)
-    annotation (Placement(transformation(extent={{48,154},{68,174}})));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_pT liveSteam(
+    vleFluidType=medium,
+    T=T_LS,
+    p=p_LS) annotation (Placement(transformation(extent={{10,154},{30,174}})));
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_pT reheatedSteam(
+    vleFluidType=medium,
+    T=convert2reheatTemperature.y[1]*T_RH_nom,
+    p=to_pRH.y) annotation (Placement(transformation(extent={{48,154},{68,174}})));
   Modelica.Blocks.Tables.CombiTable1Dv convert2reheatTemperature(columns={2}, table=CL_Trh_Q_) annotation (Placement(transformation(extent={{0,120},{20,140}})));
 
   Modelica.Blocks.Tables.CombiTable1Dv convert2reheatMassFlow(columns={2}, table=CL_mLS_QF_) annotation (Placement(transformation(extent={{140,40},{160,60}})));

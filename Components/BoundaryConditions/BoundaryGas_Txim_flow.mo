@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model BoundaryGas_Txim_flow "A gas source defining mass flow, temperature and composition"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -27,8 +27,8 @@ model BoundaryGas_Txim_flow "A gas source defining mass flow, temperature and co
                                                                                               annotation(Dialog(tab="Summary and Visualisation"));
   parameter Integer  energyType=0 "Type of energy" annotation(Dialog(tab="Summary and Visualisation"), choices(choice = 0 "Energy is loss", choice = 1 "Energy is effort", choice=2 "Energy is profit"));
 
-  parameter TILMedia.GasTypes.BaseGas                 medium = simCenter.flueGasModel "Medium to be used in tubes"
-                                                                                              annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used in tubes"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Boolean variable_m_flow=false "True, if mass flow defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
   parameter Boolean variable_T=false "True, if temperature defined by variable input" annotation(Dialog(group="Define Variable Boundaries"));
@@ -62,7 +62,7 @@ public
   Basics.Interfaces.EyeOutGas eyeOut(medium=medium) annotation (Placement(transformation(extent={{100,-80},{106,-74}}),
                                   iconTransformation(extent={{94,-86},{106,-74}})));
 protected
-  TILMedia.Gas GasObject(gasType=medium);
+  TILMedia.Gas.Gas GasObject(gasType=medium);
   Basics.Interfaces.EyeInGas eye_int[1](each medium=medium) annotation (Placement(transformation(extent={{76,-78},{74,-76}}),
                                   iconTransformation(extent={{90,-84},{84,-78}})));
 equation

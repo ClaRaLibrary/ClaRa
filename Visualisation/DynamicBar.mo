@@ -1,4 +1,4 @@
-within ClaRa.Visualisation;
+﻿within ClaRa.Visualisation;
 model DynamicBar
 
   parameter Real u_max = 1 "Upper boundary for visualised variable" annotation(Dialog(group="Parameters"));

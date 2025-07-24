@@ -1,8 +1,8 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorGas_L1_O2 "Ideal O2 concentration sensor | rel. to dry/wet gas."
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -18,8 +18,8 @@ model TinySensorGas_L1_O2 "Ideal O2 concentration sensor | rel. to dry/wet gas."
 
   outer ClaRa.SimCenter simCenter;
   extends ClaRa.Basics.Icons.PressureSensor;
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used"
-                         annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Boolean dryGas = true "True: if O2 conc. is rel. to dry gas | False: rel. to wet gas" annotation(Dialog(group="Fundamental Definitions"));
   parameter Integer unitOption = 1 "Unit of output" annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"), choices(choice=1 "p.u.", choice=2 "%"));
 
@@ -31,7 +31,11 @@ model TinySensorGas_L1_O2 "Ideal O2 concentration sensor | rel. to dry/wet gas."
   constant Integer N_O2=6 "Index of O2 in gas fraction vector";
   constant Integer N_H2O=8 "Index of H2O in gas fraction vector";
   final parameter String unit = if unitOption==1 then " p.u." elseif unitOption==2 then " %%"  else "fgj";
-  TILMedia.Gas_pT gas(p = port.p, T = inStream(port.T_outflow), xi = inStream(port.xi_outflow), gasType= medium) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  TILMedia.Gas.Gas_pT gas(
+    p=port.p,
+    T=inStream(port.T_outflow),
+    xi=inStream(port.xi_outflow),
+    gasType=medium) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
   if unitOption == 1 then

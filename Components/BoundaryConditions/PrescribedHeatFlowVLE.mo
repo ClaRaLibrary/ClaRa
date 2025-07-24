@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model PrescribedHeatFlowVLE "A heat flow anchor with prescribed heat flow rate"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -21,7 +21,7 @@ model PrescribedHeatFlowVLE "A heat flow anchor with prescribed heat flow rate"
     ClaRa.Basics.Records.FlangeVLE           inlet;
     ClaRa.Basics.Records.FlangeVLE           outlet;
   end Summary;
-  inner parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
+  inner parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
 
@@ -73,19 +73,17 @@ public
       rho=fluidOut.d))
     annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidOut(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidOut(
     p=outlet.p,
     vleFluidType=medium,
     h=outlet.h_outflow,
-    xi=outlet.xi_outflow)
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    xi=outlet.xi_outflow) annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid_ph fluidIn(
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid_ph fluidIn(
     vleFluidType=medium,
     p=inlet.p,
     h=inStream(inlet.h_outflow),
-    xi=inStream(inlet.xi_outflow))
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    xi=inStream(inlet.xi_outflow)) annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 public
   ClaRa.Basics.Interfaces.EyeOut eye if showData annotation (Placement(transformation(extent={{90,-68},{110,-48}}), iconTransformation(extent={{100,-80},{120,-60}})));
 protected

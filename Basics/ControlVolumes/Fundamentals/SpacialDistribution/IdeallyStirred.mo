@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
+﻿within ClaRa.Basics.ControlVolumes.Fundamentals.SpacialDistribution;
 model IdeallyStirred "Volume is ideally stirred"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -27,13 +27,13 @@ equation
   h_outflow = iCom.h_bulk;
   //__________________Calculation of the geostatic pressure differences_______________
   if provideDensityDerivative then
-    rho = TILMedia.Internals.VLEFluidObjectFunctions.density_phxi(
+    rho =TILMedia.VLEFluid.ObjectFunctions.density_phxi(
       iCom.p_bulk,
       iCom.h_bulk,
       iCom.xi_bulk,
       iCom.fluidPointer_bulk);
   else
-    rho = TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
+    rho =TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi(
       iCom.p_bulk,
       iCom.h_bulk,
       iCom.xi_bulk,
@@ -41,14 +41,16 @@ equation
   end if;
 
   if position_Delta_p_geo == "mid" then
-    Delta_p_geo_in = (geo.z_out[1] - geo.z_in[1])/2*Modelica.Constants.g_n*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
+    Delta_p_geo_in =(geo.z_out[1] - geo.z_in[1])/2*Modelica.Constants.g_n*
+      TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi(
       iCom.p_bulk,
       iCom.h_bulk,
       iCom.xi_bulk,
       iCom.fluidPointer_bulk);
     Delta_p_geo_out = -Delta_p_geo_in;
   elseif position_Delta_p_geo == "inlet" then
-    Delta_p_geo_in = (geo.z_out[1] - geo.z_in[1])*Modelica.Constants.g_n*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_phxi(
+    Delta_p_geo_in =(geo.z_out[1] - geo.z_in[1])*Modelica.Constants.g_n*
+      TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.density_phxi(
       iCom.p_bulk,
       iCom.h_bulk,
       iCom.xi_bulk,

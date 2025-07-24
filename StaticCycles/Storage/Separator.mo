@@ -1,8 +1,8 @@
-within ClaRa.StaticCycles.Storage;
+﻿within ClaRa.StaticCycles.Storage;
 model Separator "Ideal steam separator"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -41,13 +41,16 @@ model Separator "Ideal steam separator"
      p=p));
   //---------Summary Definition---------
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component";
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component";
   //parameter Real steamQuality_out2 = 1 "Steam quality at outlet2";
 
   final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h1(fixed=false) "Specific enthalpy of flow 1";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew = TILMedia.VLEFluidFunctions.dewSpecificEnthalpy_pxi(medium, p, zeros(medium.nc - 1)) "Dew outlet enthalpy";
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub = TILMedia.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p, zeros(medium.nc - 1)) "Bubble outlet enthalpy";
-  final parameter ClaRa.Basics.Units.MassFraction steamQuality_1 = TILMedia.VLEFluidFunctions.steamMassFraction_phxi(medium, p, h1, zeros(medium.nc - 1)) "Bubble outlet enthalpy";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_dew = TILMedia.VLEFluid.Functions.dewSpecificEnthalpy_pxi(
+                                                                                                                     medium, p, zeros(medium.nc - 1)) "Dew outlet enthalpy";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_bub = TILMedia.VLEFluid.Functions.bubbleSpecificEnthalpy_pxi(
+                                                                                                                        medium, p, zeros(medium.nc - 1)) "Bubble outlet enthalpy";
+  final parameter ClaRa.Basics.Units.MassFraction steamQuality_1 = TILMedia.VLEFluid.Functions.steamMassFraction_phxi(
+                                                                                                                     medium, p, h1, zeros(medium.nc - 1)) "Bubble outlet enthalpy";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_1(fixed=false) "Mass flow rate of flow 1";
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_dew = m_flow_1*steamQuality_1;
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_bub = m_flow_1*(1-steamQuality_1);

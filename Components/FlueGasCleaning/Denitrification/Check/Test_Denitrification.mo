@@ -1,7 +1,7 @@
-within ClaRa.Components.FlueGasCleaning.Denitrification.Check;
+﻿within ClaRa.Components.FlueGasCleaning.Denitrification.Check;
 model Test_Denitrification
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -15,7 +15,8 @@ model Test_Denitrification
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
-  inner SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel) annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  inner SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel)
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Denitrification_L2 deNOx(
     useHomotopy=simCenter.useHomotopy,
     use_dynamicMassbalance=true,

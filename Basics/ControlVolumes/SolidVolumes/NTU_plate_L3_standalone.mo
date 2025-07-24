@@ -1,7 +1,7 @@
-within ClaRa.Basics.ControlVolumes.SolidVolumes;
+﻿within ClaRa.Basics.ControlVolumes.SolidVolumes;
 model NTU_plate_L3_standalone "A three-zonal NTU cell model with internally calculated zone size for plate geometry"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -24,11 +24,13 @@ model NTU_plate_L3_standalone "A three-zonal NTU cell model with internally calc
 
 //_____________material definitions_________________________________________//
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium_a=simCenter.fluid1 "Medium at outer side"
-                              annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid   medium_b=simCenter.fluid1 "Medium at inner side"
-                              annotation(Dialog(group="Fundamental Definitions"), choicesAllMatching);
-  replaceable model Material = TILMedia.SolidTypes.TILMedia_Aluminum constrainedby TILMedia.SolidTypes.BaseSolid "Material of the cylinder"
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_a=simCenter.fluid1 "Medium at outer side"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium_b=simCenter.fluid1 "Medium at inner side"
+    annotation (Dialog(group="Fundamental Definitions"), choicesAllMatching);
+  replaceable model Material = TILMedia.Solid.Types.TILMedia_Aluminum
+                                                                     constrainedby TILMedia.Solid.Types.BaseSolid
+                                                                                                                 "Material of the cylinder"
                                                                                        annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Boolean outerPhaseChange=true "True, if phase change may occur at outer side"

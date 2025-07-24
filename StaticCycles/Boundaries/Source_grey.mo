@@ -1,4 +1,4 @@
-within ClaRa.StaticCycles.Boundaries;
+﻿within ClaRa.StaticCycles.Boundaries;
 model Source_grey "A boundary for power connections"
 
   parameter ClaRa.Basics.Units.Power P "Power from source" annotation (Dialog(enable=source));

@@ -1,7 +1,7 @@
 ﻿within ClaRa.StaticCycles.Furnace;
 model TripleFlueGas "Visualise static cycle results of flue gas connectors"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -15,7 +15,7 @@ model TripleFlueGas "Visualise static cycle results of flue gas connectors"
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
     outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.GasTypes.BaseGas flueGas = simCenter.flueGasModel "Flue gas model used in component";
+  parameter TILMedia.Gas.Types.BaseGas flueGas=simCenter.flueGasModel "Flue gas model used in component";
 
   DecimalSpaces decimalSpaces "Accuracy to be displayed" annotation(Dialog);
 record DecimalSpaces

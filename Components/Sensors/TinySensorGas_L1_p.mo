@@ -1,9 +1,9 @@
-within ClaRa.Components.Sensors;
+﻿within ClaRa.Components.Sensors;
 model TinySensorGas_L1_p "Ideal TINY one port pressure sensor"
   //This model douplicates the respective ClaRa sensor changing its icon size //
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,8 +19,8 @@ model TinySensorGas_L1_p "Ideal TINY one port pressure sensor"
 
   extends ClaRa.Basics.Icons.PressureSensor;
   outer ClaRa.SimCenter simCenter;
-  parameter TILMedia.GasTypes.BaseGas medium = simCenter.flueGasModel "Medium to be used"
-                         annotation(choicesAllMatching, Dialog(group="Fundamental Definitions"));
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium to be used"
+    annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
   parameter Integer unitOption = 2 "Unit of output" annotation(choicesAllMatching,  Dialog(group="Fundamental Definitions"), choices(choice=1 "Pa", choice=2 "bar", choice=3 "mbar", choice=4 "MPa", choice = 5 "per Unit"));
   parameter ClaRa.Basics.Units.Pressure p_ref[2]={0,1e5} "Reference pressure [min,max]" annotation (Dialog(group="Fundamental Definitions", enable=(unitOption == 5)));
 

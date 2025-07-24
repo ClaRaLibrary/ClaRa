@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Pumps.Check;
+﻿within ClaRa.Components.TurboMachines.Pumps.Check;
 model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -34,7 +34,8 @@ model TestPump_L1_WithEMotor "A speed controlled pump driven by an e-motor"
                               "modelica://ClaRa/Resources/TableBase/Power_mflow_4100.mif",
                               "modelica://ClaRa/Resources/TableBase/Power_mflow_4600.mif",
                               "modelica://ClaRa/Resources/TableBase/Power_mflow_5100.mif"};
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1) annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1)
+    annotation (Placement(transformation(extent={{-100,-100},{-60,-80}})));
   ClaRa.Components.TurboMachines.Pumps.PumpVLE_L1_affinity pump(
     Delta_p_max=380e5,
     useMechanicalPort=true,

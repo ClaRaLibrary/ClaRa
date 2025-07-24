@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Pumps;
+﻿within ClaRa.Components.TurboMachines.Pumps;
 model PumpVLE_L1_affinity "A pump for VLE mixtures based on affinity laws"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -21,11 +21,11 @@ model PumpVLE_L1_affinity "A pump for VLE mixtures based on affinity laws"
 //   import Modelica.Constants.pi;
 //   import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEnthalpy_psxi;
   import Modelica.Constants.pi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.bubblePressure_Txi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEnthalpy_psxi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_phxi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi;
-  import TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.density_pTxi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.bubblePressure_Txi;
+  import TILMedia.VLEFluid.MixtureCompatible.ObjectFunctions.specificEnthalpy_psxi;
+  import TILMedia.VLEFluid.MixtureCompatible.Functions.density_phxi;
+  import TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi;
+  import TILMedia.VLEFluid.MixtureCompatible.Functions.density_pTxi;
   import SM = ClaRa.Basics.Functions.Stepsmoother;
 
   extends ClaRa.Components.TurboMachines.Pumps.Fundamentals.PumpVLE_affinityBase;
@@ -153,8 +153,8 @@ public
         origin={10,-30})));
 
 protected
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_iso_in(vleFluidType=medium);
-  TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluid ptr_iso_out(vleFluidType=medium);
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid ptr_iso_in(vleFluidType=medium);
+  TILMedia.VLEFluid.MixtureCompatible.VLEFluid ptr_iso_out(vleFluidType=medium);
 
 initial equation
   rho_CF_ps = 1;

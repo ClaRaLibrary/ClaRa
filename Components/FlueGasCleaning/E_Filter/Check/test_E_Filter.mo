@@ -1,7 +1,7 @@
-within ClaRa.Components.FlueGasCleaning.E_Filter.Check;
+﻿within ClaRa.Components.FlueGasCleaning.E_Filter.Check;
 model test_E_Filter
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -15,7 +15,8 @@ model test_E_Filter
 // on original authorship and copyrights.                                   //
 //__________________________________________________________________________//
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb50;
-  inner SimCenter simCenter(redeclare TILMedia.GasTypes.FlueGasTILMedia flueGasModel) annotation (Placement(transformation(extent={{80,40},{100,60}})));
+  inner SimCenter simCenter(redeclare TILMedia.Gas.Types.FlueGasTILMedia flueGasModel)
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
   BoundaryConditions.BoundaryGas_Txim_flow                  idealGasFlowSource_XRG(
     m_flow_const=10,
     variable_m_flow=true,

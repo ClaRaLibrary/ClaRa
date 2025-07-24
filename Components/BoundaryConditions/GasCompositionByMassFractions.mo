@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model GasCompositionByMassFractions "set (flue) gas composition graphically"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -34,7 +34,7 @@ protected
   outer ClaRa.SimCenter simCenter;
 public
   ClaRa.Basics.Units.MassFraction xi_in[medium.nc - 1];
-  TILMedia.GasTypes.BaseGas      medium = simCenter.flueGasModel;
+  TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel;
 equation
   xi_in[1] = xi_ASH;
   xi_in[2] = xi_CO;

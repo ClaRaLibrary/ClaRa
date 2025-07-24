@@ -1,8 +1,8 @@
-within ClaRa.Components.TurboMachines.Fundamentals;
+﻿within ClaRa.Components.TurboMachines.Fundamentals;
 record IComPump_L1
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,7 +19,7 @@ record IComPump_L1
 
   extends ClaRa.Basics.Icons.IComIcon;
 
-  parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium "Used medium model" annotation(Dialog(tab= "General"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium "Used medium model" annotation (Dialog(tab="General"));
   Basics.Units.Power P_iso "Power for isentropic flow" annotation (Dialog(tab="General"));
   Basics.Units.Pressure Delta_p "Pressure difference between pressure side and suction side" annotation (Dialog(tab="General"));
   Basics.Units.VolumeFlowRate V_flow "Volume flow" annotation (Dialog(tab="General"));

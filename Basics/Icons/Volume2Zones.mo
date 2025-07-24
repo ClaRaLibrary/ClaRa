@@ -1,4 +1,4 @@
-within ClaRa.Basics.Icons;
+﻿within ClaRa.Basics.Icons;
 model Volume2Zones
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

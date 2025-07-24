@@ -1,4 +1,4 @@
-within ClaRa.Basics.Media.Fuel;
+﻿within ClaRa.Basics.Media.Fuel;
 record Coal_Reference " {C,H,O,N,S,Ash,H2O}, reference coal"
  extends ClaRa.Basics.Media.Fuel.PartialFuel(
     final nc=7,

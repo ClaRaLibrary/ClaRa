@@ -1,4 +1,4 @@
-within ClaRa.Basics.Records;
+﻿within ClaRa.Basics.Records;
 model StaCyFlangeGas_a "Additional content for StaCy flange summaries"
   extends ClaRa.Basics.Records.StaCyFlangeGas;
   parameter ClaRa.Basics.Units.DensityMassSpecific rho "Density" annotation (Dialog);

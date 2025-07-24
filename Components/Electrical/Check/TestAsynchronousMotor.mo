@@ -1,8 +1,8 @@
-within ClaRa.Components.Electrical.Check;
+﻿within ClaRa.Components.Electrical.Check;
 model TestAsynchronousMotor "A simple test for the simple motor"
 
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -19,7 +19,8 @@ model TestAsynchronousMotor "A simple test for the simple motor"
 
   extends ClaRa.Basics.Icons.PackageIcons.ExecutableExampleb80;
 
-  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluidTypes.TILMedia_SplineWater fluid1, showExpertSummary=false) annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+  inner ClaRa.SimCenter simCenter(redeclare TILMedia.VLEFluid.Types.TILMedia_SplineWater fluid1, showExpertSummary=
+        false) annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Mechanics.Rotational.Components.Inertia inertia1(         w(start=10), J=50)
     annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
   AsynchronousMotor_L2 motor(

@@ -1,7 +1,7 @@
-within ClaRa.StaticCycles.Storage;
+﻿within ClaRa.StaticCycles.Storage;
 model Feedwatertank3 "Feedwatertank || par.: m_flow_FW, p_FW_nom || blue | red | green"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -41,10 +41,11 @@ model Feedwatertank3 "Feedwatertank || par.: m_flow_FW, p_FW_nom || blue | red |
      p=p_FWT));
   //---------Summary Definition---------
   outer ClaRa.SimCenter simCenter;
-   parameter TILMedia.VLEFluidTypes.BaseVLEFluid medium = simCenter.fluid1 "Medium in the component"
-                                                       annotation(Dialog(group="Fundamental Definitions"), choices(choice=simCenter.fluid1 "First fluid defined in global simCenter",
-                        choice=simCenter.fluid2 "Second fluid defined in global simCenter",
-                        choice=simCenter.fluid3 "Third fluid defined in global simCenter"));
+  parameter TILMedia.VLEFluid.Types.BaseVLEFluid medium=simCenter.fluid1 "Medium in the component" annotation (Dialog(
+        group="Fundamental Definitions"), choices(
+      choice=simCenter.fluid1 "First fluid defined in global simCenter",
+      choice=simCenter.fluid2 "Second fluid defined in global simCenter",
+      choice=simCenter.fluid3 "Third fluid defined in global simCenter"));
   parameter ClaRa.Basics.Units.Pressure p_FWT_nom "Feed water tank pressure at nominal load" annotation (Dialog(group="Fundamental Definitions"));
   parameter ClaRa.Basics.Units.MassFlowRate m_flow_nom "Mass flow rate at nomoinal load" annotation (Dialog(group="Fundamental Definitions"));
 
@@ -57,13 +58,13 @@ model Feedwatertank3 "Feedwatertank || par.: m_flow_FW, p_FW_nom || blue | red |
 //__________________________________________________
 
   final parameter ClaRa.Basics.Units.Pressure p_FWT=P_target_*p_FWT_nom "Feedwater tank pressure at current load";
-  final parameter ClaRa.Basics.Units.Pressure p_FWT_out=p_FWT + Modelica.Constants.g_n*level_abs*TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleDensity_pxi(medium, p_FWT) "Feedwater tank condensate outlet pressure";
+  final parameter ClaRa.Basics.Units.Pressure p_FWT_out=p_FWT + Modelica.Constants.g_n*level_abs*TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleDensity_pxi(                                     medium, p_FWT) "Feedwater tank condensate outlet pressure";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_tap=(h_cond_out*m_flow_FW - h_cond_in*m_flow_cond)/h_tap_in "Mass flow of the heating steam";
 
   final parameter ClaRa.Basics.Units.MassFlowRate m_flow_FW=P_target_*m_flow_nom "Feedwater mass flow";
 
-  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_out=TILMedia.Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidFunctions.bubbleSpecificEnthalpy_pxi(medium, p_FWT) "Spec. enthalpy at feedwater outlet";
+  final parameter ClaRa.Basics.Units.EnthalpyMassSpecific h_cond_out=TILMedia.VLEFluid.MixtureCompatible.Functions.bubbleSpecificEnthalpy_pxi(                                     medium, p_FWT) "Spec. enthalpy at feedwater outlet";
 protected
   final parameter Boolean isFilled = level_abs > 0 "Reprt: True if vessel is filled";
 

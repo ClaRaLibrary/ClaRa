@@ -1,4 +1,4 @@
-within ClaRa.Components.Adapters;
+﻿within ClaRa.Components.Adapters;
 model AerosolFuelConcentrator "aerosol2fuel-interface, concentrates aerosol flow with particle size distribution and particle mass fractions back to standard fuel mass flow"
 
   extends ClaRa.Basics.Icons.Adapter2_bw;

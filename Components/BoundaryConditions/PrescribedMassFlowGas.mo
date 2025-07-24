@@ -1,7 +1,7 @@
-within ClaRa.Components.BoundaryConditions;
+﻿within ClaRa.Components.BoundaryConditions;
 model PrescribedMassFlowGas "A mass flow anchor with prescribed mass flow rate"
 //__________________________________________________________________________//
-// Component of the ClaRa library, version: 1.8.2                           //
+// Component of the ClaRa library, version: 1.9.0                           //
 //                                                                          //
 // Licensed by the ClaRa development team under the 3-clause BSD License.   //
 // Copyright  2013-2024, ClaRa development team.                            //
@@ -20,7 +20,7 @@ model PrescribedMassFlowGas "A mass flow anchor with prescribed mass flow rate"
 
   //extends BaseClasses.Interfaces.DataInterface(p_int=outlet.p/1e5,h_int=outlet.h_outflow/1e3, m_flow_int=-outlet.m_flow, T_int=refrigerant.T-273.15, s_int=refrigerant.s/1e3);
 
-  parameter TILMedia.GasTypes.BaseGas                 medium = simCenter.flueGasModel "Medium in the component"
+  parameter TILMedia.Gas.Types.BaseGas medium=simCenter.flueGasModel "Medium in the component"
     annotation (choicesAllMatching, Dialog(group="Fundamental Definitions"));
 
   parameter Boolean m_flowInputIsActive=false "True, if  a variable m_flow is used"
@@ -76,17 +76,17 @@ protected
                           eye_int(medium=medium)
     annotation (Placement(transformation(extent={{45,-59},{47,-57}})));
 
-  TILMedia.Gas_pT gasOut(gasType=medium,
+  TILMedia.Gas.Gas_pT gasOut(
+    gasType=medium,
     p=outlet.p,
-    T= noEvent(actualStream(outlet.T_outflow)),
-    xi= noEvent(actualStream(outlet.xi_outflow)))
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    T=noEvent(actualStream(outlet.T_outflow)),
+    xi=noEvent(actualStream(outlet.xi_outflow))) annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
-  TILMedia.Gas_pT      gasIn(gasType=medium,
+  TILMedia.Gas.Gas_pT gasIn(
+    gasType=medium,
     p=inlet.p,
-    T= noEvent(actualStream(        inlet.T_outflow)),
-    xi= noEvent(actualStream(inlet.xi_outflow)))
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    T=noEvent(actualStream(inlet.T_outflow)),
+    xi=noEvent(actualStream(inlet.xi_outflow))) annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
 equation
   if (not m_flowInputIsActive) then
